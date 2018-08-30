@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Monopoly.Models;
 
 namespace Monopoly.Views
 {
     public partial class frmGame : Form
     {
+        Game game = new Game();
+
         public frmGame()
         {
             InitializeComponent();
