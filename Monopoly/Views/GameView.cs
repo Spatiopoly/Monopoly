@@ -13,10 +13,18 @@ namespace Monopoly.Views
 {
     class GameView : Panel
     {
-        const int BORDER_MARGIN = 75;
+        const int BORDER_MARGIN = 100;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
         private Color backgroundColor = Color.FromArgb(17, 4, 58);
+
+        private Dictionary<Player.PlayerColor, Image> playerImages = new Dictionary<Player.PlayerColor, Image>() {
+            { Player.PlayerColor.Blue, Properties.Resources.PlayerBlue },
+            { Player.PlayerColor.Green, Properties.Resources.PlayerGreen },
+            { Player.PlayerColor.Purple, Properties.Resources.PlayerPurple },
+            { Player.PlayerColor.Red, Properties.Resources.PlayerRed },
+            { Player.PlayerColor.Yellow, Properties.Resources.PlayerYellow },
+        }; 
 
         Timer timer = new Timer();
 
@@ -95,7 +103,7 @@ namespace Monopoly.Views
                 Image bigCaseImage = (new Image[] {
                     Properties.Resources.Go,
                     Properties.Resources.Prison,
-                    Properties.Resources.Windows_XP_wallpaper_2,
+                    Properties.Resources.Parc,
                     Properties.Resources.Windows_XP_wallpaper_2,
                 })[sideIndex];
                 g.DrawImage(bigCaseImage, bigCasePosition);
@@ -191,9 +199,10 @@ namespace Monopoly.Views
                     name = new string(n);
                 }
 
-                g.DrawString(name, new Font("Verdana", 12), Brushes.White, new PointF(rectangle.X, 50));
+                g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
 
-                g.DrawString($"Prix : {street.Price}", new Font("Verdana", 16), Brushes.White, new PointF(rectangle.X + 5, 165));
+                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
+                g.DrawString(street.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
             }
 
         }

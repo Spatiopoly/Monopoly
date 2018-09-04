@@ -112,6 +112,27 @@
     <None Include="Resources\Depart.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\PlayerBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerPurple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Parc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flouzz.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
