@@ -18,6 +18,7 @@ namespace Monopoly.Views
         public frmGame()
         {
             InitializeComponent();
+            gameView.Game = game;
         }
     }
 }

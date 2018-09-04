@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Models\Cards\AbstractCard.cs" />
     <Compile Include="Models\Cases\AbstractCase.cs" />
     <Compile Include="Models\Cases\CardCase.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
@@ -100,6 +102,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Windows-XP-wallpaper-2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Prison.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Depart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Go.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
