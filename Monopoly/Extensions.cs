@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Monopoly.Models;
 
 namespace Monopoly
 {
@@ -45,6 +46,40 @@ namespace Monopoly
                 (int)Math.Round((100 - percent) / 100.0 * color.G),
                 (int)Math.Round((100 - percent) / 100.0 * color.B)
             );
+        }
+
+        /// <summary>
+        /// Lighten a color by X%
+        /// </summary>
+        /// <param name="color">The color to lighten</param>
+        /// <param name="percent">Strength of the effect</param>
+        /// <returns>The lightened color</returns>
+        public static Color Lighten(this Color color, int percent)
+        {
+            return Color.FromArgb(
+                (int)Math.Round((100 + percent) / 100.0 * color.R),
+                (int)Math.Round((100 + percent) / 100.0 * color.G),
+                (int)Math.Round((100 + percent) / 100.0 * color.B)
+            );
+        }
+
+        public static Color GetColor(this Player.PlayerColor playerColor)
+        {
+            switch (playerColor)
+            {
+                case Player.PlayerColor.Purple:
+                    return Color.FromArgb(159, 0, 181);
+                case Player.PlayerColor.Yellow:
+                    return Color.FromArgb(255, 200, 0);
+                case Player.PlayerColor.Green:
+                    return Color.FromArgb(0, 137, 0);
+                case Player.PlayerColor.Red:
+                    return Color.FromArgb(244, 27, 0);
+                case Player.PlayerColor.Blue:
+                    return Color.FromArgb(25, 0, 162);
+            }
+
+            return Color.Black;
         }
     }
 }

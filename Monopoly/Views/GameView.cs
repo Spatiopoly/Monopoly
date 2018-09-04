@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Forms;
-using Monopoly.Models;
+﻿using Monopoly.Models;
 using Monopoly.Models.Cases;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Monopoly.Views
 {
@@ -24,7 +22,7 @@ namespace Monopoly.Views
             { Player.PlayerColor.Purple, Properties.Resources.PlayerPurple },
             { Player.PlayerColor.Red, Properties.Resources.PlayerRed },
             { Player.PlayerColor.Yellow, Properties.Resources.PlayerYellow },
-        }; 
+        };
 
         Timer timer = new Timer();
 
@@ -57,14 +55,35 @@ namespace Monopoly.Views
             e.Graphics.Clear(Color.LightGray);
 
             if (Game == null) // Avoid crash in Windows Forms Designer
+            {
                 return;
+            }
 
-            RectangleF size = e.Graphics.VisibleClipBounds;
-            float dimension = Math.Min(size.Width, size.Height) - 2 * BORDER_MARGIN;
-            RectangleF boardPosition = new RectangleF((size.Width - dimension) / 2, (size.Height - dimension) / 2, dimension, dimension);
+            RectangleF viewSize = e.Graphics.VisibleClipBounds;
+            float dimension = Math.Min(viewSize.Width, viewSize.Height) - 2 * BORDER_MARGIN;
+            RectangleF boardPosition = new RectangleF((viewSize.Width - dimension) / 2, (viewSize.Height - dimension) / 2, dimension, dimension);
 
             DrawBoard(e.Graphics, boardPosition);
+
+            // Draw players
+            RectangleF[] playersZones = {
+                new RectangleF(0, viewSize.Bottom - BORDER_MARGIN, boardPosition.Right, BORDER_MARGIN),
+                new RectangleF(viewSize.Right - BORDER_MARGIN, boardPosition.Top, BORDER_MARGIN, boardPosition.Bottom),
+                new RectangleF(0, 0, BORDER_MARGIN, boardPosition.Bottom),       
+                new RectangleF(boardPosition.Left, 0, boardPosition.Right, BORDER_MARGIN),
+            };
+
+            foreach (RectangleF playerZone in playersZones)
+            {
+                bool isHorizontalZone = playerZone == playersZones[0] || playerZone == playersZones[2];
+                int width = (int)Math.Floor(isHorizontalZone ? playerZone.Width : playerZone.Height);
+                Bitmap bitmap = new Bitmap(width, BORDER_MARGIN);
+                DrawPlayerZone(bitmap);
+                e.Graphics.DrawImage(bitmap, playerZone);
+                e.Graphics.DrawRectangle(Pens.Black, playerZone);
+            }
         }
+
 
         private void DrawBoard(Graphics g, RectangleF boardPosition)
         {
@@ -115,7 +134,9 @@ namespace Monopoly.Views
                 List<AbstractCase> smallCases = Game.Cases.Skip(sideIndex * 10 + 1).Take(9).ToList();
 
                 if (sideIndex != 2)
+                {
                     smallCases.Reverse();
+                }
 
                 Image sideContent = DrawSideCases(smallCases);
 
@@ -133,18 +154,26 @@ namespace Monopoly.Views
                 SizeF caseSize = casesContainer.Size;
 
                 if (sideIndex % 2 == 0) // Horizontal
+                {
                     caseSize.Width /= smallCases.Count;
+                }
                 else // Vertical
+                {
                     caseSize.Height /= smallCases.Count;
+                }
 
                 for (int caseIndex = 0; caseIndex < smallCases.Count; caseIndex++)
                 {
                     PointF caseLocation = casesContainer.TopLeft();
 
                     if (sideIndex % 2 == 0) // Horizontal
+                    {
                         caseLocation += new SizeF(caseSize.Width * caseIndex, 0);
+                    }
                     else // Vertical
+                    {
                         caseLocation += new SizeF(0, caseSize.Height * caseIndex);
+                    }
 
                     g.DrawRectangle(borderPen, new RectangleF(caseLocation, caseSize));
                 }
@@ -162,7 +191,7 @@ namespace Monopoly.Views
                 SizeF caseSize = g.VisibleClipBounds.Size;
                 caseSize.Width /= cases.Count;
                 int caseIndex = 0;
-                foreach(AbstractCase c in cases)
+                foreach (AbstractCase c in cases)
                 {
                     PointF casePosition = new PointF(caseSize.Width * caseIndex, 0);
                     DrawSmallCase(g, new RectangleF(casePosition, caseSize), c);
@@ -205,6 +234,17 @@ namespace Monopoly.Views
                 g.DrawString(street.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
             }
 
+        }
+
+        private void DrawPlayerZone(Bitmap img) {
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                RectangleF zoneSize = g.VisibleClipBounds;
+
+                g.Clear(Color.White);
+
+                g.DrawRectangle(Pens.Black, 10, 10, 50, 50);
+            }
         }
     }
 }
