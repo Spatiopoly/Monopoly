@@ -288,7 +288,7 @@ namespace Monopoly.Views
                 g.Clear(backgroundColor);
 
                 // Draw the avatar
-                var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height, zoneSize.Height, zoneSize.Height);
+                var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height + 15, zoneSize.Height - 15, zoneSize.Height - 15);
                 g.DrawImage(player.Color.GetImage(), avatarRectangle);
 
                 // Draw the properties

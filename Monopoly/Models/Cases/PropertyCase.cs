@@ -11,8 +11,8 @@ namespace Monopoly.Models.Cases
 {
     abstract class PropertyCase : AbstractCase
     {
-        public const int PROPERTY_CARD_WIDTH = 200;
-        public const int PROPERTY_CARD_HEIGHT = 300;
+        public const int PROPERTY_CARD_WIDTH = 100;
+        public const int PROPERTY_CARD_HEIGHT = 150;
 
         public virtual string Name { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Monopoly.Models.Cases
 
         public virtual Image GetPropertyCardImage()
         {
-            Image image = new Bitmap(200, 300);
+            Image image = new Bitmap(PROPERTY_CARD_WIDTH, PROPERTY_CARD_HEIGHT);
 
             using (Graphics g = Graphics.FromImage(image))
             {

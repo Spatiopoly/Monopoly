@@ -122,21 +122,6 @@
     <None Include="Resources\Depart.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PlayerBlue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PlayerGreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PlayerPurple.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PlayerRed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PlayerYellow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Parc.png" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +144,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\House.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerPurple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayerRed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

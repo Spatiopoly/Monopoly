@@ -86,7 +86,7 @@ namespace Monopoly.Models.Cases
                 RectangleF rectangle = g.VisibleClipBounds;
 
                 // Gradient top
-                int headerHeight = 70;
+                int headerHeight = 35;
                 LinearGradientBrush headerBrush = new LinearGradientBrush(
                     new PointF(0, 0),
                     new PointF(0, headerHeight),
@@ -105,11 +105,11 @@ namespace Monopoly.Models.Cases
                     name = new string(n);
                 }
 
-                g.DrawString(name, new Font("Arial", 20), Brushes.White, new PointF(5, 5));
+                g.DrawString(name, new Font("Arial", 10), Brushes.White, new PointF(2.5F, 2.5F));
 
                 // Rent
-                int y = 50;
-                int height = 25;
+                int y = 25;
+                int height = 12;
                 DrawPrice(g, y += height, "Loyer", Rents[0]);
                 DrawPrice(g, y += height, "Avec 1 maison", Rents[1]);
                 DrawPrice(g, y += height, "Avec 2 maisons", Rents[2]);
@@ -117,9 +117,9 @@ namespace Monopoly.Models.Cases
                 DrawPrice(g, y += height, "Avec 4 maisons", Rents[4]);
                 DrawPrice(g, y += height, "Hôtel", Rents[5]);
 
-                DrawPrice(g, y += 35, "Hypothèque", Price / 2);
+                DrawPrice(g, y += 17, "Hypothèque", Price / 2);
 
-                DrawPrice(g, y += 35, "Bâtiment", BuildingPrice);
+                DrawPrice(g, y += 17, "Bâtiment", BuildingPrice);
             }
 
             cacheImage = img;
@@ -135,9 +135,9 @@ namespace Monopoly.Models.Cases
             /// <param name="price">Value of the price</param>
             void DrawPrice(Graphics g, int y, string name, int price)
             {
-                g.DrawString(name, new Font("Arial", 12), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(5, y + 1));
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(130, y + 5, 12, 12));
-                g.DrawString(price.ToString(), new Font("Arial", 14, FontStyle.Bold), Brushes.White, new PointF(142, y));
+                g.DrawString(name, new Font("Arial", 6), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(2.5F, y + 0.5F));
+                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(65, y + 2.5F, 6, 6));
+                g.DrawString(price.ToString(), new Font("Arial", 7, FontStyle.Bold), Brushes.White, new PointF(71, y));
             }
         }
     }
