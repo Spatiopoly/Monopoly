@@ -11,7 +11,7 @@ namespace Monopoly.Views
 {
     class GameView : Panel
     {
-        const int BORDER_MARGIN = 100;
+        const int BORDER_MARGIN = 105;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
         private Color backgroundColor = Color.LightGray;
@@ -105,7 +105,11 @@ namespace Monopoly.Views
             DrawMoney(e.Graphics);
         }
 
-
+        /// <summary>
+        /// Draw the board and its contents
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="boardPosition"></param>
         private void DrawBoard(Graphics g, RectangleF boardPosition)
         {
             float smallCaseRatio = SMALL_CASE_PERCENTAGE / 100.0F;
@@ -114,12 +118,13 @@ namespace Monopoly.Views
 
             Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
 
-            g.FillRectangle(new SolidBrush(cardBackgroundColor), boardPosition);
+            g.FillRectangle(Brushes.White, boardPosition);
             g.DrawRectangle(borderPen, boardPosition);
 
             // Draw the center
-            RectangleF centerPosition = new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + bigCaseSize, boardSize - 2 * bigCaseSize, boardSize - 2 * bigCaseSize);
-            g.DrawImage(Properties.Resources.Windows_XP_wallpaper_2, centerPosition);
+            var centerRectangle = new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + bigCaseSize, boardSize - 2 * bigCaseSize, boardSize - 2 * bigCaseSize);
+            g.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.White)), centerRectangle);
+            g.DrawImage(Properties.Resources.Center, centerRectangle);
 
             // Draw the 4 sides of the board
             RectangleF[] bigCasesPositions = {
@@ -144,7 +149,7 @@ namespace Monopoly.Views
                     Properties.Resources.Go,
                     Properties.Resources.Prison,
                     Properties.Resources.Parc,
-                    Properties.Resources.Windows_XP_wallpaper_2,
+                    Properties.Resources.EnAllez,
                 })[sideIndex];
                 g.DrawImage(bigCaseImage, bigCasePosition);
                 g.DrawRectangle(borderPen, bigCasePosition);
@@ -202,9 +207,15 @@ namespace Monopoly.Views
             }
         }
 
+        /// <summary>
+        /// Draw the cases on a side
+        /// </summary>
+        /// <param name="cases"></param>
+        /// <returns>Image of the side</returns>
         private Image DrawSideCases(List<AbstractCase> cases)
         {
             Bitmap image = new Bitmap(1110, 195);
+
             using (Graphics g = Graphics.FromImage(image))
             {
                 g.Clear(cardBackgroundColor);
@@ -223,9 +234,14 @@ namespace Monopoly.Views
             return image;
         }
 
+        /// <summary>
+        /// Draw a case on the board
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="rectangle"></param>
+        /// <param name="c"></param>
         private void DrawSmallCase(Graphics g, RectangleF rectangle, AbstractCase c)
         {
-
             if (c is StreetProperty)
             {
                 StreetProperty street = c as StreetProperty;
@@ -260,7 +276,7 @@ namespace Monopoly.Views
         }
 
         /// <summary>
-        /// Draw a player's zone in an img
+        /// Draw a player's zone in an image
         /// </summary>
         /// <param name="img"></param>
         private void DrawPlayerZone(Bitmap img, Player player)
@@ -270,7 +286,35 @@ namespace Monopoly.Views
                 RectangleF zoneSize = g.VisibleClipBounds;
 
                 g.Clear(backgroundColor);
-                g.DrawImage(player.Color.GetImage(), zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height, zoneSize.Height, zoneSize.Height);
+
+                // Draw the avatar
+                var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height, zoneSize.Height, zoneSize.Height);
+                g.DrawImage(player.Color.GetImage(), avatarRectangle);
+
+                // Draw the properties
+                List<PropertyCase> properties = player.GetProperties(Game);
+                if (properties.Count > 0)
+                {
+                    SizeF cardSize = new SizeF(PropertyCase.PROPERTY_CARD_WIDTH / 3F, PropertyCase.PROPERTY_CARD_HEIGHT / 3F);
+
+                    int cardMargin = 5;
+                    if ((cardSize.Width + cardMargin) * properties.Count - cardMargin > zoneSize.Width - avatarRectangle.Width)
+                    {
+                        // The zone is too small to make all the cards fit.
+                        // Setting a new margin (probably negative) to make the cards overlap.
+                        cardMargin = (int)(zoneSize.Width - properties.Count * cardSize.Width) / properties.Count;
+                    }
+
+                    for (var i = 0; i < properties.Count; i++)
+                    {
+                        var cardLocation = new PointF(avatarRectangle.Left - cardSize.Width - (cardSize.Width + cardMargin) * i, zoneSize.Bottom - cardSize.Height);
+
+                        Image image = properties[i].GetPropertyCardImage();
+                        var cardRectangle = new RectangleF(cardLocation, cardSize);
+                        g.DrawImage(image, cardRectangle);
+                        g.DrawRectangle(Pens.Black, cardRectangle);
+                    }
+                }
             }
         }
 
@@ -290,9 +334,9 @@ namespace Monopoly.Views
             Brush moneyBrush = new SolidBrush(player.Color.GetColor());
 
             // Draw the background with a border radius on the bottom left corner
-            RectangleF innerRectangle = new RectangleF(viewSize.Right - MONEY_WIDTH + MONEY_BORDER_RADIUS, 0, MONEY_WIDTH - MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS);
+            RectangleF innerRectangle = new RectangleF(viewSize.Right - MONEY_WIDTH + MONEY_BORDER_RADIUS, -1, MONEY_WIDTH - MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS);
             g.FillRectangle(moneyBrush, innerRectangle);
-            g.FillRectangle(moneyBrush, new RectangleF(innerRectangle.Left - MONEY_BORDER_RADIUS + 1, 0, MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS));
+            g.FillRectangle(moneyBrush, new RectangleF(innerRectangle.Left - MONEY_BORDER_RADIUS + 1, innerRectangle.Top, MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS));
             g.FillRectangle(moneyBrush, new RectangleF(innerRectangle.Left, innerRectangle.Bottom - 1, innerRectangle.Width, MONEY_BORDER_RADIUS));
             g.FillPie(moneyBrush, viewSize.Right - MONEY_WIDTH + 1, innerRectangle.Bottom - MONEY_BORDER_RADIUS - 1, MONEY_BORDER_RADIUS * 2, MONEY_BORDER_RADIUS * 2, 90, 90);
 

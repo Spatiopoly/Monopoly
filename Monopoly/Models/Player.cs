@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Monopoly.Models.Cases;
 
 namespace Monopoly.Models
 {
@@ -24,6 +22,20 @@ namespace Monopoly.Models
         {
             Color = color;
             Name = name;
+        }
+
+        /// <summary>
+        /// Get all the properties of a player
+        /// </summary>
+        /// <param name="game">The game instance</param>
+        /// <returns>All the properties owned by the player</returns>
+        internal List<PropertyCase> GetProperties(Game game)
+        {
+            return game.Cases
+                .Where(c => c is PropertyCase)
+                .Select(c => c as PropertyCase)
+                .Where(p => p.Owner == this)
+                .ToList();
         }
     }
 }

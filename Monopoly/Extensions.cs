@@ -108,7 +108,7 @@ namespace Monopoly
                     return Properties.Resources.PlayerBlue;
             }
 
-            return Properties.Resources.Windows_XP_wallpaper_2;
+            return Properties.Resources.Center;
         }
 
     }

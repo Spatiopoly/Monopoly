@@ -63,6 +63,26 @@ namespace Monopoly.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Center {
+            get {
+                object obj = ResourceManager.GetObject("Center", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EnAllez {
+            get {
+                object obj = ResourceManager.GetObject("EnAllez", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Flouzz {
             get {
                 object obj = ResourceManager.GetObject("Flouzz", resourceCulture);
@@ -156,16 +176,6 @@ namespace Monopoly.Properties {
         internal static System.Drawing.Bitmap Prison {
             get {
                 object obj = ResourceManager.GetObject("Prison", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Windows_XP_wallpaper_2 {
-            get {
-                object obj = ResourceManager.GetObject("Windows_XP_wallpaper_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
