@@ -63,6 +63,11 @@ namespace Monopoly
             );
         }
 
+        /// <summary>
+        /// Get the color of a player
+        /// </summary>
+        /// <param name="playerColor"></param>
+        /// <returns></returns>
         public static Color GetColor(this Player.PlayerColor playerColor)
         {
             switch (playerColor)
@@ -81,5 +86,30 @@ namespace Monopoly
 
             return Color.Black;
         }
+
+        /// <summary>
+        /// Get the image of a player
+        /// </summary>
+        /// <param name="playerColor"></param>
+        /// <returns></returns>
+        public static Image GetImage(this Player.PlayerColor playerColor)
+        {
+            switch (playerColor)
+            {
+                case Player.PlayerColor.Purple:
+                    return Properties.Resources.PlayerPurple;
+                case Player.PlayerColor.Yellow:
+                    return Properties.Resources.PlayerYellow;
+                case Player.PlayerColor.Green:
+                    return Properties.Resources.PlayerGreen;
+                case Player.PlayerColor.Red:
+                    return Properties.Resources.PlayerRed;
+                case Player.PlayerColor.Blue:
+                    return Properties.Resources.PlayerBlue;
+            }
+
+            return Properties.Resources.Windows_XP_wallpaper_2;
+        }
+
     }
 }

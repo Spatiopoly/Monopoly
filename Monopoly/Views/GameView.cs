@@ -14,7 +14,8 @@ namespace Monopoly.Views
         const int BORDER_MARGIN = 100;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
-        private Color backgroundColor = Color.FromArgb(17, 4, 58);
+        private Color backgroundColor = Color.LightGray;
+        private Color cardBackgroundColor = Color.FromArgb(17, 4, 58);
 
         private Dictionary<Player.PlayerColor, Image> playerImages = new Dictionary<Player.PlayerColor, Image>() {
             { Player.PlayerColor.Blue, Properties.Resources.PlayerBlue },
@@ -52,7 +53,8 @@ namespace Monopoly.Views
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.Clear(Color.LightGray);
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            e.Graphics.Clear(backgroundColor);
 
             if (Game == null) // Avoid crash in Windows Forms Designer
             {
@@ -69,19 +71,38 @@ namespace Monopoly.Views
             RectangleF[] playersZones = {
                 new RectangleF(0, viewSize.Bottom - BORDER_MARGIN, boardPosition.Right, BORDER_MARGIN),
                 new RectangleF(viewSize.Right - BORDER_MARGIN, boardPosition.Top, BORDER_MARGIN, boardPosition.Bottom),
-                new RectangleF(0, 0, BORDER_MARGIN, boardPosition.Bottom),       
                 new RectangleF(boardPosition.Left, 0, boardPosition.Right, BORDER_MARGIN),
+                new RectangleF(0, 0, BORDER_MARGIN, boardPosition.Bottom),
             };
 
-            foreach (RectangleF playerZone in playersZones)
+            RotateFlipType[] playersZonesRotations = new RotateFlipType[] {
+                RotateFlipType.RotateNoneFlipNone,
+                RotateFlipType.Rotate270FlipNone,
+                RotateFlipType.Rotate180FlipNone,
+                RotateFlipType.Rotate90FlipNone,
+            };
+
+            for (int playerZoneIndex = 0; playerZoneIndex < playersZones.Length; playerZoneIndex++)
             {
+                if (playerZoneIndex >= Game.Players.Count)
+                {
+                    continue;
+                }
+
+                RectangleF playerZone = playersZones[playerZoneIndex];
+
                 bool isHorizontalZone = playerZone == playersZones[0] || playerZone == playersZones[2];
                 int width = (int)Math.Floor(isHorizontalZone ? playerZone.Width : playerZone.Height);
-                Bitmap bitmap = new Bitmap(width, BORDER_MARGIN);
-                DrawPlayerZone(bitmap);
+
+                Bitmap bitmap = new Bitmap(Math.Abs(width), BORDER_MARGIN);
+                DrawPlayerZone(bitmap, Game.Players[playerZoneIndex]);
+                bitmap.RotateFlip(playersZonesRotations[playerZoneIndex]);
+
                 e.Graphics.DrawImage(bitmap, playerZone);
-                e.Graphics.DrawRectangle(Pens.Black, playerZone);
             }
+
+            // Draw money indicator
+            DrawMoney(e.Graphics);
         }
 
 
@@ -93,7 +114,7 @@ namespace Monopoly.Views
 
             Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
 
-            g.FillRectangle(new SolidBrush(backgroundColor), boardPosition);
+            g.FillRectangle(new SolidBrush(cardBackgroundColor), boardPosition);
             g.DrawRectangle(borderPen, boardPosition);
 
             // Draw the center
@@ -186,7 +207,7 @@ namespace Monopoly.Views
             Bitmap image = new Bitmap(1110, 195);
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.Clear(backgroundColor);
+                g.Clear(cardBackgroundColor);
 
                 SizeF caseSize = g.VisibleClipBounds.Size;
                 caseSize.Width /= cases.Count;
@@ -230,21 +251,53 @@ namespace Monopoly.Views
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
 
+                g.DrawString("PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
+
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
                 g.DrawString(street.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
             }
 
         }
 
-        private void DrawPlayerZone(Bitmap img) {
+        /// <summary>
+        /// Draw a player's zone in an img
+        /// </summary>
+        /// <param name="img"></param>
+        private void DrawPlayerZone(Bitmap img, Player player)
+        {
             using (Graphics g = Graphics.FromImage(img))
             {
                 RectangleF zoneSize = g.VisibleClipBounds;
 
-                g.Clear(Color.White);
-
-                g.DrawRectangle(Pens.Black, 10, 10, 50, 50);
+                g.Clear(backgroundColor);
+                g.DrawImage(player.Color.GetImage(), zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height, zoneSize.Height, zoneSize.Height);
             }
+        }
+
+        /// <summary>
+        /// Draw the money indicator in the provided bitmap
+        /// </summary>
+        /// <param name="g"></param>
+        private void DrawMoney(Graphics g)
+        {
+            RectangleF viewSize = g.VisibleClipBounds;
+            Player player = Game.CurrentPlayer;
+
+            const int MONEY_BORDER_RADIUS = 10;
+            const int MONEY_WIDTH = 150;
+            const int MONEY_HEIGHT = 40;
+
+            Brush moneyBrush = new SolidBrush(player.Color.GetColor());
+
+            // Draw the background with a border radius on the bottom left corner
+            RectangleF innerRectangle = new RectangleF(viewSize.Right - MONEY_WIDTH + MONEY_BORDER_RADIUS, 0, MONEY_WIDTH - MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS);
+            g.FillRectangle(moneyBrush, innerRectangle);
+            g.FillRectangle(moneyBrush, new RectangleF(innerRectangle.Left - MONEY_BORDER_RADIUS + 1, 0, MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS));
+            g.FillRectangle(moneyBrush, new RectangleF(innerRectangle.Left, innerRectangle.Bottom - 1, innerRectangle.Width, MONEY_BORDER_RADIUS));
+            g.FillPie(moneyBrush, viewSize.Right - MONEY_WIDTH + 1, innerRectangle.Bottom - MONEY_BORDER_RADIUS - 1, MONEY_BORDER_RADIUS * 2, MONEY_BORDER_RADIUS * 2, 90, 90);
+
+            g.DrawImage(Properties.Resources.FlouzzBag, innerRectangle.Left, 7, 19, 26);
+            g.DrawString(player.Wealth.ToString("N0"), new Font("Arial Bold", 14), Brushes.White, innerRectangle.Left + 25, 8);
         }
     }
 }
