@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Monopoly.Models.Cards;
+using Monopoly.Models.Cases;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monopoly.Models.Cases;
-using Monopoly.Models.Cards;
 
 namespace Monopoly.Models
 {
@@ -13,27 +10,27 @@ namespace Monopoly.Models
         private int _currentPlayerIndex = 0;
 
         #region Properties
-     
-		/// <summary>
-		/// List of participants in the game
-		/// </summary>
-		public List<Player> Players { get; private set; }
 
-		/// <summary>
-		/// The players who currently plays
-		/// </summary>
-		public Player CurrentPlayer
-			=> Players[_currentPlayerIndex];
+        /// <summary>
+        /// List of participants in the game
+        /// </summary>
+        public List<Player> Players { get; private set; }
 
-		/// <summary>
-		/// Cases on the board (properties...)
-		/// </summary>
-		public List<AbstractCase> Cases { get; private set; }
+        /// <summary>
+        /// The players who currently plays
+        /// </summary>
+        public Player CurrentPlayer
+            => Players[_currentPlayerIndex];
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public List<AbstractCard> Cards { get; private set; }
+        /// <summary>
+        /// Cases on the board (properties...)
+        /// </summary>
+        public List<AbstractCase> Cases { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<AbstractCard> Cards { get; private set; }
         #endregion
 
         /// <summary>
@@ -96,6 +93,5 @@ namespace Monopoly.Models
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
         }
-
     }
 }

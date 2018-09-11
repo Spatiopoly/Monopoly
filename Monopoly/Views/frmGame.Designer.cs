@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gameView = new Monopoly.Views.GameView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -39,22 +39,13 @@
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabCase = new System.Windows.Forms.TabPage();
             this.tabProperties = new System.Windows.Forms.TabPage();
+            this.property1 = new Monopoly.Views.PropertyManager();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tabs.SuspendLayout();
+            this.tabProperties.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(657, 604);
-            this.gameView.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -72,6 +63,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(957, 604);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(657, 604);
+            this.gameView.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
@@ -184,16 +186,18 @@
             // 
             // tabCase
             // 
-            this.tabCase.Location = new System.Drawing.Point(4, 22);
+            this.tabCase.Location = new System.Drawing.Point(4, 27);
             this.tabCase.Name = "tabCase";
             this.tabCase.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCase.Size = new System.Drawing.Size(272, 448);
+            this.tabCase.Size = new System.Drawing.Size(272, 443);
             this.tabCase.TabIndex = 0;
             this.tabCase.Text = "Case actuelle";
             this.tabCase.UseVisualStyleBackColor = true;
             // 
             // tabProperties
             // 
+            this.tabProperties.AutoScroll = true;
+            this.tabProperties.Controls.Add(this.property1);
             this.tabProperties.Location = new System.Drawing.Point(4, 27);
             this.tabProperties.Name = "tabProperties";
             this.tabProperties.Padding = new System.Windows.Forms.Padding(3);
@@ -201,6 +205,13 @@
             this.tabProperties.TabIndex = 1;
             this.tabProperties.Text = "Propriétés";
             this.tabProperties.UseVisualStyleBackColor = true;
+            // 
+            // property1
+            // 
+            this.property1.Location = new System.Drawing.Point(6, 6);
+            this.property1.Name = "property1";
+            this.property1.Size = new System.Drawing.Size(100, 230);
+            this.property1.TabIndex = 0;
             // 
             // frmGame
             // 
@@ -216,6 +227,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tabs.ResumeLayout(false);
+            this.tabProperties.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -233,6 +245,7 @@
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabCase;
         private System.Windows.Forms.TabPage tabProperties;
+        private PropertyManager property1;
     }
 }
 
