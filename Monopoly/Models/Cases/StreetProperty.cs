@@ -96,7 +96,7 @@ namespace Monopoly.Models.Cases
 
                 g.FillRectangle(headerBrush, rectangle.X, rectangle.Y, rectangle.Width, 40);
 
-                string name = this.Name;
+                string name = Name;
                 int spaceIndex = name.LastIndexOf(' ');
                 if (spaceIndex != -1)
                 {
