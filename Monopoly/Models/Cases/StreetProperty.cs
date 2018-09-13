@@ -90,8 +90,8 @@ namespace Monopoly.Models.Cases
                 LinearGradientBrush headerBrush = new LinearGradientBrush(
                     new PointF(0, 0),
                     new PointF(0, 40),
-                    this.Color,
-                    this.Color.Darken(30)
+                    Color,
+                    Color.Darken(30)
                 );
 
                 g.FillRectangle(headerBrush, rectangle.X, rectangle.Y, rectangle.Width, 40);

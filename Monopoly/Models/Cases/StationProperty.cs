@@ -28,7 +28,7 @@ namespace Monopoly.Models.Cases
             {
                 RectangleF rectangle = g.VisibleClipBounds;
                 
-                string name = this.Name;
+                string name = Name;
                 int spaceIndex = name.LastIndexOf(' ');
                 if (spaceIndex != -1)
                 {
