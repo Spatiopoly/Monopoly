@@ -14,16 +14,6 @@ namespace Monopoly.Views
         const int BORDER_MARGIN = 105;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
-        private Color backgroundColor = Color.LightGray;
-        private Color cardBackgroundColor = Color.FromArgb(17, 4, 58);
-
-        private Dictionary<Player.PlayerColor, Image> playerImages = new Dictionary<Player.PlayerColor, Image>() {
-            { Player.PlayerColor.Blue, Properties.Resources.PlayerBlue },
-            { Player.PlayerColor.Green, Properties.Resources.PlayerGreen },
-            { Player.PlayerColor.Purple, Properties.Resources.PlayerPurple },
-            { Player.PlayerColor.Red, Properties.Resources.PlayerRed },
-            { Player.PlayerColor.Yellow, Properties.Resources.PlayerYellow },
-        };
 
         Timer timer = new Timer();
 
@@ -35,9 +25,9 @@ namespace Monopoly.Views
 
             InitializeComponent();
 
-            this.timer.Interval = 12;
-            this.timer.Enabled = true;
-            this.timer.Tick += Timer_Tick;
+            timer.Interval = 12;
+            timer.Enabled = true;
+            timer.Tick += Timer_Tick;
         }
 
         private void InitializeComponent()
@@ -54,7 +44,7 @@ namespace Monopoly.Views
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.Clear(backgroundColor);
+            e.Graphics.Clear(Colors.GAMEVIEW_BG_COLOR);
 
             if (Game == null) // Avoid crash in Windows Forms Designer
             {
@@ -218,7 +208,7 @@ namespace Monopoly.Views
 
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.Clear(cardBackgroundColor);
+                g.Clear(Colors.CARD_BG_COLOR);
 
                 SizeF caseSize = g.VisibleClipBounds.Size;
                 caseSize.Width /= cases.Count;
@@ -285,7 +275,7 @@ namespace Monopoly.Views
             {
                 RectangleF zoneSize = g.VisibleClipBounds;
 
-                g.Clear(backgroundColor);
+                g.Clear(Colors.GAMEVIEW_BG_COLOR);
 
                 // Draw the avatar
                 var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height + 15, zoneSize.Height - 15, zoneSize.Height - 15);
