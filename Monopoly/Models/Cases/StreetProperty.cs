@@ -6,7 +6,8 @@ namespace Monopoly.Models.Cases
 {
     class StreetProperty : PropertyCase
     {
-        private Image cacheImage = null;
+        private Image cachePropertyImage = null;
+        private Image cacheBoardImage = null;
 
         public int BuildingCount { get; set; } = 0;
 
@@ -74,10 +75,51 @@ namespace Monopoly.Models.Cases
             BuildingPrice = buildingPrice;
         }
 
+        public override Image GetBoardCaseImage()
+        {
+            if (cacheBoardImage != null)
+                return cacheBoardImage;
+
+            Image img = base.GetBoardCaseImage();
+
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                RectangleF rectangle = g.VisibleClipBounds;
+
+                // Gradient top
+                LinearGradientBrush headerBrush = new LinearGradientBrush(
+                    new PointF(0, 0),
+                    new PointF(0, 40),
+                    Color,
+                    Color.Darken(30)
+                );
+
+                g.FillRectangle(headerBrush, rectangle.X, rectangle.Y, rectangle.Width, 40);
+
+                string name = Name;
+                int spaceIndex = name.LastIndexOf(' ');
+                if (spaceIndex != -1)
+                {
+                    char[] n = name.ToCharArray();
+                    n[spaceIndex] = '\n';
+                    name = new string(n);
+                }
+
+                g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
+
+                g.DrawString("PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
+
+                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
+                g.DrawString(this.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+            }
+
+            return img;
+        }
+
         public override Image GetPropertyCardImage()
         {
-            if (cacheImage != null)
-                return cacheImage;
+            if (cachePropertyImage != null)
+                return cachePropertyImage;
 
             Image img = base.GetPropertyCardImage();
 
@@ -122,7 +164,7 @@ namespace Monopoly.Models.Cases
                 DrawPrice(g, y += 17, "Bâtiment", BuildingPrice);
             }
 
-            cacheImage = img;
+            cachePropertyImage = img;
             return img;
 
 
