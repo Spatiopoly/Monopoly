@@ -14,10 +14,23 @@ namespace Monopoly.Views
         const int BORDER_MARGIN = 105;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
+        private Game _game;
+        private Messages _messages = new Messages();
 
         Timer timer = new Timer();
 
-        public Game Game { get; set; }
+        public Game Game
+        {
+            get => _game; set
+            {
+                value.Message += (Game game, string message) =>
+                {
+                    _messages.Add(message);
+                };
+
+                _game = value;
+            }
+        }
 
         public GameView()
         {
@@ -93,6 +106,8 @@ namespace Monopoly.Views
 
             // Draw money indicator
             DrawMoney(e.Graphics);
+
+            _messages.Draw(e.Graphics);
         }
 
         /// <summary>

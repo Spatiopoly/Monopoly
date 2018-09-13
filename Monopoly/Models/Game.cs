@@ -1,12 +1,17 @@
-﻿using Monopoly.Models.Cards;
-using Monopoly.Models.Cases;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Monopoly.Models.Cards;
+using Monopoly.Models.Cases;
 
 namespace Monopoly.Models
 {
     public class Game
     {
+        // Event : show a textual message on the interface
+        public event MessageHandler Message;
+        public delegate void MessageHandler(Game game, string message);
+
         private int _currentPlayerIndex = 0;
 
         #region Properties
