@@ -6,7 +6,8 @@ namespace Monopoly.Models.Cases
 {
     class StreetProperty : PropertyCase
     {
-        private Image cacheImage = null;
+        private Image cachePropertyImage = null;
+        private Image cacheBoardImage = null;
 
         public int BuildingCount { get; set; } = 0;
 
@@ -76,6 +77,9 @@ namespace Monopoly.Models.Cases
 
         public override Image GetBoardCaseImage()
         {
+            if (cacheBoardImage != null)
+                return cacheBoardImage;
+
             Image img = base.GetBoardCaseImage();
 
             using (Graphics g = Graphics.FromImage(img))
@@ -114,8 +118,8 @@ namespace Monopoly.Models.Cases
 
         public override Image GetPropertyCardImage()
         {
-            if (cacheImage != null)
-                return cacheImage;
+            if (cachePropertyImage != null)
+                return cachePropertyImage;
 
             Image img = base.GetPropertyCardImage();
 
@@ -160,7 +164,7 @@ namespace Monopoly.Models.Cases
                 DrawPrice(g, y += 17, "Bâtiment", BuildingPrice);
             }
 
-            cacheImage = img;
+            cachePropertyImage = img;
             return img;
 
 
