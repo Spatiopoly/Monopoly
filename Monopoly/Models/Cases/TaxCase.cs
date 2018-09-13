@@ -36,14 +36,7 @@ namespace Monopoly.Models.Cases
             {
                 RectangleF rectangle = g.VisibleClipBounds;
 
-                string name = "Taxe";
-                int spaceIndex = name.LastIndexOf(' ');
-                if (spaceIndex != -1)
-                {
-                    char[] n = name.ToCharArray();
-                    n[spaceIndex] = '\n';
-                    name = new string(n);
-                }
+                string name = "Taxe";              
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 15));
 
