@@ -74,6 +74,7 @@
     <Compile Include="Views\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Messages.cs" />
     <Compile Include="Views\PropertyManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
