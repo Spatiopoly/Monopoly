@@ -145,12 +145,7 @@ namespace Monopoly.Views
             {
                 // Draw the big case
                 RectangleF bigCasePosition = bigCasesPositions[sideIndex];
-                Image bigCaseImage = (new Image[] {
-                    Properties.Resources.Go,
-                    Properties.Resources.Prison,
-                    Properties.Resources.Parc,
-                    Properties.Resources.EnAllez,
-                })[sideIndex];
+                Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
                 g.DrawImage(bigCaseImage, bigCasePosition);
                 g.DrawRectangle(borderPen, bigCasePosition);
 
