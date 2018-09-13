@@ -21,6 +21,8 @@ namespace Monopoly.Views
         /// </summary>
         private const int MESSAGE_FADE_OUT_MS = 500;
 
+        private const int MESSAGE_HEIGHT = 30;
+
         Stopwatch stopwatch = Stopwatch.StartNew();
         List<Message> messages = new List<Message>();
 
@@ -28,11 +30,13 @@ namespace Monopoly.Views
         {
             public readonly string message;
             public readonly long appearedTimestamp;
+            public readonly int y;
 
-            public Message(string message, long appearedTimestamp)
+            public Message(string message, long appearedTimestamp, int y)
             {
                 this.message = message;
                 this.appearedTimestamp = appearedTimestamp;
+                this.y = y;
             }
         }
 
@@ -42,7 +46,16 @@ namespace Monopoly.Views
         /// <param name="message">The message to show</param>
         public void Add(string message)
         {
-            messages.Add(new Message(message, stopwatch.ElapsedMilliseconds));
+            // Don't stack the messages on the same place
+            long currentTimestamp = stopwatch.ElapsedMilliseconds;
+            var visibleMessages = messages
+                .Where(m => currentTimestamp < m.appearedTimestamp + MESSAGE_TIME_MS + MESSAGE_FADE_OUT_MS)
+                .ToList();
+            int y = visibleMessages.Count == 0
+                ? 0
+                : visibleMessages[visibleMessages.Count - 1].y + MESSAGE_HEIGHT;
+
+            messages.Add(new Message(message, stopwatch.ElapsedMilliseconds, y));
         }
 
         /// <summary>
@@ -56,7 +69,9 @@ namespace Monopoly.Views
 
             long currentTimestamp = stopwatch.ElapsedMilliseconds;
 
-            foreach (Message m in messages.Where(m => currentTimestamp < m.appearedTimestamp + MESSAGE_TIME_MS + MESSAGE_FADE_OUT_MS))
+            var notExpiredMessages = messages
+                .Where(m => currentTimestamp < m.appearedTimestamp + MESSAGE_TIME_MS + MESSAGE_FADE_OUT_MS);
+            foreach (Message m in notExpiredMessages)
             {
                 int opacity = 255;
                 float translateY = 0F;
@@ -71,7 +86,7 @@ namespace Monopoly.Views
                     translateY = (float)(-10 * fadeOutProgress);
                 }
 
-                g.DrawString(m.message, new Font("Arial", 16), new SolidBrush(Color.FromArgb(opacity, Color.Black)), MESSAGE_X, MESSAGE_Y + translateY);
+                g.DrawString(m.message, new Font("Arial", 16), new SolidBrush(Color.FromArgb(opacity, Color.Black)), MESSAGE_X, MESSAGE_Y + translateY + m.y);
             }
         }
     }
