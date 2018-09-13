@@ -36,13 +36,13 @@ namespace Monopoly.Models.Cases
             {
                 RectangleF rectangle = g.VisibleClipBounds;
 
-                string name = "Taxe";              
+                string name = Type == Tax.IncomeTax ? "Péage\ngalactique" : "Impôts\nde l'espace";              
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 15));
 
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 60, 63, 12, 12));
-                g.DrawString("PRIX :    " + Amount.ToString(), new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
-                g.DrawImage(Properties.Resources.taxe, new RectangleF(rectangle.X + 10, 73, rectangle.Width - 20, rectangle.Width - 20));
+                g.DrawString("Payez    " + Amount.ToString(), new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
+                g.DrawImage(Properties.Resources.Tax, new RectangleF(rectangle.X + 10, 73, rectangle.Width - 20, rectangle.Width - 20));
             }
 
             return img;
