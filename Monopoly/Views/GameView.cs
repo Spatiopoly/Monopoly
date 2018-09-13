@@ -16,16 +16,6 @@ namespace Monopoly.Views
 
         private Game _game;
         private Messages _messages = new Messages();
-        private Color backgroundColor = Color.LightGray;
-        private Color cardBackgroundColor = Color.FromArgb(17, 4, 58);
-
-        private Dictionary<Player.PlayerColor, Image> playerImages = new Dictionary<Player.PlayerColor, Image>() {
-            { Player.PlayerColor.Blue, Properties.Resources.PlayerBlue },
-            { Player.PlayerColor.Green, Properties.Resources.PlayerGreen },
-            { Player.PlayerColor.Purple, Properties.Resources.PlayerPurple },
-            { Player.PlayerColor.Red, Properties.Resources.PlayerRed },
-            { Player.PlayerColor.Yellow, Properties.Resources.PlayerYellow },
-        };
 
         Timer timer = new Timer();
 
@@ -48,9 +38,9 @@ namespace Monopoly.Views
 
             InitializeComponent();
 
-            this.timer.Interval = 12;
-            this.timer.Enabled = true;
-            this.timer.Tick += Timer_Tick;
+            timer.Interval = 12;
+            timer.Enabled = true;
+            timer.Tick += Timer_Tick;
         }
 
         private void InitializeComponent()
@@ -67,7 +57,7 @@ namespace Monopoly.Views
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.Clear(backgroundColor);
+            e.Graphics.Clear(Colors.GAMEVIEW_BG_COLOR);
 
             if (Game == null) // Avoid crash in Windows Forms Designer
             {
@@ -160,12 +150,7 @@ namespace Monopoly.Views
             {
                 // Draw the big case
                 RectangleF bigCasePosition = bigCasesPositions[sideIndex];
-                Image bigCaseImage = (new Image[] {
-                    Properties.Resources.Go,
-                    Properties.Resources.Prison,
-                    Properties.Resources.Parc,
-                    Properties.Resources.EnAllez,
-                })[sideIndex];
+                Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
                 g.DrawImage(bigCaseImage, bigCasePosition);
                 g.DrawRectangle(borderPen, bigCasePosition);
 
@@ -233,7 +218,7 @@ namespace Monopoly.Views
 
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.Clear(cardBackgroundColor);
+                g.Clear(Colors.CARD_BG_COLOR);
 
                 SizeF caseSize = g.VisibleClipBounds.Size;
                 caseSize.Width /= cases.Count;
@@ -241,54 +226,13 @@ namespace Monopoly.Views
                 foreach (AbstractCase c in cases)
                 {
                     PointF casePosition = new PointF(caseSize.Width * caseIndex, 0);
-                    DrawSmallCase(g, new RectangleF(casePosition, caseSize), c);
+                    g.DrawImage(c.GetBoardCaseImage(), new RectangleF(casePosition, caseSize));
                     caseIndex++;
                 }
             }
 
             return image;
-        }
-
-        /// <summary>
-        /// Draw a case on the board
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="rectangle"></param>
-        /// <param name="c"></param>
-        private void DrawSmallCase(Graphics g, RectangleF rectangle, AbstractCase c)
-        {
-            if (c is StreetProperty)
-            {
-                StreetProperty street = c as StreetProperty;
-
-                // Gradient top
-                LinearGradientBrush headerBrush = new LinearGradientBrush(
-                    new PointF(0, 0),
-                    new PointF(0, 40),
-                    street.Color,
-                    street.Color.Darken(30)
-                );
-
-                g.FillRectangle(headerBrush, rectangle.X, rectangle.Y, rectangle.Width, 40);
-
-                string name = street.Name;
-                int spaceIndex = name.LastIndexOf(' ');
-                if (spaceIndex != -1)
-                {
-                    char[] n = name.ToCharArray();
-                    n[spaceIndex] = '\n';
-                    name = new string(n);
-                }
-
-                g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
-
-                g.DrawString("PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
-
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
-                g.DrawString(street.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
-            }
-
-        }
+        }    
 
         /// <summary>
         /// Draw a player's zone in an image
@@ -300,7 +244,7 @@ namespace Monopoly.Views
             {
                 RectangleF zoneSize = g.VisibleClipBounds;
 
-                g.Clear(backgroundColor);
+                g.Clear(Colors.GAMEVIEW_BG_COLOR);
 
                 // Draw the avatar
                 var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height + 15, zoneSize.Height - 15, zoneSize.Height - 15);
