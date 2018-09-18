@@ -45,14 +45,9 @@ namespace Monopoly.Models
         /// <summary>
         /// Initialize a new game
         /// </summary>
-        public Game()
+        public Game(List<Player> lstPlayers)
         {
-            Players = new List<Player>() {
-                new Player(Player.PlayerColor.Green, "Vanille"),
-                new Player(Player.PlayerColor.Blue, "Nicolapps"),
-                new Player(Player.PlayerColor.Red, "Willyart"),
-                new Player(Player.PlayerColor.Purple, "Dams00"),
-            };
+            Players = lstPlayers;
 
             Cases = new List<AbstractCase>() {
                 new StartCase(),
