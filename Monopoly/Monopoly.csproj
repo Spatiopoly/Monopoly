@@ -198,5 +198,17 @@
   <ItemGroup>
     <None Include="Resources\Logo_WhiteBG.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chancellerie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eau_vaisseau.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fournisseur_elec.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
