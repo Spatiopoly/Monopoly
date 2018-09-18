@@ -7,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Monopoly.Models;
 
 namespace Monopoly.Views
 {
-    public partial class frmGame : Form
+    public partial class frmStart : Form
     {
-        Game game;
-
-        public frmGame(Game game)
+        public frmStart()
         {
             InitializeComponent();
-            this.game = game;
-            gameView.Game = game;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmPlayerChoice();
+            frm.Show();
+            this.Close();
         }
     }
 }

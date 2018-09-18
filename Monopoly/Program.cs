@@ -16,7 +16,9 @@ namespace Monopoly
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Views.frmGame());
+            Form maFormStart = new Views.frmStart();
+            maFormStart.Show();
+            Application.Run();
         }
     }
 }

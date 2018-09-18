@@ -23,10 +23,13 @@ namespace Monopoly.Views
         {
             get => _game; set
             {
-                value.Message += (Game game, string message) =>
+                if (value != null)
                 {
-                    _messages.Add(message);
-                };
+                    value.Message += (Game game, string message) =>
+                    {
+                        _messages.Add(message);
+                    };
+                }
 
                 _game = value;
             }
