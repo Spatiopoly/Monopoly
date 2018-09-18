@@ -63,6 +63,7 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Cases\PropertyCase.cs" />
     <Compile Include="Views\Colors.cs" />
+    <Compile Include="Views\DisplayedProperties.cs" />
     <Compile Include="Views\frmGame.cs">
       <SubType>Form</SubType>
     </Compile>

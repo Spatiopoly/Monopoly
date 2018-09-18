@@ -17,8 +17,6 @@ namespace Monopoly.Views
         private Game _game;
         private Messages _messages = new Messages();
 
-        Timer timer = new Timer();
-
         public Game Game
         {
             get => _game; set
@@ -35,26 +33,19 @@ namespace Monopoly.Views
             }
         }
 
+        public ColorProperty PrimaryColor { get; set; } = new ColorProperty(Color.Silver);
+
         public GameView()
         {
             DoubleBuffered = true;
 
             InitializeComponent();
-
-            timer.Interval = 12;
-            timer.Enabled = true;
-            timer.Tick += Timer_Tick;
         }
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
             this.ResumeLayout(false);
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -293,7 +284,7 @@ namespace Monopoly.Views
             const int MONEY_WIDTH = 150;
             const int MONEY_HEIGHT = 40;
 
-            Brush moneyBrush = new SolidBrush(player.Color.GetColor());
+            Brush moneyBrush = new SolidBrush(PrimaryColor.DisplayedValue);
 
             // Draw the background with a border radius on the bottom left corner
             RectangleF innerRectangle = new RectangleF(viewSize.Right - MONEY_WIDTH + MONEY_BORDER_RADIUS, -1, MONEY_WIDTH - MONEY_BORDER_RADIUS, MONEY_HEIGHT - MONEY_BORDER_RADIUS);

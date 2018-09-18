@@ -1,25 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using Monopoly.Models;
+using Monopoly.Models.Cases;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Monopoly.Models;
 
 namespace Monopoly.Views
 {
     public partial class frmGame : Form
     {
         Game game;
+        ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         public frmGame(Game game)
         {
             InitializeComponent();
             this.game = game;
+
             gameView.Game = game;
+            gameView.PrimaryColor = primaryColor;
+
+            game.NextPlayer += Game_NextPlayer;
+
+            game.Start();
+        }
+
+        /// <summary>
+        /// Handle the change of the current player
+        /// </summary>
+        /// <param name="game"></param>
+        private void Game_NextPlayer(Game game)
+        {
+            primaryColor.Set(game.CurrentPlayer.Color.GetColor());
+
+            // Load the propertie
+            flpProperties.Controls.Clear();
+            var cases = game.CurrentPlayer.GetProperties(game);
+            foreach (PropertyCase c in cases)
+            {
+                flpProperties.Controls.Add(new PropertyManager()
+                {
+                    Property = c
+                });
+            }
+        }
+
+        /// <summary>
+        /// Refresh the view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            gameView.Invalidate();
+            tlpSidebar.BackColor = primaryColor.DisplayedValue;
         }
     }
 }

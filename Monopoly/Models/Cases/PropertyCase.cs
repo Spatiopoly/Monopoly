@@ -9,7 +9,7 @@ using Monopoly.Views;
 
 namespace Monopoly.Models.Cases
 {
-    abstract class PropertyCase : AbstractCase
+    public abstract class PropertyCase : AbstractCase
     {
         public const int PROPERTY_CARD_WIDTH = 100;
         public const int PROPERTY_CARD_HEIGHT = 150;

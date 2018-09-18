@@ -12,6 +12,10 @@ namespace Monopoly.Models
         public event MessageHandler Message;
         public delegate void MessageHandler(Game game, string message);
 
+        // Event : change the current player
+        public event NextPlayerHandler NextPlayer;
+        public delegate void NextPlayerHandler(Game game);
+
         private int _currentPlayerIndex = 0;
 
         #region Properties
@@ -92,6 +96,14 @@ namespace Monopoly.Models
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
+        }
+
+        /// <summary>
+        /// Start the game
+        /// </summary>
+        public void Start()
+        {
+            NextPlayer(this);
         }
     }
 }
