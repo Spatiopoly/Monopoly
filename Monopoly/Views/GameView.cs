@@ -11,25 +11,38 @@ namespace Monopoly.Views
 {
     class GameView : Panel
     {
-        const int BORDER_MARGIN = 105;
+        const int BORDER_MARGIN = 55;
+        const int PLAYERS_POSITION = 100;
         const int SMALL_CASE_PERCENTAGE = 13; // Of the total board
 
         private Game _game;
         private Messages _messages = new Messages();
+        private Dictionary<Player, Pawn> _pawns = new Dictionary<Player, Pawn>();
 
         public Game Game
         {
             get => _game; set
             {
-                if (value != null)
+                _game = value;
+
+                if (value == null)
                 {
-                    value.Message += (Game game, string message) =>
-                    {
-                        _messages.Add(message);
-                    };
+                    return;
                 }
 
-                _game = value;
+                // Listen to messages
+                _game.Message += (Game game, string message) =>
+                {
+                    _messages.Add(message);
+                };
+
+                // Create pawns to display the players
+                _pawns = new Dictionary<Player, Pawn>();
+
+                foreach (Player p in _game.Players)
+                {
+                    _pawns.Add(p, new Pawn(p));
+                }
             }
         }
 
@@ -61,8 +74,7 @@ namespace Monopoly.Views
             RectangleF viewSize = e.Graphics.VisibleClipBounds;
             float dimension = Math.Min(viewSize.Width, viewSize.Height) - 2 * BORDER_MARGIN;
             RectangleF boardPosition = new RectangleF((viewSize.Width - dimension) / 2, (viewSize.Height - dimension) / 2, dimension, dimension);
-
-            DrawBoard(e.Graphics, boardPosition);
+            e.Graphics.DrawImage(DrawBoard(), boardPosition);
 
             // Draw players
             RectangleF[] playersZones = {
@@ -109,96 +121,107 @@ namespace Monopoly.Views
         /// </summary>
         /// <param name="g"></param>
         /// <param name="boardPosition"></param>
-        private void DrawBoard(Graphics g, RectangleF boardPosition)
+        private Image DrawBoard()
         {
-            float smallCaseRatio = SMALL_CASE_PERCENTAGE / 100.0F;
-            float boardSize = boardPosition.Width; // width = height
-            float bigCaseSize = boardPosition.Width * smallCaseRatio; // width = height
+            Image img = new Bitmap(1000, 1000);
 
-            Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
-
-            g.FillRectangle(Brushes.White, boardPosition);
-            g.DrawRectangle(borderPen, boardPosition);
-
-            // Draw the center
-            var centerRectangle = new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + bigCaseSize, boardSize - 2 * bigCaseSize, boardSize - 2 * bigCaseSize);
-            g.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.White)), centerRectangle);
-            g.DrawImage(Properties.Resources.Center, centerRectangle);
-
-            // Draw the 4 sides of the board
-            RectangleF[] bigCasesPositions = {
-                new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + boardSize - bigCaseSize, bigCaseSize, bigCaseSize),
-                new RectangleF(boardPosition.X, boardPosition.Y + boardSize - bigCaseSize, bigCaseSize, bigCaseSize),
-                new RectangleF(boardPosition.X, boardPosition.Y, bigCaseSize, bigCaseSize),
-                new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y, bigCaseSize, bigCaseSize),
-            };
-
-            RectangleF[] smallCasesRectangles = {
-                new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + boardSize - bigCaseSize , boardSize - 2 * (boardSize * smallCaseRatio), boardSize * smallCaseRatio),
-                new RectangleF(boardPosition.X, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
-                new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y, boardSize - 2 * (boardSize * smallCaseRatio), boardSize * smallCaseRatio),
-                new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
-            };
-
-            for (int sideIndex = 0; sideIndex < 4; sideIndex++)
+            using (Graphics g = Graphics.FromImage(img))
             {
-                // Draw the big case
-                RectangleF bigCasePosition = bigCasesPositions[sideIndex];
-                Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
-                g.DrawImage(bigCaseImage, bigCasePosition);
-                g.DrawRectangle(borderPen, bigCasePosition);
+                RectangleF boardPosition = g.VisibleClipBounds;
 
-                // Draw the small cases
-                RectangleF casesContainer = smallCasesRectangles[sideIndex];
+                float smallCaseRatio = SMALL_CASE_PERCENTAGE / 100.0F;
+                float boardSize = boardPosition.Width; // width = height
+                float bigCaseSize = boardPosition.Width * smallCaseRatio; // width = height
 
-                List<AbstractCase> smallCases = Game.Cases.Skip(sideIndex * 10 + 1).Take(9).ToList();
+                Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
 
-                if (sideIndex != 2)
+                g.FillRectangle(Brushes.White, boardPosition);
+                g.DrawRectangle(borderPen, boardPosition);
+
+                // Draw the center
+                var centerRectangle = new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + bigCaseSize, boardSize - 2 * bigCaseSize, boardSize - 2 * bigCaseSize);
+                g.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.White)), centerRectangle);
+                g.DrawImage(Properties.Resources.Center, centerRectangle);
+
+                // Draw the 4 sides of the board
+                RectangleF[] bigCasesPositions = {
+                    new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + boardSize - bigCaseSize, bigCaseSize, bigCaseSize),
+                    new RectangleF(boardPosition.X, boardPosition.Y + boardSize - bigCaseSize, bigCaseSize, bigCaseSize),
+                    new RectangleF(boardPosition.X, boardPosition.Y, bigCaseSize, bigCaseSize),
+                    new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y, bigCaseSize, bigCaseSize),
+                };
+
+                RectangleF[] smallCasesRectangles = {
+                    new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y + boardSize - bigCaseSize , boardSize - 2 * (boardSize * smallCaseRatio), boardSize * smallCaseRatio),
+                    new RectangleF(boardPosition.X, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
+                    new RectangleF(boardPosition.X + bigCaseSize, boardPosition.Y, boardSize - 2 * (boardSize * smallCaseRatio), boardSize * smallCaseRatio),
+                    new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
+                };
+
+                for (int sideIndex = 0; sideIndex < 4; sideIndex++)
                 {
-                    smallCases.Reverse();
-                }
+                    // Draw the big case
+                    RectangleF bigCasePosition = bigCasesPositions[sideIndex];
+                    Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
+                    g.DrawImage(bigCaseImage, bigCasePosition);
+                    g.DrawRectangle(borderPen, bigCasePosition);
 
-                Image sideContent = DrawSideCases(smallCases);
+                    // Draw the small cases
+                    RectangleF casesContainer = smallCasesRectangles[sideIndex];
 
-                RotateFlipType rotation = (new RotateFlipType[] {
+                    List<AbstractCase> smallCases = Game.Cases.Skip(sideIndex * 10 + 1).Take(9).ToList();
+
+                    if (sideIndex != 2)
+                    {
+                        smallCases.Reverse();
+                    }
+
+                    Image sideContent = DrawSideCases(smallCases);
+
+                    RotateFlipType rotation = (new RotateFlipType[] {
                     RotateFlipType.RotateNoneFlipNone,
                     RotateFlipType.Rotate90FlipNone,
                     RotateFlipType.RotateNoneFlipNone,
                     RotateFlipType.Rotate270FlipNone,
                 })[sideIndex];
-                sideContent.RotateFlip(rotation);
+                    sideContent.RotateFlip(rotation);
 
-                g.DrawImage(sideContent, casesContainer);
+                    g.DrawImage(sideContent, casesContainer);
 
-                // Draw the small cases border
-                SizeF caseSize = casesContainer.Size;
-
-                if (sideIndex % 2 == 0) // Horizontal
-                {
-                    caseSize.Width /= smallCases.Count;
-                }
-                else // Vertical
-                {
-                    caseSize.Height /= smallCases.Count;
-                }
-
-                for (int caseIndex = 0; caseIndex < smallCases.Count; caseIndex++)
-                {
-                    PointF caseLocation = casesContainer.TopLeft();
+                    // Draw the small cases border
+                    SizeF caseSize = casesContainer.Size;
 
                     if (sideIndex % 2 == 0) // Horizontal
                     {
-                        caseLocation += new SizeF(caseSize.Width * caseIndex, 0);
+                        caseSize.Width /= smallCases.Count;
                     }
                     else // Vertical
                     {
-                        caseLocation += new SizeF(0, caseSize.Height * caseIndex);
+                        caseSize.Height /= smallCases.Count;
                     }
 
-                    g.DrawRectangle(borderPen, new RectangleF(caseLocation, caseSize));
+                    for (int caseIndex = 0; caseIndex < smallCases.Count; caseIndex++)
+                    {
+                        PointF caseLocation = casesContainer.TopLeft();
+
+                        if (sideIndex % 2 == 0) // Horizontal
+                        {
+                            caseLocation += new SizeF(caseSize.Width * caseIndex, 0);
+                        }
+                        else // Vertical
+                        {
+                            caseLocation += new SizeF(0, caseSize.Height * caseIndex);
+                        }
+
+                        g.DrawRectangle(borderPen, new RectangleF(caseLocation, caseSize));
+                    }
                 }
 
+                // Draw the pawns
+                DrawPawns(g);
             }
+
+            return img;
         }
 
         /// <summary>
@@ -226,7 +249,7 @@ namespace Monopoly.Views
             }
 
             return image;
-        }    
+        }
 
         /// <summary>
         /// Draw a player's zone in an image
@@ -242,6 +265,7 @@ namespace Monopoly.Views
 
                 // Draw the avatar
                 var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height + 15, zoneSize.Height - 15, zoneSize.Height - 15);
+                avatarRectangle.Inflate(10, 10);
                 g.DrawImage(player.Color.GetImage(), avatarRectangle);
 
                 // Draw the properties
@@ -269,6 +293,135 @@ namespace Monopoly.Views
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Draw the pawns on the board
+        /// </summary>
+        /// <param name="g">Graphics object</param>
+        private void DrawPawns(Graphics g)
+        {
+            RectangleF boardPosition = g.VisibleClipBounds;
+
+            double[] casesPositions = {
+                0.0001,
+                // 0.25,
+                // 0.5,
+                // 0.75,
+            };
+
+            // Draw the path (debug)
+            //for (var i = 0; i < corners.Length; i++)
+            //{
+            //    g.DrawLine(Pens.Red, corners[i], corners[i == corners.Length - 1 ? 0 : i + 1]);
+            //}
+
+            //// Draw crosses (debug)
+            //for (int i = 0; i < casesPositions.Length; i++)
+            //{
+            //    double position = casesPositions[i];
+
+            //    int lineIndex = (int)Math.Floor(position * corners.Length);
+            //    PointF lineStart = corners[lineIndex];
+            //    PointF lineEnd = corners[lineIndex != corners.Length - 1 ? lineIndex + 1 : 0];
+
+            //    double progressOnLine = position * corners.Length;
+
+            //    PointF point = new PointF()
+            //    {
+            //        X = (float)(lineStart.X * (1 - progressOnLine) + lineEnd.X * progressOnLine),
+            //        Y = (float)(lineStart.Y * (1 - progressOnLine) + lineEnd.Y * progressOnLine),
+            //    };
+
+            //    // Pawn
+            //    const int PAWN_SIZE = 24;
+            //    g.FillEllipse(Brushes.Gray, point.X - PAWN_SIZE / 2, point.Y - PAWN_SIZE / 2, PAWN_SIZE, PAWN_SIZE);
+
+            //    // Cross
+            //    const int CROSS_LENGTH = 12;
+            //    g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X + CROSS_LENGTH, point.Y), new PointF(point.X - CROSS_LENGTH, point.Y));
+            //    g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X, point.Y + CROSS_LENGTH), new PointF(point.X, point.Y - CROSS_LENGTH));
+            //}
+
+            // Debug : show the cases positions
+            for (var i = 0; i < Game.Cases.Count; i++)
+            {
+                int distance = GetCaseOnPlayersPath(i);
+                PointF point = GetPositionOnPlayersPath(distance);
+                const int CROSS_LENGTH = 12;
+                g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X + CROSS_LENGTH, point.Y), new PointF(point.X - CROSS_LENGTH, point.Y));
+                g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X, point.Y + CROSS_LENGTH), new PointF(point.X, point.Y - CROSS_LENGTH));
+            }
+        }
+
+        /// <summary>
+        /// Get the position of a case on the players path
+        /// </summary>
+        /// <param name="caseIndex">Index of the case</param>
+        /// <returns>Length to travel on the players path to arrive at the case</returns>
+        public static int GetCaseOnPlayersPath(int caseIndex)
+        {
+            int[] casePositions = {
+                73, 155, 237, 319, 401, 483, 565, 647, 729, 811,
+                957, 1039, 1121, 1203, 1285, 1367, 1449, 1531, 1613, 1695,
+                1826, 1908, 1990, 2072, 2154, 2236, 2318, 2400, 2482, 2564,
+                2700, 2782, 2864, 2946, 3028, 3110, 3192, 3274, 3356, 3438,
+            };
+
+            return casePositions[caseIndex % casePositions.Length];
+        }
+
+        /// <summary>
+        /// Travel some distance on the player's path (from the
+        /// start point) and return the arrival point.
+        /// </summary>
+        /// <param name="distance">The distance to travel</param>
+        /// <returns>The arrival point</returns>
+        public static PointF GetPositionOnPlayersPath(int distance)
+        {
+            PointF[] pathPoints = {
+                new PointF(945, 940),
+                new PointF(60, 940),
+                new PointF(60, 70),
+                new PointF(945, 70),
+            };
+
+            int cornerIndex = 0;
+
+            while (distance > 0)
+            {
+                PointF currentPoint = pathPoints[cornerIndex];
+                PointF nextPoint = pathPoints[cornerIndex == pathPoints.Length - 1 ? 0 : cornerIndex + 1];
+                int pointsDistance = (int)Math.Sqrt(
+                    Math.Pow(nextPoint.X - currentPoint.X, 2) +
+                    Math.Pow(nextPoint.Y - currentPoint.Y, 2)
+                );
+
+                distance -= pointsDistance;
+
+                cornerIndex += 1;
+                if (cornerIndex >= pathPoints.Length)
+                    cornerIndex = 0;
+            }
+
+            PointF corner = pathPoints[cornerIndex];
+            PointF previousCorner = pathPoints[cornerIndex == 0 ? pathPoints.Length - 1 : cornerIndex - 1];
+            int lastDistance = (int)Math.Sqrt(
+                Math.Pow(corner.X - previousCorner.X, 2) +
+                Math.Pow(corner.Y - previousCorner.Y, 2)
+            );
+
+            //float y = Math.Max(
+            //    Math.Abs(corner.X - previousCorner.X),
+            //    Math.Abs(corner.Y - previousCorner.Y)
+            //);
+            double progressOnLine = 1 - (distance + lastDistance) * 1.0 / lastDistance;
+
+            return new PointF()
+            {
+                X = (float)(corner.X * (1 - progressOnLine) + previousCorner.X * progressOnLine),
+                Y = (float)(corner.Y * (1 - progressOnLine) + previousCorner.Y * progressOnLine),
+            };
         }
 
         /// <summary>
