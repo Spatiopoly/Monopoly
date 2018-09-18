@@ -29,14 +29,15 @@ namespace Monopoly.Views
         /// <param name="game"></param>
         private void Game_NextPlayer(Game game)
         {
-            primaryColor.Set(Color.Red);
+            primaryColor.Set(game.CurrentPlayer.Color.GetColor());
 
             // Load the propertie
             flpProperties.Controls.Clear();
             var cases = game.CurrentPlayer.GetProperties(game);
             foreach (PropertyCase c in cases)
             {
-                flpProperties.Controls.Add(new PropertyManager() {
+                flpProperties.Controls.Add(new PropertyManager()
+                {
                     Property = c
                 });
             }
