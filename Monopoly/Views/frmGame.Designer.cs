@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -48,33 +49,33 @@
             this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
             this.tabCasePropSimple = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.pbxCasePropSimple = new System.Windows.Forms.PictureBox();
-            this.lblCasePropSimplePrixAchat = new System.Windows.Forms.Label();
-            this.tabCasePropAchetee = new System.Windows.Forms.TabPage();
-            this.tabCaseChanceChancel = new System.Windows.Forms.TabPage();
-            this.tabCaseTaxe = new System.Windows.Forms.TabPage();
-            this.tabCaseCoin = new System.Windows.Forms.TabPage();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.btnAcheterPropriete = new System.Windows.Forms.Button();
+            this.lblCasePropSimplePrixAchat = new System.Windows.Forms.Label();
+            this.pbxCasePropSimple = new System.Windows.Forms.PictureBox();
+            this.tabCasePropAchetee = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCasePropAchetee = new System.Windows.Forms.Label();
             this.pbxCasePropAchetee = new System.Windows.Forms.PictureBox();
             this.pbxCasePropAcheteeImage = new System.Windows.Forms.PictureBox();
-            this.gameView = new Monopoly.Views.GameView();
+            this.tabCaseChanceChancel = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseChanceChancelTitre = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCaseChanceChancel = new System.Windows.Forms.Label();
             this.pbxCaseChanceImage = new System.Windows.Forms.PictureBox();
+            this.tabCaseTaxe = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseTaxeTitre = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.pbxCaseTaxeCarte = new System.Windows.Forms.PictureBox();
+            this.tabCaseCoin = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.tmrLancerDes = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -90,18 +91,18 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).BeginInit();
             this.tabCasePropAchetee.SuspendLayout();
-            this.tabCaseChanceChancel.SuspendLayout();
-            this.tabCaseTaxe.SuspendLayout();
-            this.tabCaseCoin.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).BeginInit();
+            this.tabCaseChanceChancel.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).BeginInit();
+            this.tabCaseTaxe.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).BeginInit();
+            this.tabCaseCoin.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).BeginInit();
             this.SuspendLayout();
@@ -122,6 +123,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -292,7 +304,8 @@
             // 
             // pbxDe1
             // 
-            this.pbxDe1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxDe1.BackgroundImage = global::Monopoly.Properties.Resources.de1;
+            this.pbxDe1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxDe1.Location = new System.Drawing.Point(43, 3);
             this.pbxDe1.Margin = new System.Windows.Forms.Padding(43, 3, 10, 3);
             this.pbxDe1.Name = "pbxDe1";
@@ -302,7 +315,8 @@
             // 
             // pbxDe2
             // 
-            this.pbxDe2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxDe2.BackgroundImage = global::Monopoly.Properties.Resources.de2;
+            this.pbxDe2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxDe2.Location = new System.Drawing.Point(135, 3);
             this.pbxDe2.Name = "pbxDe2";
             this.pbxDe2.Size = new System.Drawing.Size(79, 79);
@@ -318,6 +332,7 @@
             this.btnLancerDes.TabIndex = 1;
             this.btnLancerDes.Text = "Lancer dés!";
             this.btnLancerDes.UseVisualStyleBackColor = true;
+            this.btnLancerDes.Click += new System.EventHandler(this.btnLancerDes_Click);
             // 
             // tabProperties
             // 
@@ -371,16 +386,16 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(266, 723);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
-            // pbxCasePropSimple
+            // btnAcheterPropriete
             // 
-            this.pbxCasePropSimple.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
-            this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
-            this.pbxCasePropSimple.Name = "pbxCasePropSimple";
-            this.pbxCasePropSimple.Size = new System.Drawing.Size(140, 210);
-            this.pbxCasePropSimple.TabIndex = 0;
-            this.pbxCasePropSimple.TabStop = false;
+            this.btnAcheterPropriete.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAcheterPropriete.Location = new System.Drawing.Point(33, 527);
+            this.btnAcheterPropriete.Margin = new System.Windows.Forms.Padding(33, 3, 35, 3);
+            this.btnAcheterPropriete.Name = "btnAcheterPropriete";
+            this.btnAcheterPropriete.Size = new System.Drawing.Size(198, 67);
+            this.btnAcheterPropriete.TabIndex = 2;
+            this.btnAcheterPropriete.Text = "Acheter propriété";
+            this.btnAcheterPropriete.UseVisualStyleBackColor = true;
             // 
             // lblCasePropSimplePrixAchat
             // 
@@ -393,6 +408,17 @@
             this.lblCasePropSimplePrixAchat.Text = "Prix d\'achat : \r\n000 F";
             this.lblCasePropSimplePrixAchat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pbxCasePropSimple
+            // 
+            this.pbxCasePropSimple.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
+            this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
+            this.pbxCasePropSimple.Name = "pbxCasePropSimple";
+            this.pbxCasePropSimple.Size = new System.Drawing.Size(140, 210);
+            this.pbxCasePropSimple.TabIndex = 0;
+            this.pbxCasePropSimple.TabStop = false;
+            // 
             // tabCasePropAchetee
             // 
             this.tabCasePropAchetee.Controls.Add(this.tableLayoutPanel6);
@@ -403,56 +429,6 @@
             this.tabCasePropAchetee.TabIndex = 3;
             this.tabCasePropAchetee.Text = "Propriété Achetee";
             this.tabCasePropAchetee.UseVisualStyleBackColor = true;
-            // 
-            // tabCaseChanceChancel
-            // 
-            this.tabCaseChanceChancel.Controls.Add(this.tableLayoutPanel7);
-            this.tabCaseChanceChancel.Location = new System.Drawing.Point(4, 27);
-            this.tabCaseChanceChancel.Name = "tabCaseChanceChancel";
-            this.tabCaseChanceChancel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCaseChanceChancel.Size = new System.Drawing.Size(272, 729);
-            this.tabCaseChanceChancel.TabIndex = 4;
-            this.tabCaseChanceChancel.Text = "Case Chance/Chancellerie";
-            this.tabCaseChanceChancel.UseVisualStyleBackColor = true;
-            // 
-            // tabCaseTaxe
-            // 
-            this.tabCaseTaxe.Controls.Add(this.tableLayoutPanel8);
-            this.tabCaseTaxe.Location = new System.Drawing.Point(4, 27);
-            this.tabCaseTaxe.Name = "tabCaseTaxe";
-            this.tabCaseTaxe.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCaseTaxe.Size = new System.Drawing.Size(272, 729);
-            this.tabCaseTaxe.TabIndex = 5;
-            this.tabCaseTaxe.Text = "Case Taxe";
-            this.tabCaseTaxe.UseVisualStyleBackColor = true;
-            // 
-            // tabCaseCoin
-            // 
-            this.tabCaseCoin.Controls.Add(this.tableLayoutPanel9);
-            this.tabCaseCoin.Location = new System.Drawing.Point(4, 27);
-            this.tabCaseCoin.Name = "tabCaseCoin";
-            this.tabCaseCoin.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCaseCoin.Size = new System.Drawing.Size(272, 729);
-            this.tabCaseCoin.TabIndex = 6;
-            this.tabCaseCoin.Text = "Case coin";
-            this.tabCaseCoin.UseVisualStyleBackColor = true;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 16;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // btnAcheterPropriete
-            // 
-            this.btnAcheterPropriete.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAcheterPropriete.Location = new System.Drawing.Point(33, 527);
-            this.btnAcheterPropriete.Margin = new System.Windows.Forms.Padding(33, 3, 35, 3);
-            this.btnAcheterPropriete.Name = "btnAcheterPropriete";
-            this.btnAcheterPropriete.Size = new System.Drawing.Size(198, 67);
-            this.btnAcheterPropriete.TabIndex = 2;
-            this.btnAcheterPropriete.Text = "Acheter propriété";
-            this.btnAcheterPropriete.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel6
             // 
@@ -505,16 +481,16 @@
             this.pbxCasePropAcheteeImage.TabIndex = 2;
             this.pbxCasePropAcheteeImage.TabStop = false;
             // 
-            // gameView
+            // tabCaseChanceChancel
             // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
+            this.tabCaseChanceChancel.Controls.Add(this.tableLayoutPanel7);
+            this.tabCaseChanceChancel.Location = new System.Drawing.Point(4, 27);
+            this.tabCaseChanceChancel.Name = "tabCaseChanceChancel";
+            this.tabCaseChanceChancel.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCaseChanceChancel.Size = new System.Drawing.Size(272, 729);
+            this.tabCaseChanceChancel.TabIndex = 4;
+            this.tabCaseChanceChancel.Text = "Case Chance/Chancellerie";
+            this.tabCaseChanceChancel.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel7
             // 
@@ -538,10 +514,10 @@
             this.lblCaseChanceChancelTitre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCaseChanceChancelTitre.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCaseChanceChancelTitre.ForeColor = System.Drawing.Color.Black;
-            this.lblCaseChanceChancelTitre.Location = new System.Drawing.Point(3, 20);
+            this.lblCaseChanceChancelTitre.Location = new System.Drawing.Point(3, 30);
             this.lblCaseChanceChancelTitre.Margin = new System.Windows.Forms.Padding(3, 30, 3, 0);
             this.lblCaseChanceChancelTitre.Name = "lblCaseChanceChancelTitre";
-            this.lblCaseChanceChancelTitre.Size = new System.Drawing.Size(260, 94);
+            this.lblCaseChanceChancelTitre.Size = new System.Drawing.Size(260, 84);
             this.lblCaseChanceChancelTitre.TabIndex = 0;
             this.lblCaseChanceChancelTitre.Text = "Chance/Chancellerie";
             // 
@@ -584,6 +560,17 @@
             this.pbxCaseChanceImage.Size = new System.Drawing.Size(206, 241);
             this.pbxCaseChanceImage.TabIndex = 2;
             this.pbxCaseChanceImage.TabStop = false;
+            // 
+            // tabCaseTaxe
+            // 
+            this.tabCaseTaxe.Controls.Add(this.tableLayoutPanel8);
+            this.tabCaseTaxe.Location = new System.Drawing.Point(4, 27);
+            this.tabCaseTaxe.Name = "tabCaseTaxe";
+            this.tabCaseTaxe.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCaseTaxe.Size = new System.Drawing.Size(272, 729);
+            this.tabCaseTaxe.TabIndex = 5;
+            this.tabCaseTaxe.Text = "Case Taxe";
+            this.tabCaseTaxe.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel8
             // 
@@ -643,6 +630,17 @@
             this.pbxCaseTaxeCarte.TabIndex = 3;
             this.pbxCaseTaxeCarte.TabStop = false;
             // 
+            // tabCaseCoin
+            // 
+            this.tabCaseCoin.Controls.Add(this.tableLayoutPanel9);
+            this.tabCaseCoin.Location = new System.Drawing.Point(4, 27);
+            this.tabCaseCoin.Name = "tabCaseCoin";
+            this.tabCaseCoin.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCaseCoin.Size = new System.Drawing.Size(272, 729);
+            this.tabCaseCoin.TabIndex = 6;
+            this.tabCaseCoin.Text = "Case coin";
+            this.tabCaseCoin.UseVisualStyleBackColor = true;
+            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 1;
@@ -659,6 +657,16 @@
             this.tableLayoutPanel9.Size = new System.Drawing.Size(266, 723);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(3, 385);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(260, 179);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pbxCaseCoin
             // 
             this.pbxCaseCoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -670,15 +678,15 @@
             this.pbxCaseCoin.TabIndex = 3;
             this.pbxCaseCoin.TabStop = false;
             // 
-            // label1
+            // timer
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(3, 385);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 179);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.timer.Enabled = true;
+            this.timer.Interval = 16;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // tmrLancerDes
+            // 
+            this.tmrLancerDes.Tick += new System.EventHandler(this.tmrLancerDes_Tick);
             // 
             // frmGame
             // 
@@ -706,18 +714,18 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).EndInit();
             this.tabCasePropAchetee.ResumeLayout(false);
-            this.tabCaseChanceChancel.ResumeLayout(false);
-            this.tabCaseTaxe.ResumeLayout(false);
-            this.tabCaseCoin.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).EndInit();
+            this.tabCaseChanceChancel.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).EndInit();
+            this.tabCaseTaxe.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.flowLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).EndInit();
+            this.tabCaseCoin.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).EndInit();
             this.ResumeLayout(false);
@@ -772,6 +780,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
+        private System.Windows.Forms.Timer tmrLancerDes;
     }
 }
 
