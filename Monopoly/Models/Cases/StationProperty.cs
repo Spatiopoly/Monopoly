@@ -41,7 +41,7 @@ namespace Monopoly.Models.Cases
 
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 60, 63, 12, 12));
                 g.DrawString("PRIX :    " + STATION_PRICE.ToString(), new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
-                g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 73, rectangle.Width - 20, rectangle.Width - 20));
+                g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
             return img;

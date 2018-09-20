@@ -45,16 +45,9 @@ namespace Monopoly.Models
         /// <summary>
         /// Initialize a new game
         /// </summary>
-        public Game()
+        public Game(List<Player> players)
         {
-            Players = new List<Player>() {
-                new Player(Player.PlayerColor.Green, "Vanille"),
-                new Player(Player.PlayerColor.Blue, "Nicolapps"),
-                new Player(Player.PlayerColor.Red, "Willyart"),
-                new Player(Player.PlayerColor.Purple, "Dams00"),
-                                new Player(Player.PlayerColor.Yellow, "Dams00"),
-
-            };
+            Players = players;
 
             Cases = new List<AbstractCase>() {
                 new StartCase(),
@@ -71,7 +64,7 @@ namespace Monopoly.Models
 
                 new JailCase(),
                 new StreetProperty(PropertyColor.Pink, "St. Charles Place", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
-                new UtilityProperty("Electric Company"),
+                new UtilityProperty("Nuclear Energy Company"),
                 new StreetProperty(PropertyColor.Pink, "States Avenue", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
                 new StreetProperty(PropertyColor.Pink, "Virginia Avenue", 160, 100, new int[] { 12, 60, 180, 500, 700, 900 }),
                 new StationProperty("Pennsylvania Railroad"),
@@ -88,7 +81,7 @@ namespace Monopoly.Models
                 new StationProperty("B. & O. Railroad"),
                 new StreetProperty(PropertyColor.Yellow, "Atlantic Avenue", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
                 new StreetProperty(PropertyColor.Yellow, "Ventnor Avenue", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
-                new UtilityProperty("Water Works"),
+                new UtilityProperty("Water Delivery"),
                 new StreetProperty(PropertyColor.Yellow, "Marvin Gardens", 280, 150, new int[] { 24, 120, 360, 850, 1025, 1200 }),
 
 

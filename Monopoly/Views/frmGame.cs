@@ -8,12 +8,13 @@ namespace Monopoly.Views
 {
     public partial class frmGame : Form
     {
+        Game game;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
-        Game game = new Game();
 
-        public frmGame()
+        public frmGame(Game game)
         {
             InitializeComponent();
+            this.game = game;
 
             gameView.Game = game;
             gameView.PrimaryColor = primaryColor;
