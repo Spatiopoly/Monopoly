@@ -57,7 +57,6 @@ namespace Monopoly.Views
             {
                 Game game = new Game(lstPlayers);
                 Form frmGame = new frmGame(game);
-                frmGame.WindowState = FormWindowState.Maximized;
                 frmGame.Show();
                 this.Close();
             }
