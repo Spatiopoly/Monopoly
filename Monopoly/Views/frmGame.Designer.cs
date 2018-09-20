@@ -133,7 +133,7 @@
             this.gameView.Location = new System.Drawing.Point(0, 0);
             this.gameView.Margin = new System.Windows.Forms.Padding(0);
             this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.Size = new System.Drawing.Size(657, 604);
             this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
@@ -199,6 +199,7 @@
             this.btnNextPlayer.Size = new System.Drawing.Size(85, 85);
             this.btnNextPlayer.TabIndex = 4;
             this.btnNextPlayer.UseVisualStyleBackColor = false;
+            this.btnNextPlayer.Click += new System.EventHandler(this.btnNextPlayer_Click);
             // 
             // btnExchange
             // 
@@ -691,7 +692,7 @@
             // 
             this.tmrDice.Interval = 2000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            // 
+            //
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -703,6 +704,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monopoly";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
