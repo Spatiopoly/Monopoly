@@ -19,7 +19,7 @@ namespace Monopoly.Views
             gameView.Game = game;
             gameView.PrimaryColor = primaryColor;
 
-            game.NextPlayer += Game_NextPlayer;
+            game.CurrentPlayerChanged += Game_CurrentPlayerChanged;
 
             game.Start();
         }
@@ -28,11 +28,11 @@ namespace Monopoly.Views
         /// Handle the change of the current player
         /// </summary>
         /// <param name="game"></param>
-        private void Game_NextPlayer(Game game)
+        private void Game_CurrentPlayerChanged(Game game)
         {
             primaryColor.Set(game.CurrentPlayer.Color.GetColor());
 
-            // Load the propertie
+            // Load the properties
             flpProperties.Controls.Clear();
             var cases = game.CurrentPlayer.GetProperties(game);
             foreach (PropertyCase c in cases)
@@ -53,6 +53,16 @@ namespace Monopoly.Views
         {
             gameView.Invalidate();
             tlpSidebar.BackColor = primaryColor.DisplayedValue;
+        }
+
+        /// <summary>
+        /// Click on the "next player" button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNextPlayer_Click(object sender, EventArgs e)
+        {
+            game.NextPlayer();
         }
     }
 }

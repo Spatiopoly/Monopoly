@@ -129,6 +129,7 @@
             this.btnNextPlayer.Size = new System.Drawing.Size(85, 85);
             this.btnNextPlayer.TabIndex = 4;
             this.btnNextPlayer.UseVisualStyleBackColor = false;
+            this.btnNextPlayer.Click += new System.EventHandler(this.btnNextPlayer_Click);
             // 
             // btnExchange
             // 
