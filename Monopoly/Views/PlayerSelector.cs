@@ -31,10 +31,9 @@ namespace Monopoly.Views
 
                 if (value == false)
                     tbxNamePlayer.Text = string.Empty;
+                else
+                    tbxNamePlayer.Text = "Player";
 
-                // tbxNamePlayer.BorderStyle = IsActive ? BorderStyle.Fixed3D : BorderStyle.None;
-
-                // tbxNamePlayer.BackColor = IsActive ? System.Drawing.Color.White : System.Drawing.Color.LightGray;
                 tbxNamePlayer.Enabled = value;
 
                 btnAddPlayer.Focus();

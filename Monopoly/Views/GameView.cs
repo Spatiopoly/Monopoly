@@ -35,6 +35,9 @@ namespace Monopoly.Views
 
         public ColorProperty PrimaryColor { get; set; } = new ColorProperty(Color.Silver);
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public GameView()
         {
             DoubleBuffered = true;
@@ -48,6 +51,10 @@ namespace Monopoly.Views
             this.ResumeLayout(false);
         }
 
+        /// <summary>
+        /// Paint game view
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
