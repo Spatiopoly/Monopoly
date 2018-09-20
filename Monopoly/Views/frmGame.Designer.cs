@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,7 +42,6 @@
             this.tabProperties = new System.Windows.Forms.TabPage();
             this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.gameView = new Monopoly.Views.GameView();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -65,6 +65,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(957, 604);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(657, 604);
+            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -214,17 +225,6 @@
             this.timer.Interval = 16;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(657, 604);
-            this.gameView.TabIndex = 0;
-            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,7 +234,9 @@
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmGame";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monopoly";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
