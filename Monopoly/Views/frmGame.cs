@@ -35,6 +35,9 @@ namespace Monopoly.Views
             game.NextPlayer += Game_NextPlayer;
 
             game.Start();
+
+            foreach (TabPage tp in new TabPage[] { tabCaseChanceChancel, tabCaseCoin, tabCasePropAchetee, tabCasePropSimple, tabCaseTaxe })
+                tp.Name = "Case actuelle";
         }
 
         /// <summary>
@@ -120,21 +123,17 @@ namespace Monopoly.Views
                         if (currentCase is StartCase)
                         {
                             c.Text = "Case Start" + Environment.NewLine + "Vous Gagner 200 F";
-                            tabCaseCoin.Text = "Case Start";
                         }
                         else if (currentCase is FreeParkingCase)
                         {
                             c.Text = "Pause Temporelle";
-                            tabCaseCoin.Text = "Pause";
                         }
                         else if (currentCase is GoToJailCase)
                         {
                             c.Text = "Aller en Prison!!!";
-                            tabCaseCoin.Text = "Go Prison";
                         }
                         else
                         {
-                            tabCaseCoin.Text = "Prison";
                             // Si il est en prison :
                             c.Text = "Vous êtes prisonnier";
                             // Si il est en visite :
@@ -151,7 +150,6 @@ namespace Monopoly.Views
             else if (currentCase is TaxCase)
             {
                 TaxCase taxe = currentCase as TaxCase;
-                tabCaseTaxe.Text = "Taxe";
                 pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
                 pbxCaseTaxeCarte.BackgroundImageLayout = ImageLayout.Zoom;
                 tabs.TabPages.Add(tabCaseTaxe);
@@ -164,7 +162,6 @@ namespace Monopoly.Views
                 {
                     if (specialCard.Type == CardType.Chance)
                     {
-                        tabCaseChanceChancel.Text = "Chance";
 
                         if (c.Name == "lblCaseChanceChancelTitre")
                         {
@@ -182,8 +179,6 @@ namespace Monopoly.Views
                     }
                     else
                     {
-                        tabCaseChanceChancel.Text = "Chancellerie";
-
                         if (c.Name == "lblCaseChanceChancelTitre")
                         {
                             c.Text = "Chancellerie";
@@ -259,7 +254,7 @@ namespace Monopoly.Views
 
         private void btnAcheterPropriete_Click(object sender, EventArgs e)
         {
-
+            // @TODO
         }
     }
 }

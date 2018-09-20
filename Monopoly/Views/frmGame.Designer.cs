@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -72,11 +73,10 @@
             this.tabCaseCoin = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseCoin = new System.Windows.Forms.Label();
+            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.gameView = new Monopoly.Views.GameView();
-            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -124,6 +124,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -224,12 +235,12 @@
             // tabs
             // 
             this.tabs.Controls.Add(this.tabCaseDes);
-            this.tabs.Controls.Add(this.tabProperties);
             this.tabs.Controls.Add(this.tabCasePropSimple);
             this.tabs.Controls.Add(this.tabCasePropAchetee);
             this.tabs.Controls.Add(this.tabCaseChanceChancel);
             this.tabs.Controls.Add(this.tabCaseTaxe);
             this.tabs.Controls.Add(this.tabCaseCoin);
+            this.tabs.Controls.Add(this.tabProperties);
             this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabs.Location = new System.Drawing.Point(10, 10);
@@ -247,7 +258,7 @@
             this.tabCaseDes.Padding = new System.Windows.Forms.Padding(3);
             this.tabCaseDes.Size = new System.Drawing.Size(272, 729);
             this.tabCaseDes.TabIndex = 0;
-            this.tabCaseDes.Text = "Lancer dés";
+            this.tabCaseDes.Text = "Lancer les dés";
             this.tabCaseDes.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
@@ -320,7 +331,7 @@
             this.btnLancerDes.Name = "btnLancerDes";
             this.btnLancerDes.Size = new System.Drawing.Size(173, 36);
             this.btnLancerDes.TabIndex = 1;
-            this.btnLancerDes.Text = "Lancer dés!";
+            this.btnLancerDes.Text = "Lancer les dés !";
             this.btnLancerDes.UseVisualStyleBackColor = true;
             this.btnLancerDes.Click += new System.EventHandler(this.btnLancerDes_Click);
             // 
@@ -355,7 +366,7 @@
             this.tabCasePropSimple.Padding = new System.Windows.Forms.Padding(3);
             this.tabCasePropSimple.Size = new System.Drawing.Size(272, 729);
             this.tabCasePropSimple.TabIndex = 2;
-            this.tabCasePropSimple.Text = "Achat Propriété";
+            this.tabCasePropSimple.Text = "Acheter une case";
             this.tabCasePropSimple.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -417,7 +428,7 @@
             this.tabCasePropAchetee.Padding = new System.Windows.Forms.Padding(3);
             this.tabCasePropAchetee.Size = new System.Drawing.Size(272, 729);
             this.tabCasePropAchetee.TabIndex = 3;
-            this.tabCasePropAchetee.Text = "Propriété Achetee";
+            this.tabCasePropAchetee.Text = "Ma case";
             this.tabCasePropAchetee.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel6
@@ -478,7 +489,7 @@
             this.tabCaseChanceChancel.Padding = new System.Windows.Forms.Padding(3);
             this.tabCaseChanceChancel.Size = new System.Drawing.Size(272, 729);
             this.tabCaseChanceChancel.TabIndex = 4;
-            this.tabCaseChanceChancel.Text = "Case Chance/Chancellerie";
+            this.tabCaseChanceChancel.Text = "Carte";
             this.tabCaseChanceChancel.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel7
@@ -558,7 +569,7 @@
             this.tabCaseTaxe.Padding = new System.Windows.Forms.Padding(3);
             this.tabCaseTaxe.Size = new System.Drawing.Size(272, 729);
             this.tabCaseTaxe.TabIndex = 5;
-            this.tabCaseTaxe.Text = "Case Taxe";
+            this.tabCaseTaxe.Text = "Taxe";
             this.tabCaseTaxe.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel8
@@ -626,7 +637,7 @@
             this.tabCaseCoin.Padding = new System.Windows.Forms.Padding(3);
             this.tabCaseCoin.Size = new System.Drawing.Size(272, 729);
             this.tabCaseCoin.TabIndex = 6;
-            this.tabCaseCoin.Text = "Case coin";
+            this.tabCaseCoin.Text = "Inactive";
             this.tabCaseCoin.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel9
@@ -655,6 +666,16 @@
             this.lblCaseCoin.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
             this.lblCaseCoin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pbxCaseCoin
+            // 
+            this.pbxCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbxCaseCoin.Location = new System.Drawing.Point(23, 30);
+            this.pbxCaseCoin.Margin = new System.Windows.Forms.Padding(23, 30, 23, 0);
+            this.pbxCaseCoin.Name = "pbxCaseCoin";
+            this.pbxCaseCoin.Size = new System.Drawing.Size(220, 330);
+            this.pbxCaseCoin.TabIndex = 3;
+            this.pbxCaseCoin.TabStop = false;
+            // 
             // tmrRefresh
             // 
             this.tmrRefresh.Enabled = true;
@@ -670,27 +691,6 @@
             // 
             this.tmrDice.Interval = 2000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
-            // 
-            // pbxCaseCoin
-            // 
-            this.pbxCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbxCaseCoin.Location = new System.Drawing.Point(23, 30);
-            this.pbxCaseCoin.Margin = new System.Windows.Forms.Padding(23, 30, 23, 0);
-            this.pbxCaseCoin.Name = "pbxCaseCoin";
-            this.pbxCaseCoin.Size = new System.Drawing.Size(220, 330);
-            this.pbxCaseCoin.TabIndex = 3;
-            this.pbxCaseCoin.TabStop = false;
             // 
             // frmGame
             // 
