@@ -43,5 +43,11 @@ namespace Monopoly.Models.Cases
 
             return image;
         }
+
+        /// <summary>
+        /// Get the stay price for the case
+        /// </summary>
+        /// <returns>Rent</returns>
+        public abstract int GetRent();
     }
 }

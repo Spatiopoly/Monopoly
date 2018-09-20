@@ -8,10 +8,11 @@ namespace Monopoly.Models.Cases
 {
     class CardCase : AbstractCase
     {
+        public CardType Type { get; private set; }
 
         public CardCase(CardType type)
         {
-
+            Type = type;
         }
 
         public override void Land(Game game)

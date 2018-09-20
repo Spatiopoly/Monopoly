@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -61,7 +60,7 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseChanceChancelTitre = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpCouleur = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCaseChanceChancel = new System.Windows.Forms.Label();
             this.pbxCaseChanceImage = new System.Windows.Forms.PictureBox();
             this.tabCaseTaxe = new System.Windows.Forms.TabPage();
@@ -72,10 +71,12 @@
             this.pbxCaseTaxeCarte = new System.Windows.Forms.PictureBox();
             this.tabCaseCoin = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCaseCoin = new System.Windows.Forms.Label();
+            this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
+            this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
+            this.tmrDice = new System.Windows.Forms.Timer(this.components);
+            this.gameView = new Monopoly.Views.GameView();
             this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.tmrLancerDes = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -123,17 +124,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -365,7 +355,7 @@
             this.tabCasePropSimple.Padding = new System.Windows.Forms.Padding(3);
             this.tabCasePropSimple.Size = new System.Drawing.Size(272, 729);
             this.tabCasePropSimple.TabIndex = 2;
-            this.tabCasePropSimple.Text = "Propriété Simple";
+            this.tabCasePropSimple.Text = "Achat Propriété";
             this.tabCasePropSimple.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -396,6 +386,7 @@
             this.btnAcheterPropriete.TabIndex = 2;
             this.btnAcheterPropriete.Text = "Acheter propriété";
             this.btnAcheterPropriete.UseVisualStyleBackColor = true;
+            this.btnAcheterPropriete.Click += new System.EventHandler(this.btnAcheterPropriete_Click);
             // 
             // lblCasePropSimplePrixAchat
             // 
@@ -410,7 +401,6 @@
             // 
             // pbxCasePropSimple
             // 
-            this.pbxCasePropSimple.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
             this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
@@ -461,7 +451,6 @@
             // 
             // pbxCasePropAchetee
             // 
-            this.pbxCasePropAchetee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCasePropAchetee.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCasePropAchetee.Location = new System.Drawing.Point(63, 74);
             this.pbxCasePropAchetee.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
@@ -523,7 +512,7 @@
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
+            this.flowLayoutPanel2.Controls.Add(this.flpCouleur);
             this.flowLayoutPanel2.Controls.Add(this.lblCaseChanceChancel);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 117);
@@ -531,14 +520,14 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(260, 282);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
-            // flowLayoutPanel3
+            // flpCouleur
             // 
-            this.flowLayoutPanel3.BackColor = System.Drawing.Color.Green;
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(260, 16);
-            this.flowLayoutPanel3.TabIndex = 2;
+            this.flpCouleur.BackColor = System.Drawing.Color.Green;
+            this.flpCouleur.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpCouleur.Location = new System.Drawing.Point(3, 3);
+            this.flpCouleur.Name = "flpCouleur";
+            this.flpCouleur.Size = new System.Drawing.Size(260, 16);
+            this.flpCouleur.TabIndex = 2;
             // 
             // lblCaseChanceChancel
             // 
@@ -621,7 +610,6 @@
             // 
             // pbxCaseTaxeCarte
             // 
-            this.pbxCaseTaxeCarte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCaseTaxeCarte.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 102);
             this.pbxCaseTaxeCarte.Margin = new System.Windows.Forms.Padding(62, 80, 64, 7);
@@ -645,7 +633,7 @@
             // 
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.lblCaseCoin, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.pbxCaseCoin, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 3);
@@ -657,19 +645,45 @@
             this.tableLayoutPanel9.Size = new System.Drawing.Size(266, 723);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
-            // label1
+            // lblCaseCoin
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(3, 385);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 179);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblCaseCoin.Location = new System.Drawing.Point(3, 385);
+            this.lblCaseCoin.Name = "lblCaseCoin";
+            this.lblCaseCoin.Size = new System.Drawing.Size(260, 179);
+            this.lblCaseCoin.TabIndex = 4;
+            this.lblCaseCoin.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
+            this.lblCaseCoin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tmrRefresh
+            // 
+            this.tmrRefresh.Enabled = true;
+            this.tmrRefresh.Interval = 16;
+            this.tmrRefresh.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // tmrDiceAnimation
+            // 
+            this.tmrDiceAnimation.Interval = 10;
+            this.tmrDiceAnimation.Tick += new System.EventHandler(this.tmrLancerDes_Tick);
+            // 
+            // tmrDice
+            // 
+            this.tmrDice.Interval = 2000;
+            this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // pbxCaseCoin
             // 
-            this.pbxCaseCoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
             this.pbxCaseCoin.Location = new System.Drawing.Point(23, 30);
             this.pbxCaseCoin.Margin = new System.Windows.Forms.Padding(23, 30, 23, 0);
@@ -677,16 +691,6 @@
             this.pbxCaseCoin.Size = new System.Drawing.Size(220, 330);
             this.pbxCaseCoin.TabIndex = 3;
             this.pbxCaseCoin.TabStop = false;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 16;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // tmrLancerDes
-            // 
-            this.tmrLancerDes.Tick += new System.EventHandler(this.tmrLancerDes_Tick);
             // 
             // frmGame
             // 
@@ -746,7 +750,7 @@
         private System.Windows.Forms.TabPage tabCaseDes;
         private System.Windows.Forms.TabPage tabProperties;
         private System.Windows.Forms.FlowLayoutPanel flpProperties;
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer tmrRefresh;
         private System.Windows.Forms.TabPage tabCasePropSimple;
         private System.Windows.Forms.TabPage tabCasePropAchetee;
         private System.Windows.Forms.TabPage tabCaseChanceChancel;
@@ -769,7 +773,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Label lblCaseChanceChancelTitre;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.FlowLayoutPanel flpCouleur;
         private System.Windows.Forms.Label lblCaseChanceChancel;
         private System.Windows.Forms.PictureBox pbxCaseChanceImage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
@@ -778,9 +782,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.PictureBox pbxCaseTaxeCarte;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCaseCoin;
+        private System.Windows.Forms.Timer tmrDiceAnimation;
+        private System.Windows.Forms.Timer tmrDice;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
-        private System.Windows.Forms.Timer tmrLancerDes;
     }
 }
 

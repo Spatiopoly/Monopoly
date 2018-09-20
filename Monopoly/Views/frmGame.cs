@@ -45,7 +45,7 @@ namespace Monopoly.Views
         {
             primaryColor.Set(game.CurrentPlayer.Color.GetColor());
 
-            // Load the propertie
+            // Load the properties
             flpProperties.Controls.Clear();
             var cases = game.CurrentPlayer.GetProperties(game);
             foreach (PropertyCase c in cases)
@@ -55,6 +55,8 @@ namespace Monopoly.Views
                     Property = c
                 });
             }
+
+            UpdateTabs();
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Monopoly.Views
 
         private void btnLancerDes_Click(object sender, EventArgs e)
         {
-            tmrLancerDes.Enabled = true;
+            tmrDiceAnimation.Enabled = true;
         }
 
         private void tmrLancerDes_Tick(object sender, EventArgs e)
@@ -86,7 +88,7 @@ namespace Monopoly.Views
             if (compteurImageDes == 10)
             {
                 resultFirstDice = rnd.Next(1, 7);
-                tmrLancerDes.Enabled = false;
+                tmrDiceAnimation.Enabled = false;
                 compteurImageDes = 0;
                 
                 resultSecDice = rnd.Next(1, 7);
@@ -94,9 +96,170 @@ namespace Monopoly.Views
                 pbxDe1.BackgroundImage = diceImages[resultFirstDice];
                 pbxDe2.BackgroundImage = diceImages[resultSecDice];
 
-                // Envoyer le resultat des dé aux pions pour qu'il puissent avancer
+                tmrDice.Enabled = true;
             }
+
             compteurImageDes++;
+        }
+
+        public void UpdateTabs()
+        {
+            Player currentPlayer = game.CurrentPlayer;
+            currentPlayer.CurrentCaseIndex = 1;
+            AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
+
+            tabs.TabPages.Clear();
+            tabs.TabPages.Add(tabCaseDes);
+
+            if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
+            {
+                foreach (Control c in tableLayoutPanel9.Controls)
+                {
+                    if (c.Name == "lblCaseCoin")
+                    {
+                        if (currentCase is StartCase)
+                        {
+                            c.Text = "Case Start" + Environment.NewLine + "Vous Gagner 200 F";
+                            tabCaseCoin.Text = "Case Start";
+                        }
+                        else if (currentCase is FreeParkingCase)
+                        {
+                            c.Text = "Pause Temporelle";
+                            tabCaseCoin.Text = "Pause";
+                        }
+                        else if (currentCase is GoToJailCase)
+                        {
+                            c.Text = "Aller en Prison!!!";
+                            tabCaseCoin.Text = "Go Prison";
+                        }
+                        else
+                        {
+                            tabCaseCoin.Text = "Prison";
+                            // Si il est en prison :
+                            c.Text = "Vous êtes prisonnier";
+                            // Si il est en visite :
+                            c.Text = "Visite de la prison";
+                        }
+                    }
+
+                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                    pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
+                }
+
+                tabs.TabPages.Add(tabCaseCoin);
+            }
+            else if (currentCase is TaxCase)
+            {
+                TaxCase taxe = currentCase as TaxCase;
+                tabCaseTaxe.Text = "Taxe";
+                pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
+                pbxCaseTaxeCarte.BackgroundImageLayout = ImageLayout.Zoom;
+                tabs.TabPages.Add(tabCaseTaxe);
+            }
+            else if (currentCase is CardCase)
+            {
+                CardCase specialCard = currentCase as CardCase;
+
+                foreach (Control c in tableLayoutPanel7.Controls)
+                {
+                    if (specialCard.Type == CardType.Chance)
+                    {
+                        tabCaseChanceChancel.Text = "Chance";
+
+                        if (c.Name == "lblCaseChanceChancelTitre")
+                        {
+                            c.Text = "Chance";
+                        }
+
+                        if (c.Name == "flpCouleur")
+                        {
+                            c.BackColor = Color.Green;
+                        }
+
+                        Control[] ctrlsPbx = tableLayoutPanel7.Controls.Find("pbxCaseChanceImage", true);
+                        // Mettre image trefle:
+                        //ctrlsPbx[0].BackgroundImage = Properties.Resources.
+                    }
+                    else
+                    {
+                        tabCaseChanceChancel.Text = "Chancellerie";
+
+                        if (c.Name == "lblCaseChanceChancelTitre")
+                        {
+                            c.Text = "Chancellerie";
+                        }
+
+                        Control[] ctrlsPbx = tableLayoutPanel7.Controls.Find("pbxCaseChanceImage", true);
+                        // Mettre image Coffre:
+                        //ctrlsPbx[0].BackgroundImage = Properties.Resources.
+
+                        Control[] ctrls = flowLayoutPanel2.Controls.Find("flpCouleur", true);
+                        ctrls[0].BackColor = Color.Red;
+                    }
+
+                    if (c.Name == "lblCaseChanceChancel")
+                    {
+                        //c.Text = Mettre le texte de la carte Chance ou Chancellerie
+                    }
+                }
+
+                tabs.TabPages.Add(tabCaseChanceChancel);
+            }
+            else if (currentCase is PropertyCase)
+            {
+                PropertyCase property = currentCase as PropertyCase;
+
+                if (property.Owner == currentPlayer || property.Owner != null)
+                {
+                    foreach (Control c in tableLayoutPanel6.Controls)
+                    {
+                        if (property.Owner == currentPlayer)
+                        {
+                            if (c.Name == "lblCasePropAchetee")
+                            {
+                                tabCasePropAchetee.Text = "Votre Propriété";
+                                c.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
+                            }
+                        }
+                        else
+                        {
+                            if (c.Name == "lblCasePropAchetee")
+                            {
+                                tabCasePropAchetee.Text = "Chez " + property.Owner.Name;
+                                c.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                            }
+                        }
+
+                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+                        pbxCasePropAchetee.BackgroundImageLayout = ImageLayout.Zoom;
+                    }
+                    
+                    tabs.TabPages.Add(tabCasePropAchetee);
+                }
+                else
+                {
+                    pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                    pbxCasePropSimple.BackgroundImageLayout = ImageLayout.Zoom;
+
+                    tabCasePropSimple.Text = "Achat Propriété";
+                    Control[] crtls = tableLayoutPanel5.Controls.Find("lblCasePropSimplePrixAchat", true);
+                    crtls[0].Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
+                    tabs.TabPages.Add(tabCasePropSimple);
+                }
+            }
+
+            tabs.TabPages.Add(tabProperties);
+        }
+
+        private void tmrDice_Tick(object sender, EventArgs e)
+        {
+            // Envoyer le resultat des dé aux pions pour qu'il puissent avancer
+            tmrDice.Enabled = false;
+        }
+
+        private void btnAcheterPropriete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
