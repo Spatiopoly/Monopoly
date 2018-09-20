@@ -26,7 +26,7 @@ namespace Monopoly.Models
         public List<Player> Players { get; private set; }
 
         /// <summary>
-        /// The players who currently plays
+        /// The player who currently plays
         /// </summary>
         public Player CurrentPlayer
             => Players[_currentPlayerIndex];
@@ -37,9 +37,14 @@ namespace Monopoly.Models
         public List<AbstractCase> Cases { get; private set; }
 
         /// <summary>
-        /// 
+        /// All the cards (chance/community chest) that are remaining
         /// </summary>
         public List<AbstractCard> Cards { get; private set; }
+
+        /// <summary>
+        /// Know if the current player has played on the current turn (= rolled the dice)
+        /// </summary>
+        public bool HasPlayed { get; private set; } = true;
         #endregion
 
         /// <summary>
@@ -96,6 +101,8 @@ namespace Monopoly.Models
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
+
+            (Cases[1] as StreetProperty).Owner = players[0];
         }
 
         /// <summary>
@@ -111,12 +118,19 @@ namespace Monopoly.Models
         /// </summary>
         public void NextPlayer()
         {
+            // Update the current player
             _currentPlayerIndex = _currentPlayerIndex >= Players.Count - 1
                 ? 0
                 : _currentPlayerIndex + 1;
 
+            // Reset the turn variables
+            HasPlayed = false;
+
+            // Notify the view
             Message(this, "C'est au tour de " + CurrentPlayer.Name);
             CurrentPlayerChanged(this);
         }
+
+         
     }
 }
