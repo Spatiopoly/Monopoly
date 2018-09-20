@@ -111,5 +111,29 @@ namespace Monopoly
             return Properties.Resources.Center;
         }
 
+        /// <summary>
+        /// Get the default name of a player color
+        /// </summary>
+        /// <param name="playerColor"></param>
+        /// <returns></returns>
+        public static string GetDefaultName(this Player.PlayerColor playerColor)
+        {
+            switch (playerColor)
+            {
+                case Player.PlayerColor.Purple:
+                    return "Beerus";
+                case Player.PlayerColor.Yellow:
+                    return "SpaceCore";
+                case Player.PlayerColor.Green:
+                    return "Cayde";
+                case Player.PlayerColor.Red:
+                    return "Deadpool";
+                case Player.PlayerColor.Blue:
+                    return "Stitch";
+            }
+
+            return "Player";
+        }
+
     }
 }

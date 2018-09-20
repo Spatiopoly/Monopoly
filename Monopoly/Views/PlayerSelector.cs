@@ -29,12 +29,12 @@ namespace Monopoly.Views
             {
                 _isActive = value;
 
+                tbxNamePlayer.Enabled = value;
+
                 if (value == false)
                     tbxNamePlayer.Text = string.Empty;
                 else
-                    tbxNamePlayer.Text = "Player";
-
-                tbxNamePlayer.Enabled = value;
+                    tbxNamePlayer.Text = Color.GetDefaultName();
 
                 btnAddPlayer.Focus();
                 btnAddPlayer.Text = value ? "-" : "+";

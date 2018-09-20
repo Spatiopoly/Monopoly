@@ -73,9 +73,9 @@
             this.selectorPlayerBlue.IsActive = true;
             this.selectorPlayerBlue.Location = new System.Drawing.Point(12, 79);
             this.selectorPlayerBlue.Name = "selectorPlayerBlue";
-            this.selectorPlayerBlue.PlayerName = "";
+            this.selectorPlayerBlue.PlayerName = "Stitch";
             this.selectorPlayerBlue.Size = new System.Drawing.Size(390, 60);
-            this.selectorPlayerBlue.TabIndex = 2;
+            this.selectorPlayerBlue.TabIndex = 1;
             // 
             // selectorPlayerGreen
             // 
@@ -85,7 +85,7 @@
             this.selectorPlayerGreen.Name = "selectorPlayerGreen";
             this.selectorPlayerGreen.PlayerName = "";
             this.selectorPlayerGreen.Size = new System.Drawing.Size(390, 60);
-            this.selectorPlayerGreen.TabIndex = 1;
+            this.selectorPlayerGreen.TabIndex = 2;
             // 
             // selectorPlayerRed
             // 
@@ -93,7 +93,7 @@
             this.selectorPlayerRed.IsActive = true;
             this.selectorPlayerRed.Location = new System.Drawing.Point(12, 10);
             this.selectorPlayerRed.Name = "selectorPlayerRed";
-            this.selectorPlayerRed.PlayerName = "";
+            this.selectorPlayerRed.PlayerName = "Deadpool";
             this.selectorPlayerRed.Size = new System.Drawing.Size(390, 60);
             this.selectorPlayerRed.TabIndex = 0;
             // 
@@ -111,6 +111,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "frmPlayerChoice";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Choix des joueurs";
             this.ResumeLayout(false);
