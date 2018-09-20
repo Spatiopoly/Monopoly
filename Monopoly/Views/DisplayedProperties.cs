@@ -82,6 +82,10 @@ namespace Monopoly.Views
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Set a new value which will be displayed on screen after the transition is completed
+        /// </summary>
+        /// <param name="newValue">The new value</param>
         public void Set(T newValue)
         {
             currentValue = DisplayedValue;

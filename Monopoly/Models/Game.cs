@@ -13,8 +13,8 @@ namespace Monopoly.Models
         public delegate void MessageHandler(Game game, string message);
 
         // Event : change the current player
-        public event NextPlayerHandler NextPlayer;
-        public delegate void NextPlayerHandler(Game game);
+        public event CurrentPlayerChangedHandler CurrentPlayerChanged;
+        public delegate void CurrentPlayerChangedHandler(Game game);
 
         private int _currentPlayerIndex = 0;
 
@@ -52,6 +52,8 @@ namespace Monopoly.Models
                 new Player(Player.PlayerColor.Blue, "Nicolapps"),
                 new Player(Player.PlayerColor.Red, "Willyart"),
                 new Player(Player.PlayerColor.Purple, "Dams00"),
+                                new Player(Player.PlayerColor.Yellow, "Dams00"),
+
             };
 
             Cases = new List<AbstractCase>() {
@@ -108,7 +110,20 @@ namespace Monopoly.Models
         /// </summary>
         public void Start()
         {
-            NextPlayer(this);
+            CurrentPlayerChanged(this);
+        }
+
+        /// <summary>
+        /// Go to the next player
+        /// </summary>
+        public void NextPlayer()
+        {
+            _currentPlayerIndex = _currentPlayerIndex >= Players.Count - 1
+                ? 0
+                : _currentPlayerIndex + 1;
+
+            Message(this, "C'est au tour de " + CurrentPlayer.Name);
+            CurrentPlayerChanged(this);
         }
     }
 }

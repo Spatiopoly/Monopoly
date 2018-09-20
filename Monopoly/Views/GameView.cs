@@ -17,7 +17,7 @@ namespace Monopoly.Views
 
         private Game _game;
         private Messages _messages = new Messages();
-        private Dictionary<Player, Pawn> _pawns = new Dictionary<Player, Pawn>();
+        private List<Pawn> _pawns = new List<Pawn>();
 
         public Game Game
         {
@@ -37,12 +37,9 @@ namespace Monopoly.Views
                 };
 
                 // Create pawns to display the players
-                _pawns = new Dictionary<Player, Pawn>();
-
-                foreach (Player p in _game.Players)
-                {
-                    _pawns.Add(p, new Pawn(p));
-                }
+                _pawns.Clear();
+                for (var i = 0; i < Game.Players.Count; i++)
+                    _pawns.Add(new Pawn(Game.Players[i], i));
             }
         }
 
@@ -303,55 +300,8 @@ namespace Monopoly.Views
         {
             RectangleF boardPosition = g.VisibleClipBounds;
 
-            double[] casesPositions = {
-                0.0001,
-                // 0.25,
-                // 0.5,
-                // 0.75,
-            };
-
-            // Draw the path (debug)
-            //for (var i = 0; i < corners.Length; i++)
-            //{
-            //    g.DrawLine(Pens.Red, corners[i], corners[i == corners.Length - 1 ? 0 : i + 1]);
-            //}
-
-            //// Draw crosses (debug)
-            //for (int i = 0; i < casesPositions.Length; i++)
-            //{
-            //    double position = casesPositions[i];
-
-            //    int lineIndex = (int)Math.Floor(position * corners.Length);
-            //    PointF lineStart = corners[lineIndex];
-            //    PointF lineEnd = corners[lineIndex != corners.Length - 1 ? lineIndex + 1 : 0];
-
-            //    double progressOnLine = position * corners.Length;
-
-            //    PointF point = new PointF()
-            //    {
-            //        X = (float)(lineStart.X * (1 - progressOnLine) + lineEnd.X * progressOnLine),
-            //        Y = (float)(lineStart.Y * (1 - progressOnLine) + lineEnd.Y * progressOnLine),
-            //    };
-
-            //    // Pawn
-            //    const int PAWN_SIZE = 24;
-            //    g.FillEllipse(Brushes.Gray, point.X - PAWN_SIZE / 2, point.Y - PAWN_SIZE / 2, PAWN_SIZE, PAWN_SIZE);
-
-            //    // Cross
-            //    const int CROSS_LENGTH = 12;
-            //    g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X + CROSS_LENGTH, point.Y), new PointF(point.X - CROSS_LENGTH, point.Y));
-            //    g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X, point.Y + CROSS_LENGTH), new PointF(point.X, point.Y - CROSS_LENGTH));
-            //}
-
-            // Debug : show the cases positions
-            for (var i = 0; i < Game.Cases.Count; i++)
-            {
-                int distance = GetCaseOnPlayersPath(i);
-                PointF point = GetPositionOnPlayersPath(distance);
-                const int CROSS_LENGTH = 12;
-                g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X + CROSS_LENGTH, point.Y), new PointF(point.X - CROSS_LENGTH, point.Y));
-                g.DrawLine(new Pen(Brushes.Aqua, 2), new PointF(point.X, point.Y + CROSS_LENGTH), new PointF(point.X, point.Y - CROSS_LENGTH));
-            }
+            foreach (Pawn p in _pawns)
+                p.Draw(g);
         }
 
         /// <summary>
@@ -362,10 +312,10 @@ namespace Monopoly.Views
         public static int GetCaseOnPlayersPath(int caseIndex)
         {
             int[] casePositions = {
-                73, 155, 237, 319, 401, 483, 565, 647, 729, 811,
-                957, 1039, 1121, 1203, 1285, 1367, 1449, 1531, 1613, 1695,
-                1826, 1908, 1990, 2072, 2154, 2236, 2318, 2400, 2482, 2564,
-                2700, 2782, 2864, 2946, 3028, 3110, 3192, 3274, 3356, 3438,
+                190, 334, 416, 498, 580, 662, 744, 826, 908, 990, 1260,
+                1391, 1473, 1555, 1637, 1719, 1801, 1883, 1965, 2047, 2178,
+                2263, 2345, 2427, 2509, 2591, 2673, 2755, 2837, 2919, 2993,
+                3139, 3221, 3303, 3385, 3467, 3549, 3631, 3713, 3795, 3877,
             };
 
             return casePositions[caseIndex % casePositions.Length];
@@ -377,13 +327,32 @@ namespace Monopoly.Views
         /// </summary>
         /// <param name="distance">The distance to travel</param>
         /// <returns>The arrival point</returns>
-        public static PointF GetPositionOnPlayersPath(int distance)
+        public static PointF GetPointOnPlayersPath(float distance)
         {
             PointF[] pathPoints = {
-                new PointF(945, 940),
-                new PointF(60, 940),
-                new PointF(60, 70),
+                // Start
+                new PointF(985, 880),
+                new PointF(985, 980),
+                new PointF(875, 980),
+
+                // Bottom line
+                new PointF(875, 942),
+                new PointF(130, 942),
+
+                // Prison
+                new PointF(130, 985),
+                new PointF(15, 985),
+                new PointF(15, 870),
+
+                // Left line
+                new PointF(58, 870),
+
+                // Top line
+                new PointF(58, 70),
+
+                // Right line
                 new PointF(945, 70),
+                new PointF(945, 880),
             };
 
             int cornerIndex = 0;
@@ -411,10 +380,6 @@ namespace Monopoly.Views
                 Math.Pow(corner.Y - previousCorner.Y, 2)
             );
 
-            //float y = Math.Max(
-            //    Math.Abs(corner.X - previousCorner.X),
-            //    Math.Abs(corner.Y - previousCorner.Y)
-            //);
             double progressOnLine = 1 - (distance + lastDistance) * 1.0 / lastDistance;
 
             return new PointF()
