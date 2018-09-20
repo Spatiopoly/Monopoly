@@ -173,9 +173,6 @@
     <None Include="Resources\Center.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\House.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PlayerYellow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +222,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fournisseur_elec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\House.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
