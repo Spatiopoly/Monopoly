@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Monopoly.Models.Cards;
+﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
+using System.Collections.Generic;
 
 namespace Monopoly.Models
 {
@@ -131,6 +129,28 @@ namespace Monopoly.Models
             CurrentPlayerChanged(this);
         }
 
-         
+        /// <summary>
+        /// Play the dice result
+        /// </summary>
+        /// <param name="diceSum">Sum of the two dices</param>
+        public void PlayDice(int diceSum)
+        {
+            int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
+            int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
+
+            // Fly over intermediate case
+            for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+            {
+                Cases[i % Cases.Count].FlyOver(this);
+            }
+
+            // Land on the new case
+            CurrentPlayer.CurrentCaseIndex = newCaseIndex;
+            Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+
+            HasPlayed = true;
+        }
+
+
     }
 }
