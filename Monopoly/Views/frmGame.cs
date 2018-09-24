@@ -37,7 +37,9 @@ namespace Monopoly.Views
             game.Start();
 
             foreach (TabPage tp in new TabPage[] { tabCaseChanceChancel, tabCaseCoin, tabCasePropAchetee, tabCasePropSimple, tabCaseTaxe })
+            {
                 tp.Name = "Case actuelle";
+            }
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace Monopoly.Views
                 resultFirstDice = rnd.Next(1, 7);
                 tmrDiceAnimation.Enabled = false;
                 compteurImageDes = 0;
-                
+
                 resultSecDice = rnd.Next(1, 7);
 
                 pbxDe1.BackgroundImage = diceImages[resultFirstDice];
@@ -116,34 +118,28 @@ namespace Monopoly.Views
 
             if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
             {
-                foreach (Control c in tableLayoutPanel9.Controls)
+                if (currentCase is StartCase)
                 {
-                    if (c.Name == "lblCaseCoin")
-                    {
-                        if (currentCase is StartCase)
-                        {
-                            c.Text = "Case Start" + Environment.NewLine + "Vous Gagner 200 F";
-                        }
-                        else if (currentCase is FreeParkingCase)
-                        {
-                            c.Text = "Pause Temporelle";
-                        }
-                        else if (currentCase is GoToJailCase)
-                        {
-                            c.Text = "Aller en Prison!!!";
-                        }
-                        else
-                        {
-                            // Si il est en prison :
-                            c.Text = "Vous êtes prisonnier";
-                            // Si il est en visite :
-                            c.Text = "Visite de la prison";
-                        }
-                    }
-
-                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
-                    pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
+                    lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
                 }
+                else if (currentCase is FreeParkingCase)
+                {
+                    lblCaseCoin.Text = "Pause temporelle";
+                }
+                else if (currentCase is GoToJailCase)
+                {
+                    lblCaseCoin.Text = "En allez prison !";
+                }
+                else
+                {
+                    // Si il est en prison :
+                    lblCaseCoin.Text = "Vous êtes prisonnier";
+                    // Si il est en visite :
+                    lblCaseCoin.Text = "Visite de la prison";
+                }
+
+                pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
 
                 tabs.TabPages.Add(tabCaseCoin);
             }
@@ -158,45 +154,20 @@ namespace Monopoly.Views
             {
                 CardCase specialCard = currentCase as CardCase;
 
-                foreach (Control c in tableLayoutPanel7.Controls)
+                if (specialCard.Type == CardType.Chance)
                 {
-                    if (specialCard.Type == CardType.Chance)
-                    {
-
-                        if (c.Name == "lblCaseChanceChancelTitre")
-                        {
-                            c.Text = "Chance";
-                        }
-
-                        if (c.Name == "flpCouleur")
-                        {
-                            c.BackColor = Color.Green;
-                        }
-
-                        Control[] ctrlsPbx = tableLayoutPanel7.Controls.Find("pbxCaseChanceImage", true);
-                        // Mettre image trefle:
-                        //ctrlsPbx[0].BackgroundImage = Properties.Resources.
-                    }
-                    else
-                    {
-                        if (c.Name == "lblCaseChanceChancelTitre")
-                        {
-                            c.Text = "Chancellerie";
-                        }
-
-                        Control[] ctrlsPbx = tableLayoutPanel7.Controls.Find("pbxCaseChanceImage", true);
-                        // Mettre image Coffre:
-                        //ctrlsPbx[0].BackgroundImage = Properties.Resources.
-
-                        Control[] ctrls = flowLayoutPanel2.Controls.Find("flpCouleur", true);
-                        ctrls[0].BackColor = Color.Red;
-                    }
-
-                    if (c.Name == "lblCaseChanceChancel")
-                    {
-                        //c.Text = Mettre le texte de la carte Chance ou Chancellerie
-                    }
+                    lblCaseChanceChancelTitre.Text = "Chance";
+                    flpCouleur.BackColor = Color.Green;
+                    pbxCaseChanceImage.BackgroundImage = Properties.Resources.Luck;
                 }
+                else
+                {
+                    lblCaseChanceChancelTitre.Text = "Chancellerie";
+                    pbxCaseChanceImage.BackgroundImage = Properties.Resources.CommunityChest;
+                    flpCouleur.BackColor = Color.Red;
+                }
+
+                lblCaseChanceChancel.Text = specialCard.Type == CardType.Chance ? "Chance" : "Chancellerie";
 
                 tabs.TabPages.Add(tabCaseChanceChancel);
             }
@@ -206,29 +177,20 @@ namespace Monopoly.Views
 
                 if (property.Owner == currentPlayer || property.Owner != null)
                 {
-                    foreach (Control c in tableLayoutPanel6.Controls)
+                    if (property.Owner == currentPlayer)
                     {
-                        if (property.Owner == currentPlayer)
-                        {
-                            if (c.Name == "lblCasePropAchetee")
-                            {
-                                tabCasePropAchetee.Text = "Votre Propriété";
-                                c.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
-                            }
-                        }
-                        else
-                        {
-                            if (c.Name == "lblCasePropAchetee")
-                            {
-                                tabCasePropAchetee.Text = "Chez " + property.Owner.Name;
-                                c.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
-                            }
-                        }
-
-                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
-                        pbxCasePropAchetee.BackgroundImageLayout = ImageLayout.Zoom;
+                        tabCasePropAchetee.Text = "Votre Propriété";
+                        lblCasePropAchetee.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
                     }
-                    
+                    else
+                    {
+                        tabCasePropAchetee.Text = "Chez " + property.Owner.Name;
+                        lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                    }
+
+                    pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+                    pbxCasePropAchetee.BackgroundImageLayout = ImageLayout.Zoom;
+
                     tabs.TabPages.Add(tabCasePropAchetee);
                 }
                 else
@@ -237,8 +199,7 @@ namespace Monopoly.Views
                     pbxCasePropSimple.BackgroundImageLayout = ImageLayout.Zoom;
 
                     tabCasePropSimple.Text = "Achat Propriété";
-                    Control[] crtls = tableLayoutPanel5.Controls.Find("lblCasePropSimplePrixAchat", true);
-                    crtls[0].Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
+                    lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
                     tabs.TabPages.Add(tabCasePropSimple);
                 }
             }
@@ -256,7 +217,7 @@ namespace Monopoly.Views
         {
             // @TODO
         }
-        
+
         /// <summary>
         /// Click on the "next player" button
         /// </summary>
