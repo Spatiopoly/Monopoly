@@ -45,8 +45,6 @@
             this.pbxDe1 = new System.Windows.Forms.PictureBox();
             this.pbxDe2 = new System.Windows.Forms.PictureBox();
             this.btnLancerDes = new System.Windows.Forms.Button();
-            this.tabProperties = new System.Windows.Forms.TabPage();
-            this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
             this.tabCasePropSimple = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAcheterPropriete = new System.Windows.Forms.Button();
@@ -74,6 +72,8 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseCoin = new System.Windows.Forms.Label();
             this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
+            this.tabProperties = new System.Windows.Forms.TabPage();
+            this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
@@ -87,7 +87,6 @@
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).BeginInit();
-            this.tabProperties.SuspendLayout();
             this.tabCasePropSimple.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).BeginInit();
@@ -106,6 +105,7 @@
             this.tabCaseCoin.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).BeginInit();
+            this.tabProperties.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -133,7 +133,7 @@
             this.gameView.Location = new System.Drawing.Point(0, 0);
             this.gameView.Margin = new System.Windows.Forms.Padding(0);
             this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(657, 604);
+            this.gameView.Size = new System.Drawing.Size(724, 890);
             this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
@@ -336,28 +336,6 @@
             this.btnLancerDes.UseVisualStyleBackColor = true;
             this.btnLancerDes.Click += new System.EventHandler(this.btnLancerDes_Click);
             // 
-            // tabProperties
-            // 
-            this.tabProperties.AutoScroll = true;
-            this.tabProperties.Controls.Add(this.flpProperties);
-            this.tabProperties.Location = new System.Drawing.Point(4, 27);
-            this.tabProperties.Name = "tabProperties";
-            this.tabProperties.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProperties.Size = new System.Drawing.Size(272, 729);
-            this.tabProperties.TabIndex = 1;
-            this.tabProperties.Text = "Propriétés";
-            this.tabProperties.UseVisualStyleBackColor = true;
-            // 
-            // flpProperties
-            // 
-            this.flpProperties.AutoScroll = true;
-            this.flpProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpProperties.Location = new System.Drawing.Point(3, 3);
-            this.flpProperties.Name = "flpProperties";
-            this.flpProperties.Padding = new System.Windows.Forms.Padding(15, 0, 15, 0);
-            this.flpProperties.Size = new System.Drawing.Size(266, 723);
-            this.flpProperties.TabIndex = 1;
-            // 
             // tabCasePropSimple
             // 
             this.tabCasePropSimple.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -413,6 +391,7 @@
             // 
             // pbxCasePropSimple
             // 
+            this.pbxCasePropSimple.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
             this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
@@ -463,6 +442,7 @@
             // 
             // pbxCasePropAchetee
             // 
+            this.pbxCasePropAchetee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxCasePropAchetee.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCasePropAchetee.Location = new System.Drawing.Point(63, 74);
             this.pbxCasePropAchetee.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
@@ -622,6 +602,7 @@
             // 
             // pbxCaseTaxeCarte
             // 
+            this.pbxCaseTaxeCarte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxCaseTaxeCarte.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 102);
             this.pbxCaseTaxeCarte.Margin = new System.Windows.Forms.Padding(62, 80, 64, 7);
@@ -677,6 +658,28 @@
             this.pbxCaseCoin.TabIndex = 3;
             this.pbxCaseCoin.TabStop = false;
             // 
+            // tabProperties
+            // 
+            this.tabProperties.AutoScroll = true;
+            this.tabProperties.Controls.Add(this.flpProperties);
+            this.tabProperties.Location = new System.Drawing.Point(4, 27);
+            this.tabProperties.Name = "tabProperties";
+            this.tabProperties.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProperties.Size = new System.Drawing.Size(272, 729);
+            this.tabProperties.TabIndex = 1;
+            this.tabProperties.Text = "Propriétés";
+            this.tabProperties.UseVisualStyleBackColor = true;
+            // 
+            // flpProperties
+            // 
+            this.flpProperties.AutoScroll = true;
+            this.flpProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpProperties.Location = new System.Drawing.Point(3, 3);
+            this.flpProperties.Name = "flpProperties";
+            this.flpProperties.Padding = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.flpProperties.Size = new System.Drawing.Size(266, 723);
+            this.flpProperties.TabIndex = 1;
+            // 
             // tmrRefresh
             // 
             this.tmrRefresh.Enabled = true;
@@ -692,7 +695,7 @@
             // 
             this.tmrDice.Interval = 2000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            //
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -715,7 +718,6 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).EndInit();
-            this.tabProperties.ResumeLayout(false);
             this.tabCasePropSimple.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).EndInit();
@@ -734,6 +736,7 @@
             this.tabCaseCoin.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).EndInit();
+            this.tabProperties.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

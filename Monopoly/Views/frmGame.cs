@@ -110,97 +110,95 @@ namespace Monopoly.Views
         public void UpdateTabs()
         {
             Player currentPlayer = game.CurrentPlayer;
-            currentPlayer.CurrentCaseIndex = 1;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
 
             tabs.TabPages.Clear();
-            tabs.TabPages.Add(tabCaseDes);
 
-            if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
+            if (currentPlayer.CurrentCaseIndex == 0) // @TODO : Player hasn't played
             {
-                if (currentCase is StartCase)
-                {
-                    lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
-                }
-                else if (currentCase is FreeParkingCase)
-                {
-                    lblCaseCoin.Text = "Pause temporelle";
-                }
-                else if (currentCase is GoToJailCase)
-                {
-                    lblCaseCoin.Text = "En allez prison !";
-                }
-                else
-                {
-                    // Si il est en prison :
-                    lblCaseCoin.Text = "Vous êtes prisonnier";
-                    // Si il est en visite :
-                    lblCaseCoin.Text = "Visite de la prison";
-                }
-
-                pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
-                pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
-
-                tabs.TabPages.Add(tabCaseCoin);
+                tabs.TabPages.Add(tabCaseDes);
             }
-            else if (currentCase is TaxCase)
+            else
             {
-                TaxCase taxe = currentCase as TaxCase;
-                pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
-                pbxCaseTaxeCarte.BackgroundImageLayout = ImageLayout.Zoom;
-                tabs.TabPages.Add(tabCaseTaxe);
-            }
-            else if (currentCase is CardCase)
-            {
-                CardCase specialCard = currentCase as CardCase;
-
-                if (specialCard.Type == CardType.Chance)
+                if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
                 {
-                    lblCaseChanceChancelTitre.Text = "Chance";
-                    flpCouleur.BackColor = Color.Green;
-                    pbxCaseChanceImage.BackgroundImage = Properties.Resources.Luck;
-                }
-                else
-                {
-                    lblCaseChanceChancelTitre.Text = "Chancellerie";
-                    pbxCaseChanceImage.BackgroundImage = Properties.Resources.CommunityChest;
-                    flpCouleur.BackColor = Color.Red;
-                }
-
-                lblCaseChanceChancel.Text = specialCard.Type == CardType.Chance ? "Chance" : "Chancellerie";
-
-                tabs.TabPages.Add(tabCaseChanceChancel);
-            }
-            else if (currentCase is PropertyCase)
-            {
-                PropertyCase property = currentCase as PropertyCase;
-
-                if (property.Owner == currentPlayer || property.Owner != null)
-                {
-                    if (property.Owner == currentPlayer)
+                    if (currentCase is StartCase)
                     {
-                        tabCasePropAchetee.Text = "Votre Propriété";
-                        lblCasePropAchetee.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
+                        lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
+                    }
+                    else if (currentCase is FreeParkingCase)
+                    {
+                        lblCaseCoin.Text = "Pause temporelle";
+                    }
+                    else if (currentCase is GoToJailCase)
+                    {
+                        lblCaseCoin.Text = "En allez prison !";
                     }
                     else
                     {
-                        tabCasePropAchetee.Text = "Chez " + property.Owner.Name;
-                        lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                        // Si il est en prison :
+                        lblCaseCoin.Text = "Vous êtes prisonnier";
+                        // Si il est en visite :
+                        lblCaseCoin.Text = "Visite de la prison";
                     }
 
-                    pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
-                    pbxCasePropAchetee.BackgroundImageLayout = ImageLayout.Zoom;
+                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                    pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
 
-                    tabs.TabPages.Add(tabCasePropAchetee);
+                    tabs.TabPages.Add(tabCaseCoin);
                 }
-                else
+                else if (currentCase is TaxCase)
                 {
-                    pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                    pbxCasePropSimple.BackgroundImageLayout = ImageLayout.Zoom;
+                    TaxCase taxe = currentCase as TaxCase;
+                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
+                    tabs.TabPages.Add(tabCaseTaxe);
+                }
+                else if (currentCase is CardCase)
+                {
+                    CardCase specialCard = currentCase as CardCase;
 
-                    tabCasePropSimple.Text = "Achat Propriété";
-                    lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
-                    tabs.TabPages.Add(tabCasePropSimple);
+                    if (specialCard.Type == CardType.Chance)
+                    {
+                        lblCaseChanceChancelTitre.Text = "Chance";
+                        flpCouleur.BackColor = Color.Green;
+                        pbxCaseChanceImage.BackgroundImage = Properties.Resources.Luck;
+                    }
+                    else
+                    {
+                        lblCaseChanceChancelTitre.Text = "Chancellerie";
+                        pbxCaseChanceImage.BackgroundImage = Properties.Resources.CommunityChest;
+                        flpCouleur.BackColor = Color.Red;
+                    }
+
+                    lblCaseChanceChancel.Text = specialCard.Type == CardType.Chance ? "Chance" : "Chancellerie";
+
+                    tabs.TabPages.Add(tabCaseChanceChancel);
+                }
+                else if (currentCase is PropertyCase)
+                {
+                    PropertyCase property = currentCase as PropertyCase;
+
+                    if (property.Owner == currentPlayer || property.Owner != null)
+                    {
+                        if (property.Owner == currentPlayer)
+                        {
+                            lblCasePropAchetee.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
+                        }
+                        else
+                        {
+                            lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                        }
+
+                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+
+                        tabs.TabPages.Add(tabCasePropAchetee);
+                    }
+                    else
+                    {
+                        pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                        lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
+                        tabs.TabPages.Add(tabCasePropSimple);
+                    }
                 }
             }
 
