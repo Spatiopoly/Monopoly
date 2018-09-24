@@ -18,7 +18,7 @@ namespace Monopoly.Models.Cases
         /// What happens when a player lands on the case?
         /// </summary>
         /// <param name="game">The game status</param>
-        public abstract void Land(Game game);
+        public virtual void Land(Game game) { }
 
         /// <summary>
         /// What happens when a players pass through the case?

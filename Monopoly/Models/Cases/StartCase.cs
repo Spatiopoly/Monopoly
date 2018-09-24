@@ -11,8 +11,6 @@ namespace Monopoly.Models.Cases
     {
         const int SALARY_AMOUNT = 200;
 
-        public override void Land(Game game) {}
-
         public override void FlyOver(Game game)
         {
             game.CurrentPlayer.Wealth += SALARY_AMOUNT;
