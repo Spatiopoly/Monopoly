@@ -12,6 +12,7 @@ namespace Monopoly.Views
         Game game;
         int compteurImageDes;
         int diceSum = 0;
+        bool BuyingTurn = false;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -116,11 +117,15 @@ namespace Monopoly.Views
         public void UpdateTabs()
         {
             Player currentPlayer = game.CurrentPlayer;
+            int oldCaseIndex = currentPlayer.OldCaseIndex;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
+
+            currentPlayer.GoToCase(currentPlayer.CurrentCaseIndex);
 
             tabs.TabPages.Clear();
 
-            if (currentPlayer.CurrentCaseIndex == 0) // @TODO : Player hasn't played
+
+            if (currentPlayer.CurrentCaseIndex == 0 && !BuyingTurn || currentPlayer.CurrentCaseIndex == oldCaseIndex && !BuyingTurn) // @TODO : Player hasn't played
             {
                 btnLancerDes.Enabled = true;
 
@@ -133,6 +138,7 @@ namespace Monopoly.Views
                     if (currentCase is StartCase)
                     {
                         lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
+                        currentPlayer.Wealth = currentPlayer.Wealth + 200;
                     }
                     else if (currentCase is FreeParkingCase)
                     {
@@ -160,6 +166,7 @@ namespace Monopoly.Views
                     TaxCase taxe = currentCase as TaxCase;
                     pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
                     tabs.TabPages.Add(tabCaseTaxe);
+                    currentPlayer.Wealth = currentPlayer.Wealth - taxe.Amount;
                 }
                 else if (currentCase is CardCase)
                 {
@@ -169,12 +176,12 @@ namespace Monopoly.Views
                     {
                         lblCaseChanceChancelTitre.Text = "Chance";
                         flpCouleur.BackColor = Color.Green;
-                        pbxCaseChanceImage.BackgroundImage = Properties.Resources.Luck;
+                        pbxCaseChanceImage.BackgroundImage = specialCard.GetBoardCaseImage();
                     }
                     else
                     {
                         lblCaseChanceChancelTitre.Text = "Chancellerie";
-                        pbxCaseChanceImage.BackgroundImage = Properties.Resources.CommunityChest;
+                        pbxCaseChanceImage.BackgroundImage = specialCard.GetBoardCaseImage();
                         flpCouleur.BackColor = Color.Red;
                     }
 
@@ -195,6 +202,7 @@ namespace Monopoly.Views
                         else
                         {
                             lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                            currentPlayer.Wealth = currentPlayer.Wealth - property.GetRent();
                         }
 
                         pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
@@ -203,14 +211,26 @@ namespace Monopoly.Views
                     }
                     else
                     {
-                        pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                        lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
-                        tabs.TabPages.Add(tabCasePropSimple);
+                        if (currentPlayer.Wealth >= property.Price)
+                        {
+                            btnAcheterPropriete.Enabled = true;
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
+                            tabs.TabPages.Add(tabCasePropSimple);
+                        }
+                        else
+                        {
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            lblCasePropSimplePrixAchat.Text = "vous n'avez pas assez de Flouzz pour acheter";
+                            btnAcheterPropriete.Enabled = false;
+                            tabs.TabPages.Add(tabCasePropSimple);
+                        }
                     }
                 }
             }
 
             tabs.TabPages.Add(tabProperties);
+            BuyingTurn = false;
         }
 
         private void tmrDice_Tick(object sender, EventArgs e)
@@ -223,7 +243,7 @@ namespace Monopoly.Views
 
         private void btnAcheterPropriete_Click(object sender, EventArgs e)
         {
-            //@TODO Ne fonctionne pas
+            //@TODO affichage en direct des achats dans propriétés pour le moment attente d'un tour nescessaire...
             Player currentPlayer = game.CurrentPlayer;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
                                  
@@ -231,11 +251,12 @@ namespace Monopoly.Views
             {
                 PropertyCase property = currentCase as PropertyCase;
 
-                if (property.Owner != null)
+                if (property.Owner == null)
                 {
                     if (currentPlayer.Wealth >= property.Price)
                     {
                         currentPlayer.Wealth = currentPlayer.Wealth - property.Price;
+                        property.Owner = currentPlayer;
                     }
                 }         
             }
@@ -243,16 +264,19 @@ namespace Monopoly.Views
             {
                 PropertyCase propertyStation = currentCase as StationProperty;
 
-                if (propertyStation.Owner != null)
+                if (propertyStation.Owner == null)
                 {
                     if (currentPlayer.Wealth >= propertyStation.Price)
                     {
                         currentPlayer.Wealth = currentPlayer.Wealth - propertyStation.Price;
+                        propertyStation.Owner = currentPlayer;
                     }
                 }
             }
 
-            gameView.Invalidate();
+            btnAcheterPropriete.Enabled = false;
+            BuyingTurn = true;
+            UpdateTabs();
         }
 
         /// <summary>
@@ -261,7 +285,7 @@ namespace Monopoly.Views
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnNextPlayer_Click(object sender, EventArgs e)
-        {
+        {       
             game.NextPlayer();
         }
     }
