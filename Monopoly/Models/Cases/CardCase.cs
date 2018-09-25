@@ -20,7 +20,7 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override Image GetBoardCaseImage()

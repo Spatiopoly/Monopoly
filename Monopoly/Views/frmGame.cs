@@ -11,6 +11,7 @@ namespace Monopoly.Views
     {
         Game game;
         int compteurImageDes;
+        int diceSum = 0;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -91,6 +92,8 @@ namespace Monopoly.Views
             int indexImageSecDice = rnd.Next(1, 7);
             pbxDe2.BackgroundImage = diceImages[indexImageSecDice];
 
+            
+
             if (compteurImageDes == 10)
             {
                 resultFirstDice = rnd.Next(1, 7);
@@ -103,6 +106,8 @@ namespace Monopoly.Views
                 pbxDe2.BackgroundImage = diceImages[resultSecDice];
 
                 tmrDice.Enabled = true;
+
+                diceSum = resultFirstDice + resultSecDice;
             }
 
             compteurImageDes++;
@@ -210,15 +215,44 @@ namespace Monopoly.Views
 
         private void tmrDice_Tick(object sender, EventArgs e)
         {
-            // Envoyer le resultat des dé aux pions pour qu'il puissent avancer
-            game.PlayDice(12); // @TODO calculer résultat dés
+            // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
+            game.PlayDice(diceSum);
             tmrDice.Enabled = false;
             UpdateTabs();
         }
 
         private void btnAcheterPropriete_Click(object sender, EventArgs e)
         {
-            // @TODO
+            //@TODO Ne fonctionne pas
+            Player currentPlayer = game.CurrentPlayer;
+            AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
+                                 
+            if (currentCase is PropertyCase)
+            {
+                PropertyCase property = currentCase as PropertyCase;
+
+                if (property.Owner != null)
+                {
+                    if (currentPlayer.Wealth >= property.Price)
+                    {
+                        currentPlayer.Wealth = currentPlayer.Wealth - property.Price;
+                    }
+                }         
+            }
+            else if (currentCase is StationProperty)
+            {
+                PropertyCase propertyStation = currentCase as StationProperty;
+
+                if (propertyStation.Owner != null)
+                {
+                    if (currentPlayer.Wealth >= propertyStation.Price)
+                    {
+                        currentPlayer.Wealth = currentPlayer.Wealth - propertyStation.Price;
+                    }
+                }
+            }
+
+            gameView.Invalidate();
         }
 
         /// <summary>
