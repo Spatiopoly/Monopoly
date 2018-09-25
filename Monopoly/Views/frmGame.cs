@@ -120,8 +120,6 @@ namespace Monopoly.Views
             int oldCaseIndex = currentPlayer.OldCaseIndex;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
 
-            currentPlayer.GoToCase(currentPlayer.CurrentCaseIndex);
-
             tabs.TabPages.Clear();
 
             if (currentPlayer.CurrentCaseIndex == 0 && !BuyingTurn || currentPlayer.CurrentCaseIndex == oldCaseIndex && !BuyingTurn) // @TODO : Player hasn't played
