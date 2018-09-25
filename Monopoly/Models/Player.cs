@@ -6,11 +6,15 @@ namespace Monopoly.Models
 {
     public class Player
     {
+        // Event : show a textual message on the interface
+        public event CurrentCaseChangedHandler CurrentCaseChanged;
+        public delegate void CurrentCaseChangedHandler(Player player, int oldCaseIndex, int newCaseIndex);
+
         public enum PlayerColor { Purple, Yellow, Green, Red, Blue }
 
         public int Wealth { get; set; } = 1500;
 
-        public int CurrentCaseIndex { get; set; } = 0;
+        public int CurrentCaseIndex { get; private set; } = 0;
 
         public int JailExitCardsCount { get; set; } = 0;
 
@@ -36,6 +40,13 @@ namespace Monopoly.Models
                 .Select(c => c as PropertyCase)
                 .Where(p => p.Owner == this)
                 .ToList();
+        }
+
+        public void GoToCase(int newCaseIndex)
+        {
+            int oldCaseIndex = CurrentCaseIndex;
+            CurrentCaseIndex = newCaseIndex;
+            CurrentCaseChanged?.Invoke(this, oldCaseIndex, newCaseIndex);
         }
     }
 }

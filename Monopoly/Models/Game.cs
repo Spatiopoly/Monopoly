@@ -145,9 +145,10 @@ namespace Monopoly.Models
             }
 
             // Land on the new case
-            CurrentPlayer.CurrentCaseIndex = newCaseIndex;
+            CurrentPlayer.GoToCase(newCaseIndex);
             Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
+            // Emit the event
             HasPlayed = true;
         }
 

@@ -77,6 +77,7 @@ namespace Monopoly.Views
 
         private void btnLancerDes_Click(object sender, EventArgs e)
         {
+            btnLancerDes.Enabled = false;
             tmrDiceAnimation.Enabled = true;
         }
 
@@ -116,6 +117,8 @@ namespace Monopoly.Views
 
             if (currentPlayer.CurrentCaseIndex == 0) // @TODO : Player hasn't played
             {
+                btnLancerDes.Enabled = true;
+
                 tabs.TabPages.Add(tabCaseDes);
             }
             else
@@ -208,7 +211,9 @@ namespace Monopoly.Views
         private void tmrDice_Tick(object sender, EventArgs e)
         {
             // Envoyer le resultat des dé aux pions pour qu'il puissent avancer
+            game.PlayDice(12); // @TODO calculer résultat dés
             tmrDice.Enabled = false;
+            UpdateTabs();
         }
 
         private void btnAcheterPropriete_Click(object sender, EventArgs e)
