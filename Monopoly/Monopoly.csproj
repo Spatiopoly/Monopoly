@@ -259,5 +259,20 @@
   <ItemGroup>
     <None Include="Resources\avatar_yellow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Purple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Yellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

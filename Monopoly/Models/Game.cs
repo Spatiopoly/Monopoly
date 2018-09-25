@@ -14,7 +14,7 @@ namespace Monopoly.Models
         public event CurrentPlayerChangedHandler CurrentPlayerChanged;
         public delegate void CurrentPlayerChangedHandler(Game game);
 
-        private int _currentPlayerIndex = 0;
+        public int CurrentPlayerIndex { get; private set; } = 0;
 
         #region Properties
 
@@ -27,7 +27,7 @@ namespace Monopoly.Models
         /// The player who currently plays
         /// </summary>
         public Player CurrentPlayer
-            => Players[_currentPlayerIndex];
+            => Players[CurrentPlayerIndex];
 
         /// <summary>
         /// Cases on the board (properties...)
@@ -115,9 +115,9 @@ namespace Monopoly.Models
         public void NextPlayer()
         {
             // Update the current player
-            _currentPlayerIndex = _currentPlayerIndex >= Players.Count - 1
+            CurrentPlayerIndex = CurrentPlayerIndex >= Players.Count - 1
                 ? 0
-                : _currentPlayerIndex + 1;
+                : CurrentPlayerIndex + 1;
 
             // Reset the turn variables
             HasPlayed = false;

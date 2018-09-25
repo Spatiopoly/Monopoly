@@ -26,6 +26,14 @@ namespace Monopoly.Views
             { 6, Properties.Resources.de6 },
         };
 
+        Dictionary<Player.PlayerColor, Image> nextPlayerImages = new Dictionary<Player.PlayerColor, Image>() {
+            { Player.PlayerColor.Blue, Properties.Resources.Next_Blue },
+            { Player.PlayerColor.Yellow, Properties.Resources.Next_Yellow },
+            { Player.PlayerColor.Red, Properties.Resources.Next_Red },
+            { Player.PlayerColor.Green, Properties.Resources.Next_Green },
+            { Player.PlayerColor.Purple, Properties.Resources.Next_Purple },
+        };
+
         public frmGame(Game game)
         {
             InitializeComponent();
@@ -51,6 +59,9 @@ namespace Monopoly.Views
         private void Game_CurrentPlayerChanged(Game game)
         {
             primaryColor.Set(game.CurrentPlayer.Color.GetColor());
+
+            Player nextPlayer = game.Players[game.CurrentPlayerIndex == game.Players.Count - 1 ? 0 : game.CurrentPlayerIndex + 1];
+            btnNextPlayer.Image = nextPlayerImages[nextPlayer.Color];
 
             // Load the properties
             flpProperties.Controls.Clear();
