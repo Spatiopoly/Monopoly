@@ -12,7 +12,6 @@ namespace Monopoly.Views
         Game game;
         int compteurImageDes;
         int diceSum = 0;
-        bool BuyingTurn = false;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -117,12 +116,11 @@ namespace Monopoly.Views
         public void UpdateTabs()
         {
             Player currentPlayer = game.CurrentPlayer;
-            int oldCaseIndex = currentPlayer.OldCaseIndex;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
 
             tabs.TabPages.Clear();
 
-            if (currentPlayer.CurrentCaseIndex == 0 && !BuyingTurn || currentPlayer.CurrentCaseIndex == oldCaseIndex && !BuyingTurn) // @TODO : Player hasn't played
+            if (!game.HasPlayed) // @TODO : Player hasn't played
             {
                 btnLancerDes.Enabled = true;
 
@@ -167,20 +165,8 @@ namespace Monopoly.Views
                 {
                     CardCase specialCard = currentCase as CardCase;
 
-                    if (specialCard.Type == CardType.Chance)
-                    {
-                        lblCaseChanceChancelTitre.Text = "Chance";
-                        flpCouleur.BackColor = Color.Green;
-                        pbxCaseChanceImage.BackgroundImage = specialCard.GetBoardCaseImage();
-                    }
-                    else
-                    {
-                        lblCaseChanceChancelTitre.Text = "Chancellerie";
-                        pbxCaseChanceImage.BackgroundImage = specialCard.GetBoardCaseImage();
-                        flpCouleur.BackColor = Color.Red;
-                    }
-
-                    lblCaseChanceChancel.Text = specialCard.Type == CardType.Chance ? "Chance" : "Chancellerie";
+                    pbxCaseChanceImage.BackgroundImage = specialCard.TypeImage;
+                    lblCaseChanceChancelTitre.Text = specialCard.ToString();
 
                     tabs.TabPages.Add(tabCaseChanceChancel);
                 }
@@ -192,11 +178,11 @@ namespace Monopoly.Views
                     {
                         if (property.Owner == currentPlayer)
                         {
-                            lblCasePropAchetee.Text = "Bienvenue chez vous " + currentPlayer.Name + " !";
+                            lblCasePropAchetee.Text = $"Bienvenue chez vous, {currentPlayer.Name} !";
                         }
                         else
                         {
-                            lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
+                            lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent()}F de loyer";
                         }
 
                         pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
@@ -209,20 +195,19 @@ namespace Monopoly.Views
                         {
                             btnAcheterPropriete.Enabled = true;
                             pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                            lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + property.Price + " F";
+                            lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + $"{property.Price}F";
                             tabs.TabPages.Add(tabCasePropSimple);
                         }
                         else
                         {
                             pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                            lblCasePropSimplePrixAchat.Text = "vous n'avez pas assez de Flouzz pour acheter";
+                            lblCasePropSimplePrixAchat.Text = "Vous n'avez pas assez de Flouzz.";
                             btnAcheterPropriete.Enabled = false;
                             tabs.TabPages.Add(tabCasePropSimple);
                         }
                     }
                 }
             }
-
 
             // Load the properties
             flpProperties.Controls.Clear();
@@ -235,21 +220,19 @@ namespace Monopoly.Views
                 });
             }
             tabs.TabPages.Add(tabProperties);
-
-            BuyingTurn = false;
         }
 
         private void tmrDice_Tick(object sender, EventArgs e)
         {
+            tmrDice.Enabled = false;
+
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
             game.PlayDice(diceSum);
-            tmrDice.Enabled = false;
             UpdateTabs();
         }
 
         private void btnAcheterPropriete_Click(object sender, EventArgs e)
         {
-            //@TODO affichage en direct des achats dans propriétés pour le moment attente d'un tour nescessaire...
             Player currentPlayer = game.CurrentPlayer;
             AbstractCase currentCase = game.Cases[game.CurrentPlayer.CurrentCaseIndex];
                                  
@@ -268,7 +251,6 @@ namespace Monopoly.Views
             }
 
             btnAcheterPropriete.Enabled = false;
-            BuyingTurn = true;
             UpdateTabs();
         }
 

@@ -14,14 +14,14 @@ namespace Monopoly.Models
         public event CurrentPlayerChangedHandler CurrentPlayerChanged;
         public delegate void CurrentPlayerChangedHandler(Game game);
 
-        public int CurrentPlayerIndex { get; private set; } = 0;
-
         #region Properties
 
         /// <summary>
         /// List of participants in the game
         /// </summary>
         public List<Player> Players { get; private set; }
+
+        public int CurrentPlayerIndex { get; private set; } = 0;
 
         /// <summary>
         /// The player who currently plays
@@ -42,7 +42,7 @@ namespace Monopoly.Models
         /// <summary>
         /// Know if the current player has played on the current turn (= rolled the dice)
         /// </summary>
-        public bool HasPlayed { get; private set; } = true;
+        public bool HasPlayed { get; private set; } = false;
         #endregion
 
         /// <summary>
@@ -151,10 +151,7 @@ namespace Monopoly.Models
             CurrentPlayer.GoToCase(newCaseIndex);
             Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
-            // Emit the event
             HasPlayed = true;
         }
-
-
     }
 }

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -77,6 +76,7 @@
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
+            this.gameView = new Monopoly.Views.GameView();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -124,17 +124,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -504,6 +493,7 @@
             // 
             // flowLayoutPanel2
             // 
+            this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel2.Controls.Add(this.flpCouleur);
             this.flowLayoutPanel2.Controls.Add(this.lblCaseChanceChancel);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -516,24 +506,25 @@
             // 
             this.flpCouleur.BackColor = System.Drawing.Color.Green;
             this.flpCouleur.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flpCouleur.Location = new System.Drawing.Point(3, 3);
+            this.flpCouleur.Location = new System.Drawing.Point(0, 0);
+            this.flpCouleur.Margin = new System.Windows.Forms.Padding(0);
             this.flpCouleur.Name = "flpCouleur";
             this.flpCouleur.Size = new System.Drawing.Size(260, 16);
             this.flpCouleur.TabIndex = 2;
             // 
             // lblCaseChanceChancel
             // 
-            this.lblCaseChanceChancel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblCaseChanceChancel.Location = new System.Drawing.Point(3, 22);
+            this.lblCaseChanceChancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCaseChanceChancel.Location = new System.Drawing.Point(3, 16);
             this.lblCaseChanceChancel.Name = "lblCaseChanceChancel";
-            this.lblCaseChanceChancel.Size = new System.Drawing.Size(254, 217);
+            this.lblCaseChanceChancel.Size = new System.Drawing.Size(254, 0);
             this.lblCaseChanceChancel.TabIndex = 3;
             this.lblCaseChanceChancel.Text = "Visite chez le Spatio-Dentiste : \r\nVous payez 000 F";
             this.lblCaseChanceChancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pbxCaseChanceImage
             // 
-            this.pbxCaseChanceImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxCaseChanceImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxCaseChanceImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbxCaseChanceImage.Location = new System.Drawing.Point(30, 432);
             this.pbxCaseChanceImage.Margin = new System.Windows.Forms.Padding(30, 30, 30, 50);
@@ -583,6 +574,7 @@
             // 
             // flowLayoutPanel4
             // 
+            this.flowLayoutPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel4.Controls.Add(this.flowLayoutPanel5);
             this.flowLayoutPanel4.Controls.Add(this.pbxCaseTaxeCarte);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -595,7 +587,8 @@
             // 
             this.flowLayoutPanel5.BackColor = System.Drawing.Color.Gold;
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(260, 16);
             this.flowLayoutPanel5.TabIndex = 2;
@@ -604,7 +597,7 @@
             // 
             this.pbxCaseTaxeCarte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxCaseTaxeCarte.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 102);
+            this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 96);
             this.pbxCaseTaxeCarte.Margin = new System.Windows.Forms.Padding(62, 80, 64, 7);
             this.pbxCaseTaxeCarte.Name = "pbxCaseTaxeCarte";
             this.pbxCaseTaxeCarte.Size = new System.Drawing.Size(140, 210);
@@ -693,8 +686,19 @@
             // 
             // tmrDice
             // 
-            this.tmrDice.Interval = 2000;
+            this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // frmGame
             // 
@@ -702,7 +706,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 890);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(816, 489);
+            this.MinimumSize = new System.Drawing.Size(816, 800);
             this.Name = "frmGame";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
