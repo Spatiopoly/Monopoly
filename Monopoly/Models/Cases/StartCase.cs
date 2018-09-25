@@ -14,6 +14,7 @@ namespace Monopoly.Models.Cases
         public override void FlyOver(Game game)
         {
             game.CurrentPlayer.Wealth += SALARY_AMOUNT;
+            game.SendMessage(game.CurrentPlayer.Name + " touche son salaire.");
         }
 
         public override Image GetBoardCaseImage()

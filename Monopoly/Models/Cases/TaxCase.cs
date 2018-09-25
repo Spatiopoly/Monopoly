@@ -23,7 +23,9 @@ namespace Monopoly.Models.Cases
             Type = type;
         }
 
-        public override void Land(Game game) { }
+        public override void Land(Game game) {
+            game.CurrentPlayer.Wealth -= Amount;
+        }
 
         public override Image GetBoardCaseImage()
         {

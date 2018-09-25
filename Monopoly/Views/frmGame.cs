@@ -63,17 +63,6 @@ namespace Monopoly.Views
             Player nextPlayer = game.Players[game.CurrentPlayerIndex == game.Players.Count - 1 ? 0 : game.CurrentPlayerIndex + 1];
             btnNextPlayer.Image = nextPlayerImages[nextPlayer.Color];
 
-            // Load the properties
-            flpProperties.Controls.Clear();
-            var cases = game.CurrentPlayer.GetProperties(game);
-            foreach (PropertyCase c in cases)
-            {
-                flpProperties.Controls.Add(new PropertyManager()
-                {
-                    Property = c
-                });
-            }
-
             UpdateTabs();
         }
 
@@ -135,7 +124,6 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-
             if (currentPlayer.CurrentCaseIndex == 0 && !BuyingTurn || currentPlayer.CurrentCaseIndex == oldCaseIndex && !BuyingTurn) // @TODO : Player hasn't played
             {
                 btnLancerDes.Enabled = true;
@@ -149,7 +137,6 @@ namespace Monopoly.Views
                     if (currentCase is StartCase)
                     {
                         lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
-                        currentPlayer.Wealth = currentPlayer.Wealth + 200;
                     }
                     else if (currentCase is FreeParkingCase)
                     {
@@ -169,7 +156,7 @@ namespace Monopoly.Views
 
                     pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
                     pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
-
+                    
                     tabs.TabPages.Add(tabCaseCoin);
                 }
                 else if (currentCase is TaxCase)
@@ -177,7 +164,6 @@ namespace Monopoly.Views
                     TaxCase taxe = currentCase as TaxCase;
                     pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
                     tabs.TabPages.Add(tabCaseTaxe);
-                    currentPlayer.Wealth = currentPlayer.Wealth - taxe.Amount;
                 }
                 else if (currentCase is CardCase)
                 {
@@ -213,7 +199,6 @@ namespace Monopoly.Views
                         else
                         {
                             lblCasePropAchetee.Text = "Vous êtes chez " + property.Owner.Name + Environment.NewLine + "Vous payez " + property.GetRent() + " F de loyer";
-                            currentPlayer.Wealth = currentPlayer.Wealth - property.GetRent();
                         }
 
                         pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
@@ -240,7 +225,19 @@ namespace Monopoly.Views
                 }
             }
 
+
+            // Load the properties
+            flpProperties.Controls.Clear();
+            var cases = game.CurrentPlayer.GetProperties(game);
+            foreach (PropertyCase c in cases)
+            {
+                flpProperties.Controls.Add(new PropertyManager()
+                {
+                    Property = c
+                });
+            }
             tabs.TabPages.Add(tabProperties);
+
             BuyingTurn = false;
         }
 
@@ -270,19 +267,6 @@ namespace Monopoly.Views
                         property.Owner = currentPlayer;
                     }
                 }         
-            }
-            else if (currentCase is StationProperty)
-            {
-                PropertyCase propertyStation = currentCase as StationProperty;
-
-                if (propertyStation.Owner == null)
-                {
-                    if (currentPlayer.Wealth >= propertyStation.Price)
-                    {
-                        currentPlayer.Wealth = currentPlayer.Wealth - propertyStation.Price;
-                        propertyStation.Owner = currentPlayer;
-                    }
-                }
             }
 
             btnAcheterPropriete.Enabled = false;

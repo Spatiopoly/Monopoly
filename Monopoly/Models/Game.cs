@@ -109,6 +109,11 @@ namespace Monopoly.Models
             CurrentPlayerChanged(this);
         }
 
+        public void SendMessage(string message)
+        {
+            Message?.Invoke(this, message);
+        }
+
         /// <summary>
         /// Go to the next player
         /// </summary>
@@ -123,7 +128,7 @@ namespace Monopoly.Models
             HasPlayed = false;
 
             // Notify the view
-            Message(this, "C'est au tour de " + CurrentPlayer.Name);
+            SendMessage("C'est au tour de " + CurrentPlayer.Name);
             CurrentPlayerChanged(this);
         }
 
