@@ -73,6 +73,16 @@ namespace Monopoly.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CommunityChest {
+            get {
+                object obj = ResourceManager.GetObject("CommunityChest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap de1 {
             get {
                 object obj = ResourceManager.GetObject("de1", resourceCulture);
@@ -126,16 +136,6 @@ namespace Monopoly.Properties {
         internal static System.Drawing.Bitmap de6 {
             get {
                 object obj = ResourceManager.GetObject("de6", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap CommunityChest {
-            get {
-                object obj = ResourceManager.GetObject("CommunityChest", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -244,5 +244,20 @@
   <ItemGroup>
     <None Include="Resources\fournisseur_elec.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\avatar_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\avatar_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\avatar_purple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\avatar_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\avatar_yellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
