@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -166,26 +167,38 @@ namespace Monopoly.Models.Cases
 
             cachePropertyImage = img;
             return img;
-
-
-            /// <summary>
-            /// Draw a line of text on the card to indicate the price
-            /// </summary>
-            /// <param name="g"></param>
-            /// <param name="y"></param>
-            /// <param name="name">Key of the price</param>
-            /// <param name="price">Value of the price</param>
-            void DrawPrice(Graphics g, int y, string name, int price)
-            {
-                g.DrawString(name, new Font("Arial", 6), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(2.5F, y + 0.5F));
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(65, y + 2.5F, 6, 6));
-                g.DrawString(price.ToString(), new Font("Arial", 7, FontStyle.Bold), Brushes.White, new PointF(71, y));
-            }
         }
 
-        public override int GetRent()
+        public override int GetRent(Game game)
         {
-            return 42; // @TODO
+            int rent = 0;
+
+            switch (BuildingCount)
+            {
+                case 0:
+                    rent = Rents[0];
+                    break;
+                case 1:
+                    rent = Rents[1];
+                    break;
+                case 2:
+                    rent = Rents[2];
+                    break;
+                case 3:
+                    rent = Rents[3];
+                    break;
+                case 4:
+                    rent = Rents[4];
+                    break;
+                case 5:
+                    rent = Rents[5];
+                    break;
+                default:
+                    rent = -1;
+                    break;
+            }
+
+            return rent;
         }
     }
 }

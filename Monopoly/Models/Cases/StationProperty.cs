@@ -10,17 +10,19 @@ namespace Monopoly.Models.Cases
 {
     class StationProperty : PropertyCase
     {
-        const int STATION_PRICE = 1000;
+        const int STATION_PRICE = 200;
+        private static readonly int[] STATION_RENTS = new int[] { 25, 50, 100, 200 };
 
-        private Image cacheStationImage = null;
+        private Image cacheCaseImage = null;
+        private Image cachePropertyImage = null;
 
         public StationProperty(string name) : base(name, STATION_PRICE) {
         }
 
         public override Image GetBoardCaseImage()
         {
-            if (cacheStationImage != null)
-                return cacheStationImage;
+            if (cacheCaseImage != null)
+                return cacheCaseImage;
 
             Image img = base.GetBoardCaseImage();
 
@@ -44,12 +46,83 @@ namespace Monopoly.Models.Cases
                 g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
+            cacheCaseImage = img;
             return img;
         }
 
-        public override int GetRent()
+        public override Image GetPropertyCardImage()
         {
-            return 42; // @TODO
+            if (cachePropertyImage != null)
+                return cachePropertyImage;
+
+            Image img = base.GetPropertyCardImage();
+
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                RectangleF rectangle = g.VisibleClipBounds;
+
+                string name = Name;
+                int spaceIndex = name.LastIndexOf(' ');
+                if (spaceIndex != -1)
+                {
+                    char[] n = name.ToCharArray();
+                    n[spaceIndex] = '\n';
+                    name = new string(n);
+                }
+
+                g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 10, rectangle.Width - 20, rectangle.Width - 20));
+                g.DrawString(name, new Font("Arial", 10), Brushes.White, new PointF(2.5F, 2.5F + 5));
+
+                // Rent
+                int y = 65;
+                int height = 12;
+                DrawPrice(g, y += height, "Loyer", STATION_RENTS[0]);
+                DrawPrice(g, y += height, "Avec 2 gare", STATION_RENTS[1]);
+                DrawPrice(g, y += height, "Avec 3 gares", STATION_RENTS[2]);
+                DrawPrice(g, y += height, "Avec 4 gares", STATION_RENTS[3]);
+
+                DrawPrice(g, y += 17, "Hypothèque", STATION_PRICE / 2);
+
+            }
+
+            cachePropertyImage = img;
+            return img;
+        }
+
+        /// <summary>
+        /// Get the rent of the card, according to the number of stations owned by this station's owner.
+        /// </summary>
+        /// <param name="game">The game instance</param>
+        /// <returns>The rent to pay</returns>
+        public override int GetRent(Game game)
+        {
+            int rent = 0;
+            int stationsOfThisPlayerCount = game.Cases
+                .Where(c => c is StationProperty)
+                .Where(station => (station as StationProperty).Owner == Owner)
+                .ToList()
+                .Count;
+
+            switch (stationsOfThisPlayerCount)
+            {
+                case 1:
+                    rent = STATION_RENTS[0];
+                    break;
+                case 2:
+                    rent = STATION_RENTS[1];
+                    break;
+                case 3:
+                    rent = STATION_RENTS[2];
+                    break;
+                case 4:
+                    rent = STATION_RENTS[3];
+                    break;
+                default:
+                    rent = -1;
+                    break;
+            }
+
+            return rent;
         }
     }
 }
