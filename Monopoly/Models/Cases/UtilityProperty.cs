@@ -83,9 +83,9 @@ namespace Monopoly.Models.Cases
                 int y = 62;
                 int height = 12;
                 g.DrawString("Loyer si le bailleur possède", new Font("Arial", 6), Brushes.White, new PointF(rectangle.X + 2, y += height));
-                g.DrawString("1 utility :", new Font("Arial", 6), Brushes.White, new PointF(rectangle.X + 2, y += height + 2));
+                g.DrawString("1 service :", new Font("Arial", 6), Brushes.White, new PointF(rectangle.X + 2, y += height + 2));
                 DrawPrice(g, y += height -1,"Nombre du dé  x ", UTILITY_RENTS[0]);
-                g.DrawString("2 utilities :", new Font("Arial", 6), Brushes.White, new PointF(rectangle.X + 2, y += height + 2));
+                g.DrawString("2 services :", new Font("Arial", 6), Brushes.White, new PointF(rectangle.X + 2, y += height + 2));
                 DrawPrice(g, y += height -1,"Nombre du dé  x", UTILITY_RENTS[1]);
 
                 DrawPrice(g, y += height, "Hypothèque", UTILITY_PRICE / 2);
@@ -104,18 +104,7 @@ namespace Monopoly.Models.Cases
                 .ToList()
                 .Count;
 
-            switch (utilitiesOfThisPlayerCount)
-            {
-                case 1:
-                    rent = UTILITY_RENTS[0] * game.LastDiceSum;
-                    break;
-                case 2:
-                    rent = UTILITY_RENTS[1] * game.LastDiceSum;
-                    break;
-                default:
-                    rent = -1;
-                    break;
-            }
+            rent = UTILITY_RENTS[utilitiesOfThisPlayerCount - 1];
 
             return rent;
         }

@@ -103,24 +103,7 @@ namespace Monopoly.Models.Cases
                 .ToList()
                 .Count;
 
-            switch (stationsOfThisPlayerCount)
-            {
-                case 1:
-                    rent = STATION_RENTS[0];
-                    break;
-                case 2:
-                    rent = STATION_RENTS[1];
-                    break;
-                case 3:
-                    rent = STATION_RENTS[2];
-                    break;
-                case 4:
-                    rent = STATION_RENTS[3];
-                    break;
-                default:
-                    rent = -1;
-                    break;
-            }
+            rent = STATION_RENTS[stationsOfThisPlayerCount - 1];
 
             return rent;
         }

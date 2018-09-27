@@ -63,7 +63,7 @@ namespace Monopoly.Models.Cases
         /// <param name="y"></param>
         /// <param name="name">Key of the price</param>
         /// <param name="price">Value of the price</param>
-        protected virtual void DrawPrice(Graphics g, int y, string name, int price)
+        protected void DrawPrice(Graphics g, int y, string name, int price)
         {
             g.DrawString(name, new Font("Arial", 6), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(2.5F, y + 0.5F));
             g.DrawImage(Properties.Resources.Flouzz, new RectangleF(65, y + 2.5F, 6, 6));
