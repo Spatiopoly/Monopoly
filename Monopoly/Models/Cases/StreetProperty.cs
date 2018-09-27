@@ -182,5 +182,10 @@ namespace Monopoly.Models.Cases
                 g.DrawString(price.ToString(), new Font("Arial", 7, FontStyle.Bold), Brushes.White, new PointF(71, y));
             }
         }
+
+        public override int GetRent()
+        {
+            return 42; // @TODO
+        }
     }
 }

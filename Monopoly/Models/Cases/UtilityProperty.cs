@@ -48,5 +48,10 @@ namespace Monopoly.Models.Cases
 
             return img;
         }
+
+        public override int GetRent()
+        {
+            return 42; // @TODO
+        }
     }
 }

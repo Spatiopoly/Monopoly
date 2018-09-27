@@ -13,6 +13,14 @@ namespace Monopoly.Models.Cases
 
         public CardType Type { get; private set; }
 
+        /// <summary>
+        /// Get the illustration image of the card type
+        /// </summary>
+        public Image TypeImage
+            => Type == CardType.Chance
+            ? Properties.Resources.Luck
+            : Properties.Resources.CommunityChest;
+
         public CardCase(CardType type)
         {
             Type = type;
@@ -20,7 +28,7 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override Image GetBoardCaseImage()
@@ -34,16 +42,19 @@ namespace Monopoly.Models.Cases
             {
                 RectangleF rectangle = g.VisibleClipBounds;
 
-                string name = Type == CardType.Chance ? "Luck" : "Community\nchest";
-
-
+                string name = ToString().Replace(' ', '\n');
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 15));
 
-                var image = (Type == CardType.Chance) ? Properties.Resources.Luck : Properties.Resources.CommunityChest; 
+                Image image = TypeImage; 
                 g.DrawImage(image, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
             return img;
+        }
+
+        public override string ToString()
+        {
+            return Type == CardType.Chance ? "Chance" : "Community chest";
         }
     }
 }

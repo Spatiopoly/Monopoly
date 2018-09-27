@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Monopoly.Models.Cards;
+﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
+using System.Collections.Generic;
 
 namespace Monopoly.Models
 {
@@ -16,8 +14,6 @@ namespace Monopoly.Models
         public event CurrentPlayerChangedHandler CurrentPlayerChanged;
         public delegate void CurrentPlayerChangedHandler(Game game);
 
-        private int _currentPlayerIndex = 0;
-
         #region Properties
 
         /// <summary>
@@ -25,11 +21,13 @@ namespace Monopoly.Models
         /// </summary>
         public List<Player> Players { get; private set; }
 
+        public int CurrentPlayerIndex { get; private set; } = 0;
+
         /// <summary>
-        /// The players who currently plays
+        /// The player who currently plays
         /// </summary>
         public Player CurrentPlayer
-            => Players[_currentPlayerIndex];
+            => Players[CurrentPlayerIndex];
 
         /// <summary>
         /// Cases on the board (properties...)
@@ -37,9 +35,14 @@ namespace Monopoly.Models
         public List<AbstractCase> Cases { get; private set; }
 
         /// <summary>
-        /// 
+        /// All the cards (chance/community chest) that are remaining
         /// </summary>
         public List<AbstractCard> Cards { get; private set; }
+
+        /// <summary>
+        /// Know if the current player has played on the current turn (= rolled the dice)
+        /// </summary>
+        public bool HasPlayed { get; private set; } = false;
         #endregion
 
         /// <summary>
@@ -106,17 +109,49 @@ namespace Monopoly.Models
             CurrentPlayerChanged(this);
         }
 
+        public void SendMessage(string message)
+        {
+            Message?.Invoke(this, message);
+        }
+
         /// <summary>
         /// Go to the next player
         /// </summary>
         public void NextPlayer()
         {
-            _currentPlayerIndex = _currentPlayerIndex >= Players.Count - 1
+            // Update the current player
+            CurrentPlayerIndex = CurrentPlayerIndex >= Players.Count - 1
                 ? 0
-                : _currentPlayerIndex + 1;
+                : CurrentPlayerIndex + 1;
 
-            Message(this, "C'est au tour de " + CurrentPlayer.Name);
+            // Reset the turn variables
+            HasPlayed = false;
+
+            // Notify the view
+            SendMessage("C'est au tour de " + CurrentPlayer.Name);
             CurrentPlayerChanged(this);
+        }
+
+        /// <summary>
+        /// Play the dice result
+        /// </summary>
+        /// <param name="diceSum">Sum of the two dices</param>
+        public void PlayDice(int diceSum)
+        {
+            int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
+            int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
+
+            // Fly over intermediate case
+            for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+            {
+                Cases[i % Cases.Count].FlyOver(this);
+            }
+
+            // Land on the new case
+            CurrentPlayer.GoToCase(newCaseIndex);
+            Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+
+            HasPlayed = true;
         }
     }
 }

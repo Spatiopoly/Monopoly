@@ -11,16 +11,18 @@ namespace Monopoly.Models.Cases
     {
         const int SALARY_AMOUNT = 200;
 
-        public override void Land(Game game) {}
-
         public override void FlyOver(Game game)
         {
             game.CurrentPlayer.Wealth += SALARY_AMOUNT;
+            game.SendMessage(game.CurrentPlayer.Name + " touche son salaire.");
         }
 
         public override Image GetBoardCaseImage()
         {
             return Properties.Resources.Go;
         }
+
+        public override string ToString()
+            => "Case départ";
     }
 }

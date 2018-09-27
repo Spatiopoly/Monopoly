@@ -28,7 +28,15 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game)
         {
-            throw new NotImplementedException();
+            Player currentPlayer = game.CurrentPlayer;
+
+            if (Owner != null && Owner != currentPlayer)
+            {
+                int rent = GetRent();
+                currentPlayer.Wealth -= rent;
+                Owner.Wealth += rent;
+                game.SendMessage($"{currentPlayer.Name} paye {rent} de loyer à {Owner.Name}");
+            }
         }
 
         public virtual Image GetPropertyCardImage()
@@ -43,5 +51,11 @@ namespace Monopoly.Models.Cases
 
             return image;
         }
+
+        /// <summary>
+        /// Get the stay price for the case
+        /// </summary>
+        /// <returns>Rent</returns>
+        public abstract int GetRent();
     }
 }

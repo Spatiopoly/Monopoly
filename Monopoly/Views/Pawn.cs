@@ -37,7 +37,13 @@ namespace Monopoly.Views
             int initialPosition = firstCaseEnd - (PAWN_SIZE + 5) * playerIndex;
             Position = new NumberProperty(initialPosition, 3, TransitionTimingFunction.EaseInOut);
 
-            // Position.Set(1000);
+            player.CurrentCaseChanged += Player_CurrentCaseChanged;
+        }
+
+        private void Player_CurrentCaseChanged(Player player, int oldCaseIndex, int newCaseIndex)
+        {
+            Position.TransitionDuration = (newCaseIndex - oldCaseIndex) * 0.5;
+            Position.Set(GameView.GetCaseOnPlayersPath(newCaseIndex));
         }
 
         /// <summary>

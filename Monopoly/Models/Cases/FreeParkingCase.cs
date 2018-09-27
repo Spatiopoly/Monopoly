@@ -9,14 +9,12 @@ namespace Monopoly.Models.Cases
 {
     class FreeParkingCase : AbstractCase
     {
-        public override void Land(Game game)
-        {
-            throw new NotImplementedException();
-        }
-
         public override Image GetBoardCaseImage()
         {
             return Properties.Resources.Parc;
         }
+
+        public override string ToString()
+            => "Pause temporelle";
     }
 }
