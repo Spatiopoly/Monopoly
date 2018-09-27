@@ -173,30 +173,7 @@ namespace Monopoly.Models.Cases
         {
             int rent = 0;
 
-            switch (BuildingCount)
-            {
-                case 0:
-                    rent = Rents[0];
-                    break;
-                case 1:
-                    rent = Rents[1];
-                    break;
-                case 2:
-                    rent = Rents[2];
-                    break;
-                case 3:
-                    rent = Rents[3];
-                    break;
-                case 4:
-                    rent = Rents[4];
-                    break;
-                case 5:
-                    rent = Rents[5];
-                    break;
-                default:
-                    rent = -1;
-                    break;
-            }
+            rent = Rents[BuildingCount];
 
             return rent;
         }
