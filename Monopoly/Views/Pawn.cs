@@ -42,8 +42,8 @@ namespace Monopoly.Views
 
         private void Player_CurrentCaseChanged(Player player, int oldCaseIndex, int newCaseIndex)
         {
-            Position.TransitionDuration = (newCaseIndex - oldCaseIndex) * 0.5;
             Position.Set(GameView.GetCaseOnPlayersPath(newCaseIndex));
+            Position.TransitionDuration = Math.Abs(newCaseIndex - oldCaseIndex) * 0.5;
         }
 
         /// <summary>
