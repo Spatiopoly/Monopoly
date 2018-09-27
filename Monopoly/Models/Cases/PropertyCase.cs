@@ -32,13 +32,17 @@ namespace Monopoly.Models.Cases
 
             if (Owner != null && Owner != currentPlayer)
             {
-                int rent = GetRent();
+                int rent = GetRent(game);
                 currentPlayer.Wealth -= rent;
                 Owner.Wealth += rent;
                 game.SendMessage($"{currentPlayer.Name} paye {rent} de loyer à {Owner.Name}");
             }
         }
 
+        /// <summary>
+        /// Create a blank (empty) property card image that can be extended by subclasses
+        /// </summary>
+        /// <returns>A blank image of the size of the property card</returns>
         public virtual Image GetPropertyCardImage()
         {
             Image image = new Bitmap(PROPERTY_CARD_WIDTH, PROPERTY_CARD_HEIGHT);
@@ -53,9 +57,24 @@ namespace Monopoly.Models.Cases
         }
 
         /// <summary>
+        /// Draw a line of text on the card to indicate the price
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="y"></param>
+        /// <param name="name">Key of the price</param>
+        /// <param name="price">Value of the price</param>
+        protected void DrawPrice(Graphics g, int y, string name, int price)
+        {
+            g.DrawString(name, new Font("Arial", 6), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(2.5F, y + 0.5F));
+            g.DrawImage(Properties.Resources.Flouzz, new RectangleF(65, y + 2.5F, 6, 6));
+            g.DrawString(price.ToString(), new Font("Arial", 7, FontStyle.Bold), Brushes.White, new PointF(71, y));
+        }
+
+        /// <summary>
         /// Get the stay price for the case
         /// </summary>
+        /// <param name="game">The game (used for some cases)</param>
         /// <returns>Rent</returns>
-        public abstract int GetRent();
+        public abstract int GetRent(Game game);
     }
 }

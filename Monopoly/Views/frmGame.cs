@@ -175,7 +175,7 @@ namespace Monopoly.Views
                         }
                         else
                         {
-                            lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent()}F de loyer";
+                            lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
                         }
 
                         pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
@@ -220,6 +220,7 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
+            diceSum = 1;
             game.PlayDice(diceSum);
             UpdateTabs();
         }
