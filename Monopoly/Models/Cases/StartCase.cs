@@ -21,5 +21,8 @@ namespace Monopoly.Models.Cases
         {
             return Properties.Resources.Go;
         }
+
+        public override string ToString()
+            => "Case départ";
     }
 }

@@ -130,25 +130,18 @@ namespace Monopoly.Views
             {
                 if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
                 {
+                    string title = currentCase.ToString();
+
                     if (currentCase is StartCase)
                     {
-                        lblCaseCoin.Text = "Case départ" + Environment.NewLine + "Vous gagnez 200F";
+                        title += Environment.NewLine + "Vous gagnez 200F";
                     }
-                    else if (currentCase is FreeParkingCase)
+                    else if (currentCase is JailCase)
                     {
-                        lblCaseCoin.Text = "Pause temporelle";
+                        title += Environment.NewLine + "Visite simple";
                     }
-                    else if (currentCase is GoToJailCase)
-                    {
-                        lblCaseCoin.Text = "En allez prison !";
-                    }
-                    else
-                    {
-                        // Si il est en prison :
-                        lblCaseCoin.Text = "Vous êtes prisonnier";
-                        // Si il est en visite :
-                        lblCaseCoin.Text = "Visite de la prison";
-                    }
+
+                    lblCaseCoin.Text = title;
 
                     pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
                     pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;

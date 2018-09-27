@@ -13,5 +13,8 @@ namespace Monopoly.Models.Cases
         {
             return Properties.Resources.Parc;
         }
+
+        public override string ToString()
+            => "Pause temporelle";
     }
 }

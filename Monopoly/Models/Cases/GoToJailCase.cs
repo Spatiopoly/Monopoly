@@ -15,5 +15,8 @@ namespace Monopoly.Models.Cases
         {
             return Properties.Resources.EnAllez;
         }
+
+        public override string ToString()
+            => "En allez prison !";
     }
 }

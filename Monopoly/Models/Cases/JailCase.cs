@@ -15,5 +15,8 @@ namespace Monopoly.Models.Cases
         {
             return Properties.Resources.Prison;
         }
+
+        public override string ToString()
+            => "Prison de l'espace";
     }
 }
