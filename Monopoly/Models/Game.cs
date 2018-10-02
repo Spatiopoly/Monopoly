@@ -1,6 +1,7 @@
 ﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Monopoly.Models
 {
@@ -144,21 +145,75 @@ namespace Monopoly.Models
         public void PlayDice(int diceSum)
         {
             LastDiceSum = diceSum;
-
-            int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
-            int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
-
-            // Fly over intermediate case
-            for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+            const int JAIL_CASE_INDEX = 10;
+            //Move player if he's not a prissoner or if he is his throw must be a double
+            if ((CurrentPlayer.isPrisonner && diceSum % 2 == 0) || !CurrentPlayer.isPrisonner)
             {
-                Cases[i % Cases.Count].FlyOver(this);
+                int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
+                int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
+
+
+                // Fly over intermediate case
+                for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+                {
+                    Cases[i % Cases.Count].FlyOver(this);
+                }
+
+                // Land on the new case
+                CurrentPlayer.GoToCase(newCaseIndex);
+                Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+
+                if (CurrentPlayer.isPrisonner)
+                {
+                    CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
+                    Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+                }
+
+                //Check if palyers ins't in prison and current thorw was a double
+                if (!CurrentPlayer.isPrisonner && diceSum % 2 == 0)
+                {
+                    //If players last throw was also a double incerment double count and update isPrisonner state if it's the third in a row
+                    if (CurrentPlayer.lastDiceSum  % 2 == 0)
+                    {
+                        CurrentPlayer.nbDoubles++;
+                        CurrentPlayer.isPrisonner = CurrentPlayer.nbDoubles == 3;
+
+                    }
+                    else
+                    {
+                        CurrentPlayer.nbDoubles = 0;
+                    }
+
+                    if (CurrentPlayer.isPrisonner)
+                    {
+                        CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
+                        Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+                        HasPlayed = true;
+
+                    } else
+                    {
+                        SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3" + CurrentPlayer.nbDoubles);
+                        if (MessageBox.Show("Voulez-vous rejouer ?", "rejouer ?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            HasPlayed = false; // the player can play again
+                            SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de rejouer");
+                        }
+                        else
+                        {
+                            SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de ne pas rejouer");
+                            HasPlayed = true;
+                        }
+
+                    }
+                }
+                else
+                {
+                    HasPlayed = true;
+                }
+
+                CurrentPlayer.lastDiceSum = diceSum;
+
             }
-
-            // Land on the new case
-            CurrentPlayer.GoToCase(newCaseIndex);
-            Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
-
-            HasPlayed = true;
         }
     }
 }

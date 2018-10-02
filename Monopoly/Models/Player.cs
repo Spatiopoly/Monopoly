@@ -18,6 +18,12 @@ namespace Monopoly.Models
 
         public int OldCaseIndex { get; private set; } = 0;
 
+        public int lastDiceSum { get; set; }
+
+        public int nbDoubles { get; set; } = 0;
+
+        public bool isPrisonner { get; set; } = false;
+
         public int JailExitCardsCount { get; set; } = 0;
 
         public string Name { get; set; }
@@ -51,6 +57,13 @@ namespace Monopoly.Models
             CurrentCaseChanged?.Invoke(this, oldCaseIndex, newCaseIndex);
 
             OldCaseIndex = oldCaseIndex;
+
+
+        }
+
+        private void GoToPrison()
+        {
+
         }
     }
 }
