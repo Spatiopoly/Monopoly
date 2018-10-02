@@ -22,6 +22,14 @@ namespace Monopoly.Models.Cases
             return Properties.Resources.Go;
         }
 
+        public override void Land(Game game)
+        {
+            if (game.LastDiceSum != 0)
+            {
+                game.CurrentPlayer.Wealth += 200;
+            }
+        }
+
         public override string ToString()
             => "Case départ";
     }

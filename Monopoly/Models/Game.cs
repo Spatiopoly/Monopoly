@@ -104,6 +104,16 @@ namespace Monopoly.Models
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
+
+            Cards = new List<AbstractCard>() {
+                new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest),
+                new AdvanceCard("StartCase", 0, "Collectez 200F", CardType.Chance),
+                new AdvanceCard("Illinois Avenue", 24, "Passage par la case Start gagne 200F", CardType.Chance),
+                new AdvanceCard("St Charles Place", 11, "Passage par la case Start gagne 200F", CardType.Chance),
+                new AdvanceCard("Service le plus proche", -1, "Si un propriétaire existe : Payer lui 10x le lancer de dé", CardType.Chance),
+                new AdvanceCard("Gare la plus proche", -2, "Si un propriétaire existe : Payer lui deux fois le loyer", CardType.Chance),
+
+            };
         }
 
         /// <summary>

@@ -11,10 +11,13 @@ namespace Monopoly.Models.Cards
     /// </summary>
     public abstract class AbstractCard
     {
+        public virtual CardType Type
+            => CardType.Chance;
+
         /// <summary>
         /// What happens when a player gets the card?
         /// </summary>
         /// <param name="game">The game status</param>
-        public abstract void Play(Game game); 
+        public abstract void Play(Game game);
     }
 }
