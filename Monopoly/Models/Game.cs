@@ -192,7 +192,7 @@ namespace Monopoly.Models
 
                     } else
                     {
-                        SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3" + CurrentPlayer.nbDoubles);
+                        SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3");
                         if (MessageBox.Show("Voulez-vous rejouer ?", "rejouer ?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             HasPlayed = false; // the player can play again
