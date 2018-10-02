@@ -30,10 +30,9 @@ namespace Monopoly.Models.Cases
         public override void Land(Game game)
         {
             Random rnd = new Random();
-            AbstractCard ac = game.Cards[/*rnd.Next(game.Cards.Count)*/7];
+            AbstractCard ac = game.Cards[9];
             game.LastSpecialCard = ac;
             ac.Play(game);
-            //throw new NotImplementedException();
         }
 
         public override Image GetBoardCaseImage()

@@ -118,6 +118,12 @@ namespace Monopoly.Models
                 //Faire classe carte sortie prison => elle a un owner, fait aller de prison à parloir
                 //Faire la carte qui recule de 3 cases
                 new AdvanceCard("PRISON", -3, "Ne passe pas par la case départ", CardType.Chance),
+                new PayMoneyCard("Travaux de réparations : Payer 25F par maison et 100F par hotel que vous possédez", -1, CardType.Chance),
+                new PayMoneyCard("Payer la taxe pour les pauvres", 15, CardType.Chance),
+                new AdvanceCard("Reading RailRoad", 5, "Passage par la case Start gagne 200F", CardType.Chance),
+                new AdvanceCard("Boardwalk", 39, "Avancez simplement", CardType.Chance),
+                new PayMoneyCard("Vous avez été élu président du plateau", -2, CardType.Chance),
+                // @TODO::Continuer les cartes chances et chancellerie
             };
         }
 
