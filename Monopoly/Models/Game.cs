@@ -1,6 +1,7 @@
 ﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Monopoly.Models
 {
@@ -158,7 +159,25 @@ namespace Monopoly.Models
             CurrentPlayer.GoToCase(newCaseIndex);
             Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
-            HasPlayed = true;
+            if (diceSum == 12)
+            {              
+                SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3");
+
+                if (MessageBox.Show("Voulez-vous rejouer ?", "rejouer ?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    HasPlayed = false; // the player can replayed
+                    SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de rejouer");
+                }
+                else
+                {
+                    SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de ne pas rejouer");
+                    HasPlayed = true;
+                }
+            }
+            else
+            {
+                HasPlayed = true;
+            }
         }
     }
 }

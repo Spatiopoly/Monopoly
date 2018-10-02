@@ -52,5 +52,21 @@ namespace Monopoly.Models
 
             OldCaseIndex = oldCaseIndex;
         }
+
+        /// <summary>
+        /// Test if the player is in bankruptcy
+        /// </summary>
+        /// <returns>bool true if player is in bankruptcy</returns>
+        public bool IsBankruptcy()
+        {
+            if (Wealth <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
