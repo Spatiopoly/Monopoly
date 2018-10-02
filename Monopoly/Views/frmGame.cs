@@ -138,7 +138,18 @@ namespace Monopoly.Views
                     }
                     else if (currentCase is JailCase)
                     {
-                        title += Environment.NewLine + "Visite simple";
+                        if (currentPlayer.isPrisonner == true)
+                        {
+                            title += Environment.NewLine + "En prison !";
+                        }
+                        else
+                        {
+                            title += Environment.NewLine + "Visite simple";
+                        }                        
+                    }
+                    else if (currentCase is GoToJailCase)
+                    {
+                        title += Environment.NewLine + "Allez en prisons !";
                     }
 
                     lblCaseCoin.Text = title;
@@ -220,7 +231,7 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            diceSum = 1;
+            diceSum = 15;
             game.PlayDice(diceSum);
             UpdateTabs();
         }

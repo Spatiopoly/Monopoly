@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using static Monopoly.Models.Player;
-
+using System;
 namespace Monopoly.Views
 {
     /// <summary>
@@ -44,6 +44,7 @@ namespace Monopoly.Views
         {
             Position.Set(GameView.GetCaseOnPlayersPath(newCaseIndex));
             Position.TransitionDuration = Math.Abs(newCaseIndex - oldCaseIndex) * 0.5;
+
         }
 
         /// <summary>

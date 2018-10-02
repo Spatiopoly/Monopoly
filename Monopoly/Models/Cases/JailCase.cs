@@ -9,7 +9,9 @@ namespace Monopoly.Models.Cases
 {
     class JailCase : AbstractCase
     {
-        public override void Land(Game game) { }
+        public override void Land(Game game)
+        {
+        }
 
         public override Image GetBoardCaseImage()
         {
