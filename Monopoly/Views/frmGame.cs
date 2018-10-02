@@ -120,86 +120,94 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-            if (!game.HasPlayed) // @TODO : Player hasn't played
+            //test if current player is not in bankruptcy
+            if (!game.CurrentPlayer.IsBankruptcy())
             {
-                btnLancerDes.Enabled = true;
+                if (!game.HasPlayed) // Player hasn't played
+                {
+                    btnLancerDes.Enabled = true;
 
-                tabs.TabPages.Add(tabCaseDes);
+                    tabs.TabPages.Add(tabCaseDes);
+                }
+                else
+                {
+                    if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
+                    {
+                        string title = currentCase.ToString();
+
+                        if (currentCase is StartCase)
+                        {
+                            title += Environment.NewLine + "Vous gagnez 200F";
+                        }
+                        else if (currentCase is JailCase)
+                        {
+                            title += Environment.NewLine + "Visite simple";
+                        }
+
+                        lblCaseCoin.Text = title;
+
+                        pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                        pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
+
+                        tabs.TabPages.Add(tabCaseCoin);
+                    }
+                    else if (currentCase is TaxCase)
+                    {
+                        TaxCase taxe = currentCase as TaxCase;
+                        pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
+                        tabs.TabPages.Add(tabCaseTaxe);
+                    }
+                    else if (currentCase is CardCase)
+                    {
+                        CardCase specialCard = currentCase as CardCase;
+
+                        pbxCaseChanceImage.BackgroundImage = specialCard.TypeImage;
+                        lblCaseChanceChancelTitre.Text = specialCard.ToString();
+
+                        tabs.TabPages.Add(tabCaseChanceChancel);
+                    }
+                    else if (currentCase is PropertyCase)
+                    {
+                        PropertyCase property = currentCase as PropertyCase;
+
+                        if (property.Owner == currentPlayer || property.Owner != null)
+                        {
+                            if (property.Owner == currentPlayer)
+                            {
+                                lblCasePropAchetee.Text = $"Bienvenue chez vous, {currentPlayer.Name} !";
+                            }
+                            else
+                            {
+                                lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
+                            }
+
+                            pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+
+                            tabs.TabPages.Add(tabCasePropAchetee);
+                        }
+                        else
+                        {
+                            if (currentPlayer.Wealth >= property.Price)
+                            {
+                                btnAcheterPropriete.Enabled = true;
+                                pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                                lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + $"{property.Price}F";
+                                tabs.TabPages.Add(tabCasePropSimple);
+                            }
+                            else
+                            {
+                                pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                                lblCasePropSimplePrixAchat.Text = "Vous n'avez pas assez de Flouzz.";
+                                btnAcheterPropriete.Enabled = false;
+                                tabs.TabPages.Add(tabCasePropSimple);
+                            }
+                        }
+                    }
+                }
             }
             else
             {
-                if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
-                {
-                    string title = currentCase.ToString();
-
-                    if (currentCase is StartCase)
-                    {
-                        title += Environment.NewLine + "Vous gagnez 200F";
-                    }
-                    else if (currentCase is JailCase)
-                    {
-                        title += Environment.NewLine + "Visite simple";
-                    }
-
-                    lblCaseCoin.Text = title;
-
-                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
-                    pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
-                    
-                    tabs.TabPages.Add(tabCaseCoin);
-                }
-                else if (currentCase is TaxCase)
-                {
-                    TaxCase taxe = currentCase as TaxCase;
-                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
-                    tabs.TabPages.Add(tabCaseTaxe);
-                }
-                else if (currentCase is CardCase)
-                {
-                    CardCase specialCard = currentCase as CardCase;
-
-                    pbxCaseChanceImage.BackgroundImage = specialCard.TypeImage;
-                    lblCaseChanceChancelTitre.Text = specialCard.ToString();
-
-                    tabs.TabPages.Add(tabCaseChanceChancel);
-                }
-                else if (currentCase is PropertyCase)
-                {
-                    PropertyCase property = currentCase as PropertyCase;
-
-                    if (property.Owner == currentPlayer || property.Owner != null)
-                    {
-                        if (property.Owner == currentPlayer)
-                        {
-                            lblCasePropAchetee.Text = $"Bienvenue chez vous, {currentPlayer.Name} !";
-                        }
-                        else
-                        {
-                            lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
-                        }
-
-                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
-
-                        tabs.TabPages.Add(tabCasePropAchetee);
-                    }
-                    else
-                    {
-                        if (currentPlayer.Wealth >= property.Price)
-                        {
-                            btnAcheterPropriete.Enabled = true;
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                            lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + $"{property.Price}F";
-                            tabs.TabPages.Add(tabCasePropSimple);
-                        }
-                        else
-                        {
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
-                            lblCasePropSimplePrixAchat.Text = "Vous n'avez pas assez de Flouzz.";
-                            btnAcheterPropriete.Enabled = false;
-                            tabs.TabPages.Add(tabCasePropSimple);
-                        }
-                    }
-                }
+                game.SendMessage("Le joueur " + game.CurrentPlayer.Name + " est en faillite !");
             }
 
             // Load the properties
@@ -220,7 +228,7 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            diceSum = 1;
+            //diceSum = 1;
             game.PlayDice(diceSum);
             UpdateTabs();
         }
