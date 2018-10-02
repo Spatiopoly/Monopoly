@@ -1,4 +1,5 @@
 ﻿using Monopoly.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using static Monopoly.Models.Player;
@@ -11,6 +12,7 @@ namespace Monopoly.Views
     class Pawn
     {
         const int PAWN_SIZE = 32;
+        const double CASES_PER_SECOND = 0.5; // Speed of the pawn 
 
         private Player player;
         private Dictionary<PlayerColor, Image> images = new Dictionary<PlayerColor, Image>() {
@@ -21,7 +23,7 @@ namespace Monopoly.Views
             { PlayerColor.Green, Properties.Resources.PawnGreen }
         };
 
-        public NumberProperty Position { get; private set; }
+        public CircularNumberProperty Position { get; private set; }
 
         /// <summary>
         /// Create a new pawn with a player
@@ -32,18 +34,31 @@ namespace Monopoly.Views
         {
             this.player = player;
 
+            // Compute the total path length
+            PointF[] path = GameView.playersPathPoints;
+            float totalPathLength = 0;
+            for (int i = 0; i < path.Length; i++)
+            {
+                PointF thisPoint = path[i];
+                PointF nextPoint = path[i != path.Length - 1 ? i + 1 : 0];
+
+                totalPathLength += (float)Math.Sqrt(Math.Pow(nextPoint.X - thisPoint.X, 2) + Math.Pow(nextPoint.Y - thisPoint.Y, 2));
+            }
+
             // Compute the initial position
             int firstCaseEnd = GameView.GetCaseOnPlayersPath(0);
             int initialPosition = firstCaseEnd - (PAWN_SIZE + 5) * playerIndex;
-            Position = new NumberProperty(initialPosition, 3, TransitionTimingFunction.EaseInOut);
+            Position = new CircularNumberProperty(initialPosition, totalPathLength, 3, TransitionTimingFunction.EaseInOut);
 
             player.CurrentCaseChanged += Player_CurrentCaseChanged;
         }
 
         private void Player_CurrentCaseChanged(Player player, int oldCaseIndex, int newCaseIndex)
         {
-            Position.Set(GameView.GetCaseOnPlayersPath(newCaseIndex));
-            Position.TransitionDuration = Math.Abs(newCaseIndex - oldCaseIndex) * 0.5;
+            Position.TransitionDuration = Math.Abs(newCaseIndex - oldCaseIndex) * CASES_PER_SECOND;
+
+            int nextPointDistance = GameView.GetCaseOnPlayersPath(newCaseIndex);
+            Position.Set(nextPointDistance, CircularNumberProperty.TransitionDirection.Up);
         }
 
         /// <summary>
@@ -57,9 +72,13 @@ namespace Monopoly.Views
             var rectangle = new RectangleF(point.X - PAWN_SIZE / 2, point.Y - PAWN_SIZE / 2, PAWN_SIZE, PAWN_SIZE);
 
             if (images.ContainsKey(player.Color))
+            {
                 g.DrawImage(images[player.Color], rectangle);
+            }
             else
+            {
                 g.FillEllipse(new SolidBrush(player.Color.GetColor()), rectangle);
+            }
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Monopoly.Views
     }
 
     /// <summary>
-    /// Displayed property such as in CSS. The transitions between two states
-    /// can be controlled (duration and type).
+    /// This class allows us to create a displayed property such as in CSS.
+    /// The transitions between two states can be controlled (duration and type).
     /// 
     /// Use DisplayedProperty<T>.DisplayedValue to get the value that should be shown on screen.
     /// Use DisplayedProperty<T>.Set() to create a new state.
@@ -46,6 +46,9 @@ namespace Monopoly.Views
         }
 
         #region Properties
+        /// <summary>
+        /// Get the current displayed value (current state of the transition)
+        /// </summary>
         public T DisplayedValue
         {
             get
@@ -53,7 +56,9 @@ namespace Monopoly.Views
                 long currentTimestamp = stopwatch.ElapsedMilliseconds;
 
                 if (currentTimestamp > transitionDurationMs)
+                {
                     return nextValue;
+                }
 
                 double progress = Ease(TransitionEasing, (double)currentTimestamp / transitionDurationMs);
                 return GetIntermediateValue(currentValue, nextValue, progress);
@@ -69,7 +74,9 @@ namespace Monopoly.Views
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentException("The duration should be positive");
+                }
 
                 transitionDurationMs = (int)Math.Round(value * 1000);
             }
@@ -86,7 +93,7 @@ namespace Monopoly.Views
         /// Set a new value which will be displayed on screen after the transition is completed
         /// </summary>
         /// <param name="newValue">The new value</param>
-        public void Set(T newValue)
+        public virtual void Set(T newValue)
         {
             currentValue = DisplayedValue;
             nextValue = newValue;
@@ -146,6 +153,86 @@ namespace Monopoly.Views
     }
 
     /// <summary>
+    /// Position on a circle or on a path
+    /// 
+    /// Example:
+    /// var position = new CircularNumberProperty(350, 360);
+    /// position.Add(20);
+    /// 
+    /// DisplayedValue will be equal to 350, then 355, 0, 5, and 10.
+    /// </summary>
+    class CircularNumberProperty : DisplayedProperty<float>
+    {
+        public enum TransitionDirection { Up, Down }
+
+        private TransitionDirection _currentTransitionDirection;
+
+        public float MaximumValue { get; private set; }
+
+        public CircularNumberProperty(float defaultValue, float maximumValue)
+            : base(defaultValue)
+        {
+            MaximumValue = maximumValue;
+        }
+
+        public CircularNumberProperty(float defaultValue, float maximumValue, double transitionDuration)
+            : base(defaultValue, transitionDuration)
+        {
+            MaximumValue = maximumValue;
+        }
+
+        public CircularNumberProperty(float defaultValue, float maximumValue, double transitionDuration, TransitionTimingFunction easing)
+            : base(defaultValue, transitionDuration, easing)
+        {
+            MaximumValue = maximumValue;
+        }
+
+        /// <summary>
+        /// Set a new value with an automatic direction
+        /// (The transition won't pass through MaximumValue even if it's the closest path)
+        /// </summary>
+        /// <param name="newValue"></param>
+        public override void Set(float newValue)
+        {
+            var direction = newValue > DisplayedValue
+                ? TransitionDirection.Up
+                : TransitionDirection.Down;
+
+            Set(newValue, direction);
+        }
+
+        /// <summary>
+        /// Set a new value specifying a transition direction
+        /// </summary>
+        /// <param name="newValue">The new value</param>
+        /// <param name="direction">The transition direction (up or down)</param>
+        public void Set(float newValue, TransitionDirection direction)
+        {
+            _currentTransitionDirection = direction;
+            base.Set(newValue);
+        }
+
+        protected override float GetIntermediateValue(float previousValue, float nextValue, double progress)
+        {
+            if (_currentTransitionDirection == TransitionDirection.Down)
+                throw new NotImplementedException("Not supported yet");
+
+            float difference = nextValue - previousValue;
+            if (difference < 0 && _currentTransitionDirection == TransitionDirection.Up)
+            {
+                difference += MaximumValue;
+            }
+
+            float newValue = previousValue + (float)(progress * difference);
+
+            if (newValue > MaximumValue)
+                newValue -= MaximumValue;
+
+            return newValue;
+        }
+    }
+
+    /// <summary>
     /// Color property
     /// </summary>
     class ColorProperty : DisplayedProperty<Color>
@@ -169,4 +256,5 @@ namespace Monopoly.Views
             );
         }
     }
+
 }
