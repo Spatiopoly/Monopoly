@@ -32,6 +32,7 @@ namespace Monopoly.Models.Cards
             const int INDEX_GARE2 = 15;
             const int INDEX_GARE3 = 25;
             const int INDEX_GARE4 = 35;
+            const int INDEX_PRISON = 10;
 
             // Permet de différencier les 2 utilities
             if (IndexDestination == -1)
@@ -72,6 +73,18 @@ namespace Monopoly.Models.Cards
                 {
                     IndexDestination = INDEX_GARE1;
                 }
+            }
+
+            if (IndexDestination == -3)
+            {
+                if (game.CurrentPlayer.CurrentCaseIndex > INDEX_PRISON)
+                {
+                    // Soustrait les 200 gagné si passage par la case départ
+                    game.CurrentPlayer.Wealth -= 200;
+                }
+
+                IndexDestination = INDEX_PRISON;
+                // TODO:: Mettre la propriété du joueur "EnPrison" à true
             }
 
             if (game.CurrentPlayer.CurrentCaseIndex < IndexDestination)

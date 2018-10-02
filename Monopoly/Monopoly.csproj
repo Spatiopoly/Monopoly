@@ -50,6 +50,7 @@
     <Compile Include="Models\Cards\AbstractCard.cs" />
     <Compile Include="Models\Cards\AdvanceCard.cs" />
     <Compile Include="Models\Cards\PayMoneyCard.cs" />
+    <Compile Include="Models\Cards\ReceiveMoneyCard.cs" />
     <Compile Include="Models\Cases\AbstractCase.cs" />
     <Compile Include="Models\Cases\CardCase.cs" />
     <Compile Include="Models\Cases\FreeParkingCase.cs" />

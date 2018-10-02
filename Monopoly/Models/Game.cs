@@ -48,6 +48,8 @@ namespace Monopoly.Models
         /// The last sum of the dices played
         /// </summary>
         public int LastDiceSum { get; private set; }
+
+        public AbstractCard LastSpecialCard { get; set; }
         #endregion
 
         /// <summary>
@@ -112,7 +114,10 @@ namespace Monopoly.Models
                 new AdvanceCard("St Charles Place", 11, "Passage par la case Start gagne 200F", CardType.Chance),
                 new AdvanceCard("Service le plus proche", -1, "Si un propriétaire existe : Payer lui 10x le lancer de dé", CardType.Chance),
                 new AdvanceCard("Gare la plus proche", -2, "Si un propriétaire existe : Payer lui deux fois le loyer", CardType.Chance),
-
+                new ReceiveMoneyCard("La banque paye vos dividendes", 50, CardType.Chance), 
+                //Faire classe carte sortie prison => elle a un owner, fait aller de prison à parloir
+                //Faire la carte qui recule de 3 cases
+                new AdvanceCard("PRISON", -3, "Ne passe pas par la case départ", CardType.Chance),
             };
         }
 
