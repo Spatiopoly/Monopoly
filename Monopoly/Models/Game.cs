@@ -152,7 +152,6 @@ namespace Monopoly.Models
                 int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
                 int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
 
-
                 // Fly over intermediate case
                 for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
                 {
@@ -163,7 +162,7 @@ namespace Monopoly.Models
                 CurrentPlayer.GoToCase(newCaseIndex);
                 Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
-                if (CurrentPlayer.isPrisonner)
+                if (CurrentPlayer.isPrisonner && diceSum % 2 != 0)
                 {
                     CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
                     Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
@@ -189,6 +188,7 @@ namespace Monopoly.Models
                         CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
                         Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
                         HasPlayed = true;
+                        CurrentPlayer.nbDoubles = 0;
 
                     } else
                     {
@@ -202,6 +202,7 @@ namespace Monopoly.Models
                         {
                             SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de ne pas rejouer");
                             HasPlayed = true;
+                            CurrentPlayer.nbDoubles = 0;
                         }
 
                     }
@@ -209,6 +210,10 @@ namespace Monopoly.Models
                 else
                 {
                     HasPlayed = true;
+                    if (CurrentPlayer.isPrisonner)
+                    {
+                        CurrentPlayer.isPrisonner = false;
+                    }
                 }
 
                 CurrentPlayer.lastDiceSum = diceSum;
