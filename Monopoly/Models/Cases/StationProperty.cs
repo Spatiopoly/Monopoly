@@ -13,16 +13,13 @@ namespace Monopoly.Models.Cases
         const int STATION_PRICE = 200;
         private static readonly int[] STATION_RENTS = new int[] { 25, 50, 100, 200 };
 
-        private Image cacheCaseImage = null;
-        private Image cachePropertyImage = null;
-
         public StationProperty(string name) : base(name, STATION_PRICE) {
         }
 
         public override Image GetBoardCaseImage()
         {
-            if (cacheCaseImage != null)
-                return cacheCaseImage;
+            if (imageCache.ContainsKey("board-case"))
+                return imageCache["board-case"];
 
             Image img = base.GetBoardCaseImage();
 
@@ -46,16 +43,16 @@ namespace Monopoly.Models.Cases
                 g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
-            cacheCaseImage = img;
+            imageCache["board-case"] = img;
             return img;
         }
 
-        public override Image GetPropertyCardImage()
+        public override Image GetPropertyCardImage(int scale)
         {
-            if (cachePropertyImage != null)
-                return cachePropertyImage;
+            if (imageCache.ContainsKey($"property-card-{scale}x"))
+                return imageCache[$"property-card-{scale}x"];
 
-            Image img = base.GetPropertyCardImage();
+            Image img = base.GetPropertyCardImage(scale);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -70,22 +67,22 @@ namespace Monopoly.Models.Cases
                     name = new string(n);
                 }
 
-                g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 10, rectangle.Width - 20, rectangle.Width - 20));
-                g.DrawString(name, new Font("Arial", 10), Brushes.White, new PointF(2.5F, 2.5F + 5));
+                g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10 * scale, 10 * scale, rectangle.Width - 20 * scale, rectangle.Width - 20 * scale));
+                g.DrawString(name, new Font("Arial", 10 * scale), Brushes.White, new PointF(2.5F * scale, 2.5F * scale + 5 * scale));
 
                 // Rent
-                int y = 65;
-                int height = 12;
-                DrawPrice(g, y += height, "Loyer", STATION_RENTS[0]);
-                DrawPrice(g, y += height, "Avec 2 gare", STATION_RENTS[1]);
-                DrawPrice(g, y += height, "Avec 3 gares", STATION_RENTS[2]);
-                DrawPrice(g, y += height, "Avec 4 gares", STATION_RENTS[3]);
+                int y = 65 * scale;
+                int height = 12 * scale;
+                DrawPrice(g, scale, y += height, "Loyer", STATION_RENTS[0]);
+                DrawPrice(g, scale, y += height, "Avec 2 gare", STATION_RENTS[1]);
+                DrawPrice(g, scale, y += height, "Avec 3 gares", STATION_RENTS[2]);
+                DrawPrice(g, scale, y += height, "Avec 4 gares", STATION_RENTS[3]);
 
-                DrawPrice(g, y += 17, "Hypothèque", STATION_PRICE / 2);
+                DrawPrice(g, scale, y += 17 * scale, "Hypothèque", STATION_PRICE / 2);
 
             }
 
-            cachePropertyImage = img;
+            imageCache[$"property-card-{scale}x"] = img;
             return img;
         }
 

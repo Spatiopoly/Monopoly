@@ -9,8 +9,6 @@ namespace Monopoly.Models.Cases
 {
     class CardCase : AbstractCase
     {
-        private Image cacheCaseImage = null;
-
         public CardType Type { get; private set; }
 
         /// <summary>
@@ -33,8 +31,8 @@ namespace Monopoly.Models.Cases
 
         public override Image GetBoardCaseImage()
         {
-            if (cacheCaseImage != null)
-                return cacheCaseImage;
+            if (imageCache.ContainsKey("board-case"))
+                return imageCache["board-case"];
 
             Image img = base.GetBoardCaseImage();
 
@@ -49,6 +47,7 @@ namespace Monopoly.Models.Cases
                 g.DrawImage(image, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
+            imageCache["board-case"] = img;
             return img;
         }
 
