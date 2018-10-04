@@ -142,12 +142,13 @@ namespace Monopoly.Models
         /// Play the dice result
         /// </summary>
         /// <param name="diceSum">Sum of the two dices</param>
-        public void PlayDice(int diceSum)
+        public void PlayDice(int resultFirstDice, int resultSecDice)
         {
+            int diceSum = resultFirstDice + resultSecDice;
             LastDiceSum = diceSum;
             const int JAIL_CASE_INDEX = 10;
             //Move player if he's not a prissoner or if he is his throw must be a double
-            if ((CurrentPlayer.isPrisonner && diceSum % 2 == 0) || !CurrentPlayer.isPrisonner)
+            if ((CurrentPlayer.isPrisonner && resultFirstDice == resultSecDice) || !CurrentPlayer.isPrisonner)
             {
                 int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
                 int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
@@ -162,14 +163,14 @@ namespace Monopoly.Models
                 CurrentPlayer.GoToCase(newCaseIndex);
                 Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
-                if (CurrentPlayer.isPrisonner && diceSum % 2 != 0)
+                if (CurrentPlayer.isPrisonner && resultFirstDice != resultSecDice)
                 {
                     CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
                     Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
                 }
 
                 //Check if palyers ins't in prison and current thorw was a double
-                if (!CurrentPlayer.isPrisonner && diceSum % 2 == 0)
+                if (!CurrentPlayer.isPrisonner && resultFirstDice == resultSecDice)
                 {
                     //If players last throw was also a double incerment double count and update isPrisonner state if it's the third in a row
                     if (CurrentPlayer.lastDiceSum  % 2 == 0)

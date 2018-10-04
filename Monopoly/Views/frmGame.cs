@@ -11,7 +11,8 @@ namespace Monopoly.Views
     {
         Game game;
         int compteurImageDes;
-        int diceSum = 0;
+        int resultFirstDice = 0;
+        int resultSecDice = 0;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -84,8 +85,7 @@ namespace Monopoly.Views
 
         private void tmrLancerDes_Tick(object sender, EventArgs e)
         {
-            int resultFirstDice = 0;
-            int resultSecDice = 0;
+            
             int indexImageFirstDice = rnd.Next(1, 7);
             pbxDe1.BackgroundImage = diceImages[indexImageFirstDice];
 
@@ -107,7 +107,6 @@ namespace Monopoly.Views
 
                 tmrDice.Enabled = true;
 
-                diceSum = resultFirstDice + resultSecDice;
             }
 
             compteurImageDes++;
@@ -230,9 +229,11 @@ namespace Monopoly.Views
         {
             tmrDice.Enabled = false;
 
+            resultFirstDice = 1;
+            resultSecDice = 1;
+
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            diceSum = 2;
-            game.PlayDice(diceSum);
+            game.PlayDice(resultFirstDice, resultSecDice);
             UpdateTabs();
         }
 
