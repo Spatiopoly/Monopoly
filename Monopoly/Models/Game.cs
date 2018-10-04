@@ -148,7 +148,7 @@ namespace Monopoly.Models
             LastDiceSum = diceSum;
             const int JAIL_CASE_INDEX = 10;
             //Move player if he's not a prissoner or if he is his throw must be a double
-            if ((CurrentPlayer.isPrisonner && resultFirstDice == resultSecDice) || !CurrentPlayer.isPrisonner)
+            if ((CurrentPlayer.IsInJail && resultFirstDice == resultSecDice) || !CurrentPlayer.IsInJail)
             {
                 int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
                 int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
@@ -163,33 +163,33 @@ namespace Monopoly.Models
                 CurrentPlayer.GoToCase(newCaseIndex);
                 Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
-                if (CurrentPlayer.isPrisonner && resultFirstDice != resultSecDice)
+                if (CurrentPlayer.IsInJail && resultFirstDice != resultSecDice)
                 {
                     CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
                     Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
                 }
 
-                //Check if palyers ins't in prison and current thorw was a double
-                if (!CurrentPlayer.isPrisonner && resultFirstDice == resultSecDice)
+                //Throw if palyers ins't in prison and current thorw was a double
+                if (!CurrentPlayer.IsInJail && resultFirstDice == resultSecDice)
                 {
                     //If players last throw was also a double incerment double count and update isPrisonner state if it's the third in a row
-                    if (CurrentPlayer.lastDiceSum  % 2 == 0)
+                    if (CurrentPlayer.LastDiceSum  % 2 == 0)
                     {
-                        CurrentPlayer.nbDoubles++;
-                        CurrentPlayer.isPrisonner = CurrentPlayer.nbDoubles == 3;
+                        CurrentPlayer.NbDoubles++;
+                        CurrentPlayer.IsInJail = CurrentPlayer.NbDoubles == 3;
 
                     }
                     else
                     {
-                        CurrentPlayer.nbDoubles = 0;
+                        CurrentPlayer.NbDoubles = 0;
                     }
 
-                    if (CurrentPlayer.isPrisonner)
+                    if (CurrentPlayer.IsInJail)
                     {
                         CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
                         Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
                         HasPlayed = true;
-                        CurrentPlayer.nbDoubles = 0;
+                        CurrentPlayer.NbDoubles = 0;
 
                     } else
                     {
@@ -203,7 +203,7 @@ namespace Monopoly.Models
                         {
                             SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de ne pas rejouer");
                             HasPlayed = true;
-                            CurrentPlayer.nbDoubles = 0;
+                            CurrentPlayer.NbDoubles = 0;
                         }
 
                     }
@@ -211,13 +211,13 @@ namespace Monopoly.Models
                 else
                 {
                     HasPlayed = true;
-                    if (CurrentPlayer.isPrisonner)
+                    if (CurrentPlayer.IsInJail)
                     {
-                        CurrentPlayer.isPrisonner = false;
+                        CurrentPlayer.IsInJail = false;
                     }
                 }
 
-                CurrentPlayer.lastDiceSum = diceSum;
+                CurrentPlayer.LastDiceSum = diceSum;
 
             }
         }

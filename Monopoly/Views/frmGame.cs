@@ -137,7 +137,7 @@ namespace Monopoly.Views
                     }
                     else if (currentCase is JailCase)
                     {
-                        if (currentPlayer.isPrisonner == true)
+                        if (currentPlayer.IsInJail == true)
                         {
                             title += Environment.NewLine + "En prison !";
                         }
@@ -148,7 +148,7 @@ namespace Monopoly.Views
                     }
                     else if (currentCase is GoToJailCase)
                     {
-                        title += Environment.NewLine + "Allez en prisons !";
+                        title += Environment.NewLine + "Allez en prison !";
                     }
 
                     lblCaseCoin.Text = title;
@@ -229,10 +229,7 @@ namespace Monopoly.Views
         {
             tmrDice.Enabled = false;
 
-            resultFirstDice = 1;
-            resultSecDice = 1;
-
-            // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
+            // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
             game.PlayDice(resultFirstDice, resultSecDice);
             UpdateTabs();
         }

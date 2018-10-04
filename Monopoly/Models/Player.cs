@@ -18,11 +18,11 @@ namespace Monopoly.Models
 
         public int OldCaseIndex { get; private set; } = 0;
 
-        public int lastDiceSum { get; set; }
+        public int LastDiceSum { get; set; }
 
-        public int nbDoubles { get; set; } = 0;
+        public int NbDoubles { get; set; } = 0;
 
-        public bool isPrisonner { get; set; } = false;
+        public bool IsInJail { get; set; } = false;
 
         public int JailExitCardsCount { get; set; } = 0;
 
@@ -58,11 +58,6 @@ namespace Monopoly.Models
 
             OldCaseIndex = oldCaseIndex;
 
-
-        }
-
-        private void GoToPrison()
-        {
 
         }
     }

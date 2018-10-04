@@ -15,11 +15,11 @@ namespace Monopoly.Models.Cases
         public override void Land(Game game)
         {
             Player currentPlayer = game.CurrentPlayer;
-            currentPlayer.isPrisonner = true;
+            currentPlayer.IsInJail = true;
             game.SendMessage($"{currentPlayer.Name} se fait capturer et va en prison !");
             
 
-            if (currentPlayer.isPrisonner)
+            if (currentPlayer.IsInJail)
             {
                 currentPlayer.GoToCase(JAIL_CASE_INDEX);
             }
