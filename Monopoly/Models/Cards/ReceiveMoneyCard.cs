@@ -10,7 +10,7 @@ namespace Monopoly.Models.Cards
     {
         private CardType _type;
 
-        public override CardType Type 
+        public override CardType Deck 
             => _type;
 
         public string Reason { get; private set; }
@@ -28,7 +28,10 @@ namespace Monopoly.Models.Cards
             game.CurrentPlayer.Wealth += Amount;
         }
 
+        public override string GetContent(Game game)
+            => $"{Reason}. Vous recevez F{Amount}.";
+
         public override string ToString()
-            => $"{Reason}. Recevez F{Amount}.";
+            => $"{Reason}. Vous recevez F{Amount}.";
     }
 }

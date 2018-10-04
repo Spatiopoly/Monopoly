@@ -9,20 +9,27 @@ namespace Monopoly.Models.Cards
 {
     class PayMoneyCard : AbstractCard
     {
+        
+
+        public enum PayMoneyCardType { Normale, Presidence, Reparations}
+
+        private PayMoneyCardType typePaiement;
+
         private CardType _type;
 
-        public override CardType Type
+        public override CardType Deck
             => _type;
 
         public string Reason { get; private set; }
 
         public int Amount { get; private set; }
 
-        public PayMoneyCard(string reason, int amount, CardType type)
+        public PayMoneyCard(string reason, int amount, CardType type, PayMoneyCardType typePayMoneyCard)
         {
             Reason = reason;
             Amount = amount;
             _type = type;
+            typePaiement = typePayMoneyCard;
         }
 
         // Cette methode est a tester pour voir si elle marche
@@ -34,7 +41,7 @@ namespace Monopoly.Models.Cards
             int montantTotal = 0;
 
             // Permet de gerer le cas ou le montant est multiplié par le nombre de maison et hotel
-            if (Amount == -1)
+            if (typePaiement == PayMoneyCardType.Reparations)
             {
                 foreach (PropertyCase p in game.CurrentPlayer.GetProperties(game))
                 {
@@ -55,8 +62,9 @@ namespace Monopoly.Models.Cards
                 Amount = montantTotal;
                 game.CurrentPlayer.Wealth -= Amount;
             }
-            else if (Amount == -2)
+            else if (typePaiement == PayMoneyCardType.Presidence)
             {
+                Amount = MONTANT_PRESIDENCE;
                 game.CurrentPlayer.Wealth -= (game.Players.Count-1) * MONTANT_PRESIDENCE;
 
                 foreach (Player p in game.Players)
@@ -74,7 +82,13 @@ namespace Monopoly.Models.Cards
             
         }
 
-        public override string ToString()
+        public override string GetContent(Game game)
             => $"{Reason}. Payez F{Amount}.";
+
+        public override string ToString()
+        {
+            string s = (typePaiement == PayMoneyCardType.Presidence) ? " à chaque joueur." : "";
+            return $"{Reason}."+ Environment.NewLine + $"Payez F{Amount}" + s;
+        }
     }
 }

@@ -48,7 +48,11 @@
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="Models\Cards\AbstractCard.cs" />
-    <Compile Include="Models\Cards\AdvanceCard.cs" />
+    <Compile Include="Models\Cards\AbstractAdvanceCard.cs" />
+    <Compile Include="Models\Cards\AdvanceToNextSpecialCaseCard.cs" />
+    <Compile Include="Models\Cards\AdvanceToSpecificCaseCard.cs" />
+    <Compile Include="Models\Cards\AdvanceToStartCaseCard.cs" />
+    <Compile Include="Models\Cards\GoToPrisonCard.cs" />
     <Compile Include="Models\Cards\PayMoneyCard.cs" />
     <Compile Include="Models\Cards\ReceiveMoneyCard.cs" />
     <Compile Include="Models\Cases\AbstractCase.cs" />

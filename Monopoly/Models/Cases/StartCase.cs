@@ -9,7 +9,7 @@ namespace Monopoly.Models.Cases
 {
     class StartCase : AbstractCase
     {
-        const int SALARY_AMOUNT = 200;
+        public const int SALARY_AMOUNT = 200;
 
         public override void FlyOver(Game game)
         {
@@ -20,14 +20,6 @@ namespace Monopoly.Models.Cases
         public override Image GetBoardCaseImage()
         {
             return Properties.Resources.Go;
-        }
-
-        public override void Land(Game game)
-        {
-            if (game.LastDiceSum != 0)
-            {
-                game.CurrentPlayer.Wealth += 200;
-            }
         }
 
         public override string ToString()

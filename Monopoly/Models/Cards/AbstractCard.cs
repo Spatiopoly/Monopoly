@@ -11,7 +11,7 @@ namespace Monopoly.Models.Cards
     /// </summary>
     public abstract class AbstractCard
     {
-        public virtual CardType Type
+        public virtual CardType Deck
             => CardType.Chance;
 
         /// <summary>
@@ -19,5 +19,12 @@ namespace Monopoly.Models.Cards
         /// </summary>
         /// <param name="game">The game status</param>
         public abstract void Play(Game game);
+
+        /// <summary>
+        /// Get the textual content of the card
+        /// </summary>
+        /// <param name="game">Game object</param>
+        /// <returns>Text</returns>
+        public abstract string GetContent(Game game);
     }
 }

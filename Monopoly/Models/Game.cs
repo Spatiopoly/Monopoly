@@ -108,21 +108,27 @@ namespace Monopoly.Models
             };
 
             Cards = new List<AbstractCard>() {
-                new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest),
-                new AdvanceCard("StartCase", 0, "Collectez 200F", CardType.Chance),
-                new AdvanceCard("Illinois Avenue", 24, "Passage par la case Start gagne 200F", CardType.Chance),
-                new AdvanceCard("St Charles Place", 11, "Passage par la case Start gagne 200F", CardType.Chance),
-                new AdvanceCard("Service le plus proche", -1, "Si un propriétaire existe : Payer lui 10x le lancer de dé", CardType.Chance),
-                new AdvanceCard("Gare la plus proche", -2, "Si un propriétaire existe : Payer lui deux fois le loyer", CardType.Chance),
-                new ReceiveMoneyCard("La banque paye vos dividendes", 50, CardType.Chance), 
+                new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToStartCaseCard(CardType.Chance),
+                new AdvanceToSpecificCaseCard(24, CardType.Chance),
+                new AdvanceToSpecificCaseCard(11, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Utility, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Station, CardType.Chance),
+                new ReceiveMoneyCard("L'Empire dédommage votre vaisseau qu'un stormtrooper a abimé.", 50, CardType.Chance), 
                 //Faire classe carte sortie prison => elle a un owner, fait aller de prison à parloir
                 //Faire la carte qui recule de 3 cases
-                new AdvanceCard("PRISON", -3, "Ne passe pas par la case départ", CardType.Chance),
-                new PayMoneyCard("Travaux de réparations : Payer 25F par maison et 100F par hotel que vous possédez", -1, CardType.Chance),
-                new PayMoneyCard("Payer la taxe pour les pauvres", 15, CardType.Chance),
-                new AdvanceCard("Reading RailRoad", 5, "Passage par la case Start gagne 200F", CardType.Chance),
-                new AdvanceCard("Boardwalk", 39, "Avancez simplement", CardType.Chance),
-                new PayMoneyCard("Vous avez été élu président du plateau", -2, CardType.Chance),
+                new GoToPrisonCard(CardType.Chance),
+                new PayMoneyCard("Travaux de réparations : Payer 25F par maison et 100F par hotel que vous possédez", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Reparations),
+                new PayMoneyCard("Vous achetez Spatiopoly AR 36D du futur", 15, CardType.Chance, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToSpecificCaseCard(5, CardType.Chance),
+                new AdvanceToSpecificCaseCard(39, CardType.Chance),
+                new PayMoneyCard("Vous avez été élu président de l'univers", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Presidence),
+                new ReceiveMoneyCard("Vos chasseurs de prime ont découvert un spatio-trésor ultime", 150, CardType.Chance),
+                new ReceiveMoneyCard("Vous gagnez une compétition de pêche aux vers spatiaux", 100, CardType.Chance),
+
+                new AdvanceToStartCaseCard(CardType.CommunityChest),
+                new ReceiveMoneyCard("La banque galactique rémunère les VIP", 200, CardType.CommunityChest),
+                new PayMoneyCard("Service technique de votre vaisseau", 50, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
                 // @TODO::Continuer les cartes chances et chancellerie
             };
         }
