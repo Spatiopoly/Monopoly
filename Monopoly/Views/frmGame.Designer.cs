@@ -30,53 +30,53 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNextPlayer = new System.Windows.Forms.Button();
-            this.btnExchange = new System.Windows.Forms.Button();
             this.btnDice = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabCaseDes = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.pbxDe1 = new System.Windows.Forms.PictureBox();
-            this.pbxDe2 = new System.Windows.Forms.PictureBox();
             this.btnLancerDes = new System.Windows.Forms.Button();
             this.tabCasePropSimple = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAcheterPropriete = new System.Windows.Forms.Button();
             this.lblCasePropSimplePrixAchat = new System.Windows.Forms.Label();
-            this.pbxCasePropSimple = new System.Windows.Forms.PictureBox();
             this.tabCasePropAchetee = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCasePropAchetee = new System.Windows.Forms.Label();
-            this.pbxCasePropAchetee = new System.Windows.Forms.PictureBox();
-            this.pbxCasePropAcheteeImage = new System.Windows.Forms.PictureBox();
             this.tabCaseChanceChancel = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseChanceChancelTitre = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpCouleur = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCaseChanceChancel = new System.Windows.Forms.Label();
-            this.pbxCaseChanceImage = new System.Windows.Forms.PictureBox();
             this.tabCaseTaxe = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseTaxeTitre = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.pbxCaseTaxeCarte = new System.Windows.Forms.PictureBox();
             this.tabCaseCoin = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaseCoin = new System.Windows.Forms.Label();
-            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.tabProperties = new System.Windows.Forms.TabPage();
             this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.gameView = new Monopoly.Views.GameView();
+            this.btnExchange = new System.Windows.Forms.Button();
+            this.pbxDe1 = new System.Windows.Forms.PictureBox();
+            this.pbxDe2 = new System.Windows.Forms.PictureBox();
+            this.pbxCasePropSimple = new System.Windows.Forms.PictureBox();
+            this.pbxCasePropAchetee = new System.Windows.Forms.PictureBox();
+            this.pbxCasePropAcheteeImage = new System.Windows.Forms.PictureBox();
+            this.pbxCaseChanceImage = new System.Windows.Forms.PictureBox();
+            this.pbxCaseTaxeCarte = new System.Windows.Forms.PictureBox();
+            this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -85,27 +85,27 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).BeginInit();
             this.tabCasePropSimple.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).BeginInit();
             this.tabCasePropAchetee.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).BeginInit();
             this.tabCaseChanceChancel.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).BeginInit();
             this.tabCaseTaxe.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).BeginInit();
             this.tabCaseCoin.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).BeginInit();
             this.tabProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -124,6 +124,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -189,22 +200,6 @@
             this.btnNextPlayer.TabIndex = 4;
             this.btnNextPlayer.UseVisualStyleBackColor = false;
             this.btnNextPlayer.Click += new System.EventHandler(this.btnNextPlayer_Click);
-            // 
-            // btnExchange
-            // 
-            this.btnExchange.BackColor = System.Drawing.Color.White;
-            this.btnExchange.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExchange.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExchange.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.btnExchange.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.btnExchange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExchange.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExchange.Location = new System.Drawing.Point(105, 10);
-            this.btnExchange.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
-            this.btnExchange.Name = "btnExchange";
-            this.btnExchange.Size = new System.Drawing.Size(90, 85);
-            this.btnExchange.TabIndex = 3;
-            this.btnExchange.UseVisualStyleBackColor = false;
             // 
             // btnDice
             // 
@@ -293,27 +288,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(254, 142);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // pbxDe1
-            // 
-            this.pbxDe1.BackgroundImage = global::Monopoly.Properties.Resources.de1;
-            this.pbxDe1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxDe1.Location = new System.Drawing.Point(43, 3);
-            this.pbxDe1.Margin = new System.Windows.Forms.Padding(43, 3, 10, 3);
-            this.pbxDe1.Name = "pbxDe1";
-            this.pbxDe1.Size = new System.Drawing.Size(79, 79);
-            this.pbxDe1.TabIndex = 0;
-            this.pbxDe1.TabStop = false;
-            // 
-            // pbxDe2
-            // 
-            this.pbxDe2.BackgroundImage = global::Monopoly.Properties.Resources.de2;
-            this.pbxDe2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxDe2.Location = new System.Drawing.Point(135, 3);
-            this.pbxDe2.Name = "pbxDe2";
-            this.pbxDe2.Size = new System.Drawing.Size(79, 79);
-            this.pbxDe2.TabIndex = 1;
-            this.pbxDe2.TabStop = false;
-            // 
             // btnLancerDes
             // 
             this.btnLancerDes.Location = new System.Drawing.Point(45, 158);
@@ -378,17 +352,6 @@
             this.lblCasePropSimplePrixAchat.Text = "Prix d\'achat : \r\n000 F";
             this.lblCasePropSimplePrixAchat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbxCasePropSimple
-            // 
-            this.pbxCasePropSimple.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
-            this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
-            this.pbxCasePropSimple.Name = "pbxCasePropSimple";
-            this.pbxCasePropSimple.Size = new System.Drawing.Size(140, 210);
-            this.pbxCasePropSimple.TabIndex = 0;
-            this.pbxCasePropSimple.TabStop = false;
-            // 
             // tabCasePropAchetee
             // 
             this.tabCasePropAchetee.Controls.Add(this.tableLayoutPanel6);
@@ -428,28 +391,6 @@
             this.lblCasePropAchetee.TabIndex = 1;
             this.lblCasePropAchetee.Text = "Bienvenue chez vous!!\r\nou\r\nVous êtes chez Player1 : \r\nVous payez 000 F de loyer";
             this.lblCasePropAchetee.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbxCasePropAchetee
-            // 
-            this.pbxCasePropAchetee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxCasePropAchetee.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbxCasePropAchetee.Location = new System.Drawing.Point(63, 74);
-            this.pbxCasePropAchetee.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
-            this.pbxCasePropAchetee.Name = "pbxCasePropAchetee";
-            this.pbxCasePropAchetee.Size = new System.Drawing.Size(140, 210);
-            this.pbxCasePropAchetee.TabIndex = 0;
-            this.pbxCasePropAchetee.TabStop = false;
-            // 
-            // pbxCasePropAcheteeImage
-            // 
-            this.pbxCasePropAcheteeImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbxCasePropAcheteeImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbxCasePropAcheteeImage.Location = new System.Drawing.Point(33, 442);
-            this.pbxCasePropAcheteeImage.Margin = new System.Windows.Forms.Padding(33, 10, 35, 3);
-            this.pbxCasePropAcheteeImage.Name = "pbxCasePropAcheteeImage";
-            this.pbxCasePropAcheteeImage.Size = new System.Drawing.Size(198, 214);
-            this.pbxCasePropAcheteeImage.TabIndex = 2;
-            this.pbxCasePropAcheteeImage.TabStop = false;
             // 
             // tabCaseChanceChancel
             // 
@@ -522,17 +463,6 @@
             this.lblCaseChanceChancel.Text = "Visite chez le Spatio-Dentiste : \r\nVous payez 000 F";
             this.lblCaseChanceChancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbxCaseChanceImage
-            // 
-            this.pbxCaseChanceImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxCaseChanceImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbxCaseChanceImage.Location = new System.Drawing.Point(30, 432);
-            this.pbxCaseChanceImage.Margin = new System.Windows.Forms.Padding(30, 30, 30, 50);
-            this.pbxCaseChanceImage.Name = "pbxCaseChanceImage";
-            this.pbxCaseChanceImage.Size = new System.Drawing.Size(206, 241);
-            this.pbxCaseChanceImage.TabIndex = 2;
-            this.pbxCaseChanceImage.TabStop = false;
-            // 
             // tabCaseTaxe
             // 
             this.tabCaseTaxe.Controls.Add(this.tableLayoutPanel8);
@@ -593,17 +523,6 @@
             this.flowLayoutPanel5.Size = new System.Drawing.Size(260, 16);
             this.flowLayoutPanel5.TabIndex = 2;
             // 
-            // pbxCaseTaxeCarte
-            // 
-            this.pbxCaseTaxeCarte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbxCaseTaxeCarte.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 96);
-            this.pbxCaseTaxeCarte.Margin = new System.Windows.Forms.Padding(62, 80, 64, 7);
-            this.pbxCaseTaxeCarte.Name = "pbxCaseTaxeCarte";
-            this.pbxCaseTaxeCarte.Size = new System.Drawing.Size(140, 210);
-            this.pbxCaseTaxeCarte.TabIndex = 3;
-            this.pbxCaseTaxeCarte.TabStop = false;
-            // 
             // tabCaseCoin
             // 
             this.tabCaseCoin.Controls.Add(this.tableLayoutPanel9);
@@ -640,16 +559,6 @@
             this.lblCaseCoin.TabIndex = 4;
             this.lblCaseCoin.Text = "Pause Temporel/Start/Parloir/GoPrison\r\nSi CaseStart vous gagnez 000 F";
             this.lblCaseCoin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbxCaseCoin
-            // 
-            this.pbxCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbxCaseCoin.Location = new System.Drawing.Point(23, 30);
-            this.pbxCaseCoin.Margin = new System.Windows.Forms.Padding(23, 30, 23, 0);
-            this.pbxCaseCoin.Name = "pbxCaseCoin";
-            this.pbxCaseCoin.Size = new System.Drawing.Size(220, 330);
-            this.pbxCaseCoin.TabIndex = 3;
-            this.pbxCaseCoin.TabStop = false;
             // 
             // tabProperties
             // 
@@ -689,16 +598,109 @@
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
             // 
-            // gameView
+            // btnExchange
             // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
+            this.btnExchange.BackColor = System.Drawing.Color.White;
+            this.btnExchange.BackgroundImage = global::Monopoly.Properties.Resources.Exchange;
+            this.btnExchange.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnExchange.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExchange.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExchange.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
+            this.btnExchange.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.btnExchange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExchange.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExchange.Location = new System.Drawing.Point(105, 10);
+            this.btnExchange.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.btnExchange.Name = "btnExchange";
+            this.btnExchange.Size = new System.Drawing.Size(90, 85);
+            this.btnExchange.TabIndex = 3;
+            this.btnExchange.UseVisualStyleBackColor = false;
+            // 
+            // pbxDe1
+            // 
+            this.pbxDe1.BackgroundImage = global::Monopoly.Properties.Resources.de1;
+            this.pbxDe1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxDe1.Location = new System.Drawing.Point(43, 3);
+            this.pbxDe1.Margin = new System.Windows.Forms.Padding(43, 3, 10, 3);
+            this.pbxDe1.Name = "pbxDe1";
+            this.pbxDe1.Size = new System.Drawing.Size(79, 79);
+            this.pbxDe1.TabIndex = 0;
+            this.pbxDe1.TabStop = false;
+            // 
+            // pbxDe2
+            // 
+            this.pbxDe2.BackgroundImage = global::Monopoly.Properties.Resources.de2;
+            this.pbxDe2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxDe2.Location = new System.Drawing.Point(135, 3);
+            this.pbxDe2.Name = "pbxDe2";
+            this.pbxDe2.Size = new System.Drawing.Size(79, 79);
+            this.pbxDe2.TabIndex = 1;
+            this.pbxDe2.TabStop = false;
+            // 
+            // pbxCasePropSimple
+            // 
+            this.pbxCasePropSimple.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxCasePropSimple.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pbxCasePropSimple.Location = new System.Drawing.Point(63, 127);
+            this.pbxCasePropSimple.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
+            this.pbxCasePropSimple.Name = "pbxCasePropSimple";
+            this.pbxCasePropSimple.Size = new System.Drawing.Size(140, 210);
+            this.pbxCasePropSimple.TabIndex = 0;
+            this.pbxCasePropSimple.TabStop = false;
+            // 
+            // pbxCasePropAchetee
+            // 
+            this.pbxCasePropAchetee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxCasePropAchetee.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pbxCasePropAchetee.Location = new System.Drawing.Point(63, 74);
+            this.pbxCasePropAchetee.Margin = new System.Windows.Forms.Padding(63, 40, 63, 7);
+            this.pbxCasePropAchetee.Name = "pbxCasePropAchetee";
+            this.pbxCasePropAchetee.Size = new System.Drawing.Size(140, 210);
+            this.pbxCasePropAchetee.TabIndex = 0;
+            this.pbxCasePropAchetee.TabStop = false;
+            // 
+            // pbxCasePropAcheteeImage
+            // 
+            this.pbxCasePropAcheteeImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbxCasePropAcheteeImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbxCasePropAcheteeImage.Location = new System.Drawing.Point(33, 442);
+            this.pbxCasePropAcheteeImage.Margin = new System.Windows.Forms.Padding(33, 10, 35, 3);
+            this.pbxCasePropAcheteeImage.Name = "pbxCasePropAcheteeImage";
+            this.pbxCasePropAcheteeImage.Size = new System.Drawing.Size(198, 214);
+            this.pbxCasePropAcheteeImage.TabIndex = 2;
+            this.pbxCasePropAcheteeImage.TabStop = false;
+            // 
+            // pbxCaseChanceImage
+            // 
+            this.pbxCaseChanceImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxCaseChanceImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbxCaseChanceImage.Location = new System.Drawing.Point(30, 432);
+            this.pbxCaseChanceImage.Margin = new System.Windows.Forms.Padding(30, 30, 30, 50);
+            this.pbxCaseChanceImage.Name = "pbxCaseChanceImage";
+            this.pbxCaseChanceImage.Size = new System.Drawing.Size(206, 241);
+            this.pbxCaseChanceImage.TabIndex = 2;
+            this.pbxCaseChanceImage.TabStop = false;
+            // 
+            // pbxCaseTaxeCarte
+            // 
+            this.pbxCaseTaxeCarte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxCaseTaxeCarte.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pbxCaseTaxeCarte.Location = new System.Drawing.Point(62, 96);
+            this.pbxCaseTaxeCarte.Margin = new System.Windows.Forms.Padding(62, 80, 64, 7);
+            this.pbxCaseTaxeCarte.Name = "pbxCaseTaxeCarte";
+            this.pbxCaseTaxeCarte.Size = new System.Drawing.Size(140, 210);
+            this.pbxCaseTaxeCarte.TabIndex = 3;
+            this.pbxCaseTaxeCarte.TabStop = false;
+            // 
+            // pbxCaseCoin
+            // 
+            this.pbxCaseCoin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbxCaseCoin.Location = new System.Drawing.Point(23, 30);
+            this.pbxCaseCoin.Margin = new System.Windows.Forms.Padding(23, 30, 23, 0);
+            this.pbxCaseCoin.Name = "pbxCaseCoin";
+            this.pbxCaseCoin.Size = new System.Drawing.Size(220, 330);
+            this.pbxCaseCoin.TabIndex = 3;
+            this.pbxCaseCoin.TabStop = false;
             // 
             // frmGame
             // 
@@ -720,27 +722,27 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).EndInit();
             this.tabCasePropSimple.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).EndInit();
             this.tabCasePropAchetee.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).EndInit();
             this.tabCaseChanceChancel.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).EndInit();
             this.tabCaseTaxe.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.flowLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).EndInit();
             this.tabCaseCoin.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).EndInit();
             this.tabProperties.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDe1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDe2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropSimple)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAchetee)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCasePropAcheteeImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseChanceImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseTaxeCarte)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxCaseCoin)).EndInit();
             this.ResumeLayout(false);
 
         }
