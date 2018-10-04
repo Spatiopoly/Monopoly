@@ -290,7 +290,7 @@ namespace Monopoly.Views
                     {
                         var cardLocation = new PointF(avatarRectangle.Left - cardSize.Width - (cardSize.Width + cardMargin) * i, zoneSize.Bottom - cardSize.Height);
 
-                        Image image = properties[i].GetPropertyCardImage();
+                        Image image = properties[i].GetPropertyCardImage(1);
                         var cardRectangle = new RectangleF(cardLocation, cardSize);
                         g.DrawImage(image, cardRectangle);
                         g.DrawRectangle(Pens.Black, cardRectangle);
