@@ -49,5 +49,13 @@ namespace Monopoly.Models.Cases
 
             return image;
         }
+
+        /// <summary>
+        /// Force the images to be re-drawn
+        /// </summary>
+        public void Invalidate()
+        {
+            imageCache.Clear();
+        }
     }
 }

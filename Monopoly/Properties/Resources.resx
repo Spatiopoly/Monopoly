@@ -229,4 +229,19 @@
   <data name="Exchange" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exchange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="property_four_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_four_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_hotel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_hotel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_one_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_one_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_three_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_three_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_two_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_two_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
