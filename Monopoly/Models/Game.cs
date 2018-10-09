@@ -6,6 +6,7 @@ namespace Monopoly.Models
 {
     public class Game
     {
+        #region Events
         // Event : show a textual message on the interface
         public event MessageHandler Message;
         public delegate void MessageHandler(Game game, string message);
@@ -13,14 +14,17 @@ namespace Monopoly.Models
         // Event : change the current player
         public event CurrentPlayerChangedHandler CurrentPlayerChanged;
         public delegate void CurrentPlayerChangedHandler(Game game);
+        #endregion
 
         #region Properties
-
         /// <summary>
         /// List of participants in the game
         /// </summary>
         public List<Player> Players { get; private set; }
 
+        /// <summary>
+        /// Index of the current player (in Game.Players)
+        /// </summary>
         public int CurrentPlayerIndex { get; private set; } = 0;
 
         /// <summary>
@@ -114,6 +118,10 @@ namespace Monopoly.Models
             CurrentPlayerChanged(this);
         }
 
+        /// <summary>
+        /// Show a textual message on the screen
+        /// </summary>
+        /// <param name="message">The message to display</param>
         public void SendMessage(string message)
         {
             Message?.Invoke(this, message);
