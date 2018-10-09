@@ -31,10 +31,10 @@
             this.btnMortgage = new System.Windows.Forms.Button();
             this.btnAddBuilding = new System.Windows.Forms.Button();
             this.btnRemoveBuilding = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMortgage
@@ -69,6 +69,15 @@
             this.btnRemoveBuilding.TabIndex = 3;
             this.btnRemoveBuilding.Text = "-";
             this.btnRemoveBuilding.UseVisualStyleBackColor = true;
+            this.btnRemoveBuilding.Click += new System.EventHandler(this.btnRemoveBuilding_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(100, 150);
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -80,14 +89,6 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 150);
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            // 
             // PropertyManager
             // 
             this.Controls.Add(this.pictureBox2);
@@ -97,8 +98,8 @@
             this.Controls.Add(this.btnMortgage);
             this.Name = "PropertyManager";
             this.Size = new System.Drawing.Size(100, 230);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -75,7 +75,7 @@ namespace Monopoly.Models.Cases
 
         public override Image GetBoardCaseImage()
         {
-            if (imageCache.ContainsKey("board-case") && BuildingCount == 0)
+            if (imageCache.ContainsKey("board-case") && BuildingCount == -1)
                 return imageCache["board-case"];
 
             Image img = base.GetBoardCaseImage();

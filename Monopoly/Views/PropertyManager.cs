@@ -45,5 +45,24 @@ namespace Monopoly.Views
                 pictureBox1.Visible = false;
             }
         }
+
+        private void btnRemoveBuilding_Click(object sender, System.EventArgs e)
+        {
+            if (Property is StreetProperty)
+            {
+                if ((Property as StreetProperty).BuildingCount > 0)
+                {
+                    (Property as StreetProperty).Owner.Wealth += (Property as StreetProperty).BuildingPrice;
+                    (Property as StreetProperty).BuildingCount--;
+                }
+            }
+            else
+            {
+                //@TODO faire disparaitre les boutons avant le click pour les stations et utilities
+                btnAddBuilding.Visible = false;
+                btnRemoveBuilding.Visible = false;
+                pictureBox1.Visible = false;
+            }
+        }
     }
 }
