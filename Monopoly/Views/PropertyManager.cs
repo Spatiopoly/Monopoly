@@ -38,6 +38,7 @@ namespace Monopoly.Views
         {
             if (Property is StreetProperty )
             {
+                //@TODO let add a building only if the player have all the properties in the same color.
                 if ((Property as StreetProperty).Owner.Wealth >= (Property as StreetProperty).BuildingPrice && (Property as StreetProperty).BuildingCount < 5)
                 {
                     (Property as StreetProperty).Owner.Wealth -= (Property as StreetProperty).BuildingPrice;
