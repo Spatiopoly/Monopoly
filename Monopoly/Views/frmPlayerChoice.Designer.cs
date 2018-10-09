@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayerChoice));
             this.btnValider = new System.Windows.Forms.Button();
             this.selectorPlayerYellow = new Monopoly.Views.PlayerSelector();
             this.selectorPlayerPurple = new Monopoly.Views.PlayerSelector();
@@ -110,9 +111,9 @@
             this.Controls.Add(this.selectorPlayerGreen);
             this.Controls.Add(this.selectorPlayerRed);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmPlayerChoice";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Choix des joueurs";
             this.ResumeLayout(false);
