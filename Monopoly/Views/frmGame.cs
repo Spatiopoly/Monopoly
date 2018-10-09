@@ -119,16 +119,23 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-            if (!game.HasPlayed) // @TODO : Player hasn't played
+            if (!game.HasPlayed && currentPlayer.NbDoubles <= 0) // @TODO : Player hasn't played ( firt throw )
             {
                 btnLancerDes.Enabled = true;
 
                 tabs.TabPages.Add(tabCaseDes);
             }
-            else
+            else 
             {
+                if (currentPlayer.NbDoubles > 0)
+                {
+                    btnLancerDes.Enabled = true;
+
+                    tabs.TabPages.Add(tabCaseDes);
+                }
                 if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
                 {
+
                     string title = currentCase.ToString();
 
                     if (currentCase is StartCase)
@@ -230,6 +237,8 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
+            resultFirstDice = 4;
+            resultSecDice = 4;
             game.PlayDice(resultFirstDice, resultSecDice);
             UpdateTabs();
         }
