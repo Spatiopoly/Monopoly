@@ -88,7 +88,7 @@ namespace Monopoly.Models
                 new StreetProperty(PropertyColor.Red, "Côte d’Io", 240, 150, new int[] { 20, 100, 300, 750, 925, 1100 }),
                 new StationProperty("Station des Pléiades"),
                 new StreetProperty(PropertyColor.Yellow, "Station hivernale neptunienne", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
-                new StreetProperty(PropertyColor.Yellow, "Quartier Plutonien", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
+                new StreetProperty(PropertyColor.Yellow, "Quartier plutonien", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
                 new UtilityProperty("Vaisseau Aquali"),
                 new StreetProperty(PropertyColor.Yellow, "Voie comètiale d'Halley", 280, 150, new int[] { 24, 120, 360, 850, 1025, 1200 }),
 
