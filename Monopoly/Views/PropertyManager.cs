@@ -29,7 +29,7 @@ namespace Monopoly.Views
 
         private void btnAddBuilding_Click(object sender, System.EventArgs e)
         {
-            if (Property is StreetProperty)
+            if (Property is StreetProperty )
             {
                 if ((Property as StreetProperty).Owner.Wealth >= (Property as StreetProperty).BuildingPrice && (Property as StreetProperty).BuildingCount < 5)
                 {
@@ -52,7 +52,7 @@ namespace Monopoly.Views
             {
                 if ((Property as StreetProperty).BuildingCount > 0)
                 {
-                    (Property as StreetProperty).Owner.Wealth += (Property as StreetProperty).BuildingPrice;
+                    (Property as StreetProperty).Owner.Wealth += (Property as StreetProperty).BuildingPrice/2;
                     (Property as StreetProperty).BuildingCount--;
                 }
             }
