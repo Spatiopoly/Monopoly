@@ -25,6 +25,13 @@ namespace Monopoly.Views
             SizeF componentSize = e.Graphics.VisibleClipBounds.Size;
             g.DrawRectangle(Pens.Silver, 0, 0, componentSize.Width - 1, componentSize.Height - 1);
             g.DrawImage(Property.GetPropertyCardImage(1), new RectangleF(0, 0, 100, 150));
+
+            if (!(Property is StreetProperty))
+            {
+                btnAddBuilding.Visible = false;
+                btnRemoveBuilding.Visible = false;
+                pictureBox1.Visible = false;
+            }
         }
 
         private void btnAddBuilding_Click(object sender, System.EventArgs e)
@@ -36,14 +43,7 @@ namespace Monopoly.Views
                     (Property as StreetProperty).Owner.Wealth -= (Property as StreetProperty).BuildingPrice;
                     (Property as StreetProperty).BuildingCount++;
                 }
-            }
-            else
-            {
-                //@TODO faire disparaitre les boutons avant le click pour les stations et utilities
-                btnAddBuilding.Visible = false;
-                btnRemoveBuilding.Visible = false;
-                pictureBox1.Visible = false;
-            }
+            }        
         }
 
         private void btnRemoveBuilding_Click(object sender, System.EventArgs e)
@@ -55,14 +55,7 @@ namespace Monopoly.Views
                     (Property as StreetProperty).Owner.Wealth += (Property as StreetProperty).BuildingPrice/2;
                     (Property as StreetProperty).BuildingCount--;
                 }
-            }
-            else
-            {
-                //@TODO faire disparaitre les boutons avant le click pour les stations et utilities
-                btnAddBuilding.Visible = false;
-                btnRemoveBuilding.Visible = false;
-                pictureBox1.Visible = false;
-            }
+            }         
         }
     }
 }
