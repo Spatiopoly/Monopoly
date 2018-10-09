@@ -143,9 +143,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Windows-XP-wallpaper-2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Prison.png" />
   </ItemGroup>
   <ItemGroup>
