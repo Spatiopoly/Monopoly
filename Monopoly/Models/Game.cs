@@ -1,6 +1,7 @@
 ﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Monopoly.Models
 {
@@ -104,6 +105,11 @@ namespace Monopoly.Models
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
+
+            foreach (var p in Cases.Where(c => c is PropertyCase))
+            {
+                (p as PropertyCase).Owner = Players[0];
+            }
         }
 
         /// <summary>
@@ -159,6 +165,19 @@ namespace Monopoly.Models
             Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
 
             HasPlayed = true;
+        }
+
+        /// <summary>
+        /// Know if a player has a monopoly (= has all the streets of a specified color)
+        /// </summary>
+        /// <param name="player">Player</param>
+        /// <param name="monopoly">The street group</param>
+        public bool HasMonopoly(Player player, PropertyColor monopoly)
+        {
+            return Cases
+                .Where(c => c is StreetProperty)
+                .Where(c => (c as StreetProperty).Group == monopoly)
+                .All(c => (c as StreetProperty).Owner == player);
         }
     }
 }

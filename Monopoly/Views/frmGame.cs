@@ -120,7 +120,7 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-            if (!game.HasPlayed) // @TODO : Player hasn't played
+            if (!game.HasPlayed) // Player hasn't played
             {
                 btnLancerDes.Enabled = true;
 
@@ -209,7 +209,8 @@ namespace Monopoly.Views
             {
                 flpProperties.Controls.Add(new PropertyManager()
                 {
-                    Property = c
+                    Property = c,
+                    Game = game,
                 });
             }
             tabs.TabPages.Add(tabProperties);
