@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStart));
             this.btnStart = new System.Windows.Forms.Button();
             this.pbxPictureStart = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPictureStart)).BeginInit();
@@ -68,9 +69,9 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.pbxPictureStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmStart";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Spatiopoly";
             ((System.ComponentModel.ISupportInitialize)(this.pbxPictureStart)).EndInit();
