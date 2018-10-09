@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -6,9 +7,6 @@ namespace Monopoly.Models.Cases
 {
     class StreetProperty : PropertyCase
     {
-        private Image cachePropertyImage = null;
-        private Image cacheBoardImage = null;
-
         public int BuildingCount { get; set; } = 0;
 
         public int BuildingPrice { get; set; }
@@ -77,8 +75,8 @@ namespace Monopoly.Models.Cases
 
         public override Image GetBoardCaseImage()
         {
-            if (cacheBoardImage != null)
-                return cacheBoardImage;
+            if (imageCache.ContainsKey("board-case"))
+                return imageCache["board-case"];
 
             Image img = base.GetBoardCaseImage();
 
@@ -113,22 +111,24 @@ namespace Monopoly.Models.Cases
                 g.DrawString(this.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
             }
 
+            imageCache["board-case"] = img;
+
             return img;
         }
 
-        public override Image GetPropertyCardImage()
+        public override Image GetPropertyCardImage(int scale)
         {
-            if (cachePropertyImage != null)
-                return cachePropertyImage;
+            if (imageCache.ContainsKey($"property-case-{scale}x"))
+                return imageCache[$"property-case-{scale}x"];
 
-            Image img = base.GetPropertyCardImage();
+            Image img = base.GetPropertyCardImage(scale);
 
             using (Graphics g = Graphics.FromImage(img))
             {
                 RectangleF rectangle = g.VisibleClipBounds;
 
                 // Gradient top
-                int headerHeight = 35;
+                int headerHeight = 35 * scale;
                 LinearGradientBrush headerBrush = new LinearGradientBrush(
                     new PointF(0, 0),
                     new PointF(0, headerHeight),
@@ -147,45 +147,34 @@ namespace Monopoly.Models.Cases
                     name = new string(n);
                 }
 
-                g.DrawString(name, new Font("Arial", 10), Brushes.White, new PointF(2.5F, 2.5F));
+                g.DrawString(name, new Font("Arial", 10 * scale), Brushes.White, new PointF(2.5F * scale, 2.5F * scale));
 
                 // Rent
-                int y = 25;
-                int height = 12;
-                DrawPrice(g, y += height, "Loyer", Rents[0]);
-                DrawPrice(g, y += height, "Avec 1 maison", Rents[1]);
-                DrawPrice(g, y += height, "Avec 2 maisons", Rents[2]);
-                DrawPrice(g, y += height, "Avec 3 maisons", Rents[3]);
-                DrawPrice(g, y += height, "Avec 4 maisons", Rents[4]);
-                DrawPrice(g, y += height, "Hôtel", Rents[5]);
+                int y = 25 * scale;
+                int height = 12 * scale;
+                DrawPrice(g, scale, y += height, "Loyer", Rents[0]);
+                DrawPrice(g, scale, y += height, "Avec 1 maison", Rents[1]);
+                DrawPrice(g, scale, y += height, "Avec 2 maisons", Rents[2]);
+                DrawPrice(g, scale, y += height, "Avec 3 maisons", Rents[3]);
+                DrawPrice(g, scale, y += height, "Avec 4 maisons", Rents[4]);
+                DrawPrice(g, scale, y += height, "Hôtel", Rents[5]);
 
-                DrawPrice(g, y += 17, "Hypothèque", Price / 2);
+                DrawPrice(g, scale, y += 17 * scale, "Hypothèque", Price / 2);
 
-                DrawPrice(g, y += 17, "Bâtiment", BuildingPrice);
+                DrawPrice(g, scale, y += 17 * scale, "Bâtiment", BuildingPrice);
             }
 
-            cachePropertyImage = img;
+            imageCache[$"property-case-{scale}x"] = img;
             return img;
-
-
-            /// <summary>
-            /// Draw a line of text on the card to indicate the price
-            /// </summary>
-            /// <param name="g"></param>
-            /// <param name="y"></param>
-            /// <param name="name">Key of the price</param>
-            /// <param name="price">Value of the price</param>
-            void DrawPrice(Graphics g, int y, string name, int price)
-            {
-                g.DrawString(name, new Font("Arial", 6), new SolidBrush(Color.FromArgb(200, Color.White)), new PointF(2.5F, y + 0.5F));
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(65, y + 2.5F, 6, 6));
-                g.DrawString(price.ToString(), new Font("Arial", 7, FontStyle.Bold), Brushes.White, new PointF(71, y));
-            }
         }
 
-        public override int GetRent()
+        public override int GetRent(Game game)
         {
-            return 42; // @TODO
+            int rent = 0;
+
+            rent = Rents[BuildingCount];
+
+            return rent;
         }
     }
 }

@@ -153,6 +153,16 @@ namespace Monopoly.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Exchange {
+            get {
+                object obj = ResourceManager.GetObject("Exchange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Flouzz {
             get {
                 object obj = ResourceManager.GetObject("Flouzz", resourceCulture);

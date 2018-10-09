@@ -43,6 +43,11 @@ namespace Monopoly.Models
         /// Know if the current player has played on the current turn (= rolled the dice)
         /// </summary>
         public bool HasPlayed { get; private set; } = false;
+
+        /// <summary>
+        /// The last sum of the dices played
+        /// </summary>
+        public int LastDiceSum { get; private set; }
         #endregion
 
         /// <summary>
@@ -138,6 +143,8 @@ namespace Monopoly.Models
         /// <param name="diceSum">Sum of the two dices</param>
         public void PlayDice(int diceSum)
         {
+            LastDiceSum = diceSum;
+
             int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
             int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
 

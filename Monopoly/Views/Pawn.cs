@@ -1,4 +1,4 @@
-﻿using Monopoly.Models;
+using Monopoly.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
