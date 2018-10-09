@@ -19,6 +19,32 @@ namespace Monopoly.Views
         private Messages _messages = new Messages();
         private List<Pawn> _pawns = new List<Pawn>();
 
+        public static readonly PointF[] playersPathPoints = {
+            // Start
+            new PointF(985, 880),
+            new PointF(985, 980),
+            new PointF(875, 980),
+
+            // Bottom line
+            new PointF(875, 942),
+            new PointF(130, 942),
+
+            // Prison
+            new PointF(130, 985),
+            new PointF(15, 985),
+            new PointF(15, 870),
+
+            // Left line
+            new PointF(58, 870),
+
+            // Top line
+            new PointF(58, 70),
+
+            // Right line
+            new PointF(945, 70),
+            new PointF(945, 880),
+        };
+
         public Game Game
         {
             get => _game; set
@@ -39,7 +65,9 @@ namespace Monopoly.Views
                 // Create pawns to display the players
                 _pawns.Clear();
                 for (var i = 0; i < Game.Players.Count; i++)
+                {
                     _pawns.Add(new Pawn(Game.Players[i], i));
+                }
             }
         }
 
@@ -308,7 +336,9 @@ namespace Monopoly.Views
             RectangleF boardPosition = g.VisibleClipBounds;
 
             foreach (Pawn p in _pawns)
+            {
                 p.Draw(g);
+            }
         }
 
         /// <summary>
@@ -336,38 +366,12 @@ namespace Monopoly.Views
         /// <returns>The arrival point</returns>
         public static PointF GetPointOnPlayersPath(float distance)
         {
-            PointF[] pathPoints = {
-                // Start
-                new PointF(985, 880),
-                new PointF(985, 980),
-                new PointF(875, 980),
-
-                // Bottom line
-                new PointF(875, 942),
-                new PointF(130, 942),
-
-                // Prison
-                new PointF(130, 985),
-                new PointF(15, 985),
-                new PointF(15, 870),
-
-                // Left line
-                new PointF(58, 870),
-
-                // Top line
-                new PointF(58, 70),
-
-                // Right line
-                new PointF(945, 70),
-                new PointF(945, 880),
-            };
-
             int cornerIndex = 0;
 
             while (distance > 0)
             {
-                PointF currentPoint = pathPoints[cornerIndex];
-                PointF nextPoint = pathPoints[cornerIndex == pathPoints.Length - 1 ? 0 : cornerIndex + 1];
+                PointF currentPoint = playersPathPoints[cornerIndex];
+                PointF nextPoint = playersPathPoints[cornerIndex == playersPathPoints.Length - 1 ? 0 : cornerIndex + 1];
                 int pointsDistance = (int)Math.Sqrt(
                     Math.Pow(nextPoint.X - currentPoint.X, 2) +
                     Math.Pow(nextPoint.Y - currentPoint.Y, 2)
@@ -376,12 +380,14 @@ namespace Monopoly.Views
                 distance -= pointsDistance;
 
                 cornerIndex += 1;
-                if (cornerIndex >= pathPoints.Length)
+                if (cornerIndex >= playersPathPoints.Length)
+                {
                     cornerIndex = 0;
+                }
             }
 
-            PointF corner = pathPoints[cornerIndex];
-            PointF previousCorner = pathPoints[cornerIndex == 0 ? pathPoints.Length - 1 : cornerIndex - 1];
+            PointF corner = playersPathPoints[cornerIndex];
+            PointF previousCorner = playersPathPoints[cornerIndex == 0 ? playersPathPoints.Length - 1 : cornerIndex - 1];
             int lastDistance = (int)Math.Sqrt(
                 Math.Pow(corner.X - previousCorner.X, 2) +
                 Math.Pow(corner.Y - previousCorner.Y, 2)
