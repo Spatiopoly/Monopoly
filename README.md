@@ -1,5 +1,5 @@
-### Spatiopoly
+# Spatiopoly
 
-Monopoly sur le thème de l'espace.
+Jeu inspiré du Monopoly sur le thème de l'espace.
 
-![image](rdm.bmp)
+![Capture d'écran](screenshot.png)
