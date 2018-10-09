@@ -78,7 +78,7 @@ namespace Monopoly.Models
                 new StationProperty("Station Titania"),
                 new StreetProperty(PropertyColor.Orange, "Aire d’Europa", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
                 new CardCase(CardType.CommunityChest),
-                new StreetProperty(PropertyColor.Orange, "Circuit d'anneaux Saturnien", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
+                new StreetProperty(PropertyColor.Orange, "Circuit d'anneaux saturnien", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
                 new StreetProperty(PropertyColor.Orange, "Poste de Saturne", 200, 100, new int[] { 16, 80, 220, 600, 800, 1000 }),
 
                 new FreeParkingCase(),
