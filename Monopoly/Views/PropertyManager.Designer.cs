@@ -57,6 +57,7 @@
             this.btnAddBuilding.TabIndex = 2;
             this.btnAddBuilding.Text = "+";
             this.btnAddBuilding.UseVisualStyleBackColor = true;
+            this.btnAddBuilding.Click += new System.EventHandler(this.btnAddBuilding_Click);
             // 
             // btnRemoveBuilding
             // 

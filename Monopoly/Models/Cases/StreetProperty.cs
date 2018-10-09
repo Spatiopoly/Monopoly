@@ -75,7 +75,7 @@ namespace Monopoly.Models.Cases
 
         public override Image GetBoardCaseImage()
         {
-            if (imageCache.ContainsKey("board-case"))
+            if (imageCache.ContainsKey("board-case") && BuildingCount == 0)
                 return imageCache["board-case"];
 
             Image img = base.GetBoardCaseImage();
@@ -109,6 +109,27 @@ namespace Monopoly.Models.Cases
 
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
                 g.DrawString(this.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+
+                if (BuildingCount == 1)
+                {
+                    g.DrawImage(Properties.Resources.property_one_house, new RectangleF(rectangle.X, 0, rectangle.Width, 40));
+                }
+                else if (BuildingCount == 2)
+                {
+                    g.DrawImage(Properties.Resources.property_two_house, new RectangleF(rectangle.X, 0, rectangle.Width, 40));
+                }
+                else if (BuildingCount == 3)
+                {
+                    g.DrawImage(Properties.Resources.property_three_house, new RectangleF(rectangle.X, 0, rectangle.Width, 40));
+                }
+                else if (BuildingCount == 4)
+                {
+                    g.DrawImage(Properties.Resources.property_four_house, new RectangleF(rectangle.X, 0, rectangle.Width, 40));
+                }
+                else if (BuildingCount == 5)
+                {
+                    g.DrawImage(Properties.Resources.property_hotel, new RectangleF(rectangle.X, 0, rectangle.Width, 40));
+                }
             }
 
             imageCache["board-case"] = img;
