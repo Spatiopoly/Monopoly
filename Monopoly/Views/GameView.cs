@@ -194,7 +194,7 @@ namespace Monopoly.Views
                 {
                     // Draw the big case
                     RectangleF bigCasePosition = bigCasesPositions[sideIndex];
-                    Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
+                    Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage(Game);
                     g.DrawImage(bigCaseImage, bigCasePosition);
                     g.DrawRectangle(borderPen, bigCasePosition);
 
@@ -275,7 +275,7 @@ namespace Monopoly.Views
                 foreach (AbstractCase c in cases)
                 {
                     PointF casePosition = new PointF(caseSize.Width * caseIndex, 0);
-                    g.DrawImage(c.GetBoardCaseImage(), new RectangleF(casePosition, caseSize));
+                    g.DrawImage(c.GetBoardCaseImage(Game), new RectangleF(casePosition, caseSize));
                     caseIndex++;
                 }
             }

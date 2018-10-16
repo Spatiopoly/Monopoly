@@ -122,6 +122,8 @@ namespace Monopoly.Models.Cases
 
             BuildingCount++;
             Owner.Wealth -= this.BuildingPrice;
+
+            Invalidate();
         }
 
         /// <summary>
@@ -135,20 +137,22 @@ namespace Monopoly.Models.Cases
 
             BuildingCount--;
             Owner.Wealth += BuildingPrice / 2;
+
+            Invalidate();
         }
 
         /// <summary>
         /// The board case image
         /// </summary>
         /// <returns></returns>
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             if (imageCache.ContainsKey("board-case"))
             {
                 return imageCache["board-case"];
             }
 
-            Image img = base.GetBoardCaseImage();
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -174,11 +178,13 @@ namespace Monopoly.Models.Cases
                 }
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
+                
+                g.DrawString((this.Owner != null) ? "LOYER" : "PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
 
-                g.DrawString("PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
+                string price = (this.Owner != null) ? GetRent(game).ToString() : this.BuildingPrice.ToString();
 
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
-                g.DrawString(this.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+                g.DrawString(price, new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
 
                 // Draw the buildings
                 Image[] buildingImages = {

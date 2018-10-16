@@ -144,7 +144,7 @@ namespace Monopoly.Views
 
                     lblCaseCoin.Text = title;
 
-                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage(game);
                     pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
                     
                     tabs.TabPages.Add(tabCaseCoin);
@@ -152,7 +152,7 @@ namespace Monopoly.Views
                 else if (currentCase is TaxCase)
                 {
                     TaxCase taxe = currentCase as TaxCase;
-                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
+                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage(game);
                     tabs.TabPages.Add(tabCaseTaxe);
                 }
                 else if (currentCase is CardCase)
@@ -243,6 +243,7 @@ namespace Monopoly.Views
                     {
                         currentPlayer.Wealth = currentPlayer.Wealth - property.Price;
                         property.Owner = currentPlayer;
+                        property.Invalidate();
                     }
                 }         
             }

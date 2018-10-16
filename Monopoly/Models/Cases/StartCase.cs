@@ -17,7 +17,7 @@ namespace Monopoly.Models.Cases
             game.SendMessage(game.CurrentPlayer.Name + " touche son salaire.");
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             return Properties.Resources.Go;
         }

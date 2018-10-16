@@ -35,12 +35,12 @@ namespace Monopoly.Models.Cases
             ac.Play(game);
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             if (imageCache.ContainsKey("board-case"))
                 return imageCache["board-case"];
 
-            Image img = base.GetBoardCaseImage();
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {

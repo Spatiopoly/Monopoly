@@ -37,7 +37,7 @@ namespace Monopoly.Models.Cases
         /// Get the board case image
         /// </summary>
         /// <returns>An image for the board case</returns>
-        public virtual Image GetBoardCaseImage()
+        public virtual Image GetBoardCaseImage(Game game)
         {
             Image image = new Bitmap(BOARD_CASE_WIDTH, BOARD_CASE_HEIGHT);
 
