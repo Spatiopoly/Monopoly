@@ -64,9 +64,9 @@ namespace Monopoly.Views
 
                 // Create pawns to display the players
                 _pawns.Clear();
-                for (var i = 0; i < Game.Players.Count; i++)
+                foreach (Player player in Game.Players)
                 {
-                    _pawns.Add(new Pawn(Game.Players[i], i));
+                    _pawns.Add(new Pawn(player, _game));
                 }
             }
         }
@@ -85,8 +85,8 @@ namespace Monopoly.Views
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            this.ResumeLayout(false);
+            SuspendLayout();
+            ResumeLayout(false);
         }
 
         /// <summary>
