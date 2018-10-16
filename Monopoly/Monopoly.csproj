@@ -150,9 +150,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Windows-XP-wallpaper-2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Prison.png" />
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Center.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\House.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PlayerYellow.png" />
@@ -267,6 +261,15 @@
     <None Include="Resources\avatar_yellow.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Exchange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Next_Blue.png" />
   </ItemGroup>
   <ItemGroup>
@@ -276,10 +279,22 @@
     <None Include="Resources\Next_Purple.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Next_Red.png" />
+    <None Include="Resources\House.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Next_Yellow.png" />
+    <None Include="Resources\property_four_house.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property_hotel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property_one_house.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property_three_house.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property_two_house.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

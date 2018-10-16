@@ -11,8 +11,15 @@ namespace Monopoly.Models.Cases
 {
     public abstract class AbstractCase
     {
+        // Size of a "standard" board case (this doesn't apply to the corner cases)
         public const int BOARD_CASE_WIDTH = 123;
         public const int BOARD_CASE_HEIGHT = 195;
+
+        /// <summary>
+        /// Cache the images relative to this case.
+        /// Since all the images have to be generated, caching them improves drastically performance.
+        /// </summary>
+        protected Dictionary<string, Image> imageCache = new Dictionary<string, Image>();
 
         /// <summary>
         /// What happens when a player lands on the case?
@@ -41,6 +48,14 @@ namespace Monopoly.Models.Cases
             }
 
             return image;
+        }
+
+        /// <summary>
+        /// Force the images to be re-drawn
+        /// </summary>
+        public void Invalidate()
+        {
+            imageCache.Clear();
         }
     }
 }

@@ -118,20 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="de1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\de1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="House" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\House.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="de2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\de2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Next_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Next_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="de3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\de3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="de4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\de4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="de5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\de5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PlayerPurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avatar_purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="de6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\de6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,80 +133,71 @@
   <data name="CommunityChest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chancellerie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EnAllez" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EnAllez.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PawnYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PawnYellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flouzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Flouzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="FlouzzBag" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FlouzzBag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gare" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gare.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Go" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Go.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="House" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\House.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Logo_WhiteBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo_WhiteBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Luck" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Parc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Parc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Prison" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Prison.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="de2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\de2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tax" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Impots_revenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PawnBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PawnBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PlayerBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avatar_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PawnGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PawnGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gare.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PawnPurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PawnPurple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Next_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Next_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PawnRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PawnRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PawnYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PawnYellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UtilityEnergy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fournisseur_elec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Prison" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Prison.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UtilityWater" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eau_vaisseau.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Center" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Center.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Parc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Parc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlayerBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avatar_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Next_Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Next_Yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlayerGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avatar_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Luck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlayerPurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avatar_purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="de3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\de3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlayerRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avatar_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="de1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\de1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="de4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\de4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FlouzzBag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FlouzzBag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avatar_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Next_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Next_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PawnGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PawnGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UtilityEnergy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fournisseur_elec.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="de5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\de5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Go" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Go.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo_WhiteBG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo_WhiteBG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Center" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Center.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Next_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Next_Green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,10 +205,43 @@
   <data name="Next_Purple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Next_Purple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Next_Red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Next_Red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EnAllez" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EnAllez.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Next_Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Next_Yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PawnPurple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PawnPurple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayerGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avatar_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PawnBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PawnBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PawnRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PawnRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flouzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flouzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayerRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avatar_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exchange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exchange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_four_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_four_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_hotel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_hotel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_one_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_one_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_three_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_three_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="property_two_house" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\property_two_house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

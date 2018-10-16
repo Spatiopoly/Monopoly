@@ -121,7 +121,7 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-            if (!game.HasPlayed) // @TODO : Player hasn't played
+            if (!game.HasPlayed) // Player hasn't played
             {
                 btnLancerDes.Enabled = true;
 
@@ -181,7 +181,7 @@ namespace Monopoly.Views
                             lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
                         }
 
-                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage(2);
 
                         tabs.TabPages.Add(tabCasePropAchetee);
                     }
@@ -190,13 +190,13 @@ namespace Monopoly.Views
                         if (currentPlayer.Wealth >= property.Price)
                         {
                             btnAcheterPropriete.Enabled = true;
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage(2);
                             lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + $"{property.Price}F";
                             tabs.TabPages.Add(tabCasePropSimple);
                         }
                         else
                         {
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage(2);
                             lblCasePropSimplePrixAchat.Text = "Vous n'avez pas assez de Flouzz.";
                             btnAcheterPropriete.Enabled = false;
                             tabs.TabPages.Add(tabCasePropSimple);
@@ -212,7 +212,8 @@ namespace Monopoly.Views
             {
                 flpProperties.Controls.Add(new PropertyManager()
                 {
-                    Property = c
+                    Property = c,
+                    Game = game,
                 });
             }
             tabs.TabPages.Add(tabProperties);
@@ -223,7 +224,6 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            diceSum = 2;
             game.PlayDice(diceSum);
             UpdateTabs();
         }

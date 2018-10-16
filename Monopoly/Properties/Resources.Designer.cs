@@ -153,6 +153,16 @@ namespace Monopoly.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Exchange {
+            get {
+                object obj = ResourceManager.GetObject("Exchange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Flouzz {
             get {
                 object obj = ResourceManager.GetObject("Flouzz", resourceCulture);
@@ -386,6 +396,56 @@ namespace Monopoly.Properties {
         internal static System.Drawing.Bitmap Prison {
             get {
                 object obj = ResourceManager.GetObject("Prison", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_four_house {
+            get {
+                object obj = ResourceManager.GetObject("property_four_house", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_hotel {
+            get {
+                object obj = ResourceManager.GetObject("property_hotel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_one_house {
+            get {
+                object obj = ResourceManager.GetObject("property_one_house", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_three_house {
+            get {
+                object obj = ResourceManager.GetObject("property_three_house", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_two_house {
+            get {
+                object obj = ResourceManager.GetObject("property_two_house", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

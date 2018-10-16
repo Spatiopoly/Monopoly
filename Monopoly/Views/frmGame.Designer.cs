@@ -205,6 +205,8 @@
             // btnExchange
             // 
             this.btnExchange.BackColor = System.Drawing.Color.White;
+            this.btnExchange.BackgroundImage = global::Monopoly.Properties.Resources.Exchange;
+            this.btnExchange.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnExchange.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExchange.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExchange.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
@@ -220,9 +222,11 @@
             // 
             // btnDice
             // 
-            this.btnDice.BackColor = System.Drawing.Color.White;
+            this.btnDice.BackColor = System.Drawing.Color.Transparent;
             this.btnDice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDice.Enabled = false;
             this.btnDice.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDice.FlatAppearance.BorderSize = 0;
             this.btnDice.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btnDice.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.btnDice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -701,7 +705,7 @@
             // 
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            // 
+            //
             // lblChanceChancellerie
             // 
             this.lblChanceChancellerie.Dock = System.Windows.Forms.DockStyle.Top;
