@@ -30,7 +30,7 @@ namespace Monopoly.Models.Cases
             // @TODO: Ajouter un timer pour qu'il y ai un délai avant le Play() de la specialCard
             Random rnd = new Random();
             List<AbstractCard> deck = game.Cards.Where(c => c.Deck == Type).ToList();
-            AbstractCard ac = deck[/*rnd.Next(deck.Count)*/13];
+            AbstractCard ac = deck[rnd.Next(deck.Count)];
             game.LastSpecialCard = ac;
             ac.Play(game);
         }
