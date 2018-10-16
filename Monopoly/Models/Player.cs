@@ -59,7 +59,8 @@ namespace Monopoly.Models
         /// <returns>bool true if player is in bankruptcy</returns>
         public bool IsBankruptcy()
         {
-            if (Wealth <= 0)
+            // @TODO:: Completer en testant s'il n'as plus de propriete aussi
+            if (Wealth < 0 )// ET kil a plus de proprietes)
             {
                 return true;
             }

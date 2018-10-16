@@ -120,6 +120,7 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
+            // @TODO :: Gerer kan le joueur a plus de thune mais kil a encore des propriete a POTEQUER => elimination seulement s'il a plus de propriétés ET plus de fric
             //test if current player is not in bankruptcy
             if (!game.CurrentPlayer.IsBankruptcy())
             {

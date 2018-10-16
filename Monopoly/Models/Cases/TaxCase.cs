@@ -25,6 +25,18 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game) {
             game.CurrentPlayer.Wealth -= Amount;
+
+            // A tester si sa marche mais encore completer la methode dans la classe joueur
+            if (game.CurrentPlayer.IsBankruptcy())
+            {
+                game.SendMessage("Carotte, t'a perdu! Plus de Flouzz...");
+                game.Players.Remove(game.CurrentPlayer);
+
+                if (game.Players.Count == 1)
+                {
+                    game.SendMessage($"{game.Players[0]} à gagné la partie!! Bravo!! :3");
+                }
+            }
         }
 
         public override Image GetBoardCaseImage()
