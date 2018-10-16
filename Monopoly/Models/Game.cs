@@ -112,6 +112,14 @@ namespace Monopoly.Models
                 new StreetProperty(PropertyColor.DarkBlue, "Croisement trou noir", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
 
+            foreach (AbstractCase ac in Cases)
+            {
+                if (ac is StreetProperty)
+                {
+                    (ac as StreetProperty).Owner = this.CurrentPlayer;
+                }
+            }
+
             Cards = new List<AbstractCard>() {
                 new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
                 new AdvanceToStartCaseCard(CardType.Chance),
