@@ -78,5 +78,8 @@ namespace Monopoly.Models.Cases
         /// <param name="game">The game (used for some cases)</param>
         /// <returns>Rent</returns>
         public abstract int GetRent(Game game);
+
+        public override string ToString()
+            => Name;
     }
 }

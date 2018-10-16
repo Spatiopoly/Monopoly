@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monopoly.Models.Cards;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game)
         {
-            //throw new NotImplementedException();
+            // @TODO: Ajouter un timer pour qu'il y ai un délai avant le Play() de la specialCard
+            Random rnd = new Random();
+            List<AbstractCard> deck = game.Cards.Where(c => c.Deck == Type).ToList();
+            AbstractCard ac = deck[rnd.Next(deck.Count)];
+            game.LastSpecialCard = ac;
+            ac.Play(game);
         }
 
         public override Image GetBoardCaseImage()

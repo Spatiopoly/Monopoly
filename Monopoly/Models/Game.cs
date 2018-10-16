@@ -53,6 +53,8 @@ namespace Monopoly.Models
         /// The last sum of the dices played
         /// </summary>
         public int LastDiceSum { get; private set; }
+
+        public AbstractCard LastSpecialCard { get; set; }
         #endregion
 
         /// <summary>
@@ -108,6 +110,43 @@ namespace Monopoly.Models
                 new StreetProperty(PropertyColor.DarkBlue, "Rue des amas globulaires", 350, 200, new int[] { 35, 175, 500, 1100, 1300, 1500 }),
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Croisement trou noir", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
+            };
+
+            Cards = new List<AbstractCard>() {
+                new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToStartCaseCard(CardType.Chance),
+                new AdvanceToSpecificCaseCard(24, CardType.Chance),
+                new AdvanceToSpecificCaseCard(11, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Utility, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Station, CardType.Chance),
+                new ReceiveMoneyCard("L'Empire dédommage votre vaisseau qu'un stormtrooper a abimé.", 50, ReceiveMoneyCard.ReceiveMoneyCardType.Normale ,CardType.Chance), 
+                //Faire classe carte sortie prison => elle a un owner, fait aller de prison à parloir
+                //Faire la carte qui recule de 3 cases
+                new GoToPrisonCard(CardType.Chance),
+                new PayMoneyCard("Travaux de réparations", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Reparations),
+                new PayMoneyCard("Vous achetez Spatiopoly AR 36D du futur", 15, CardType.Chance, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToSpecificCaseCard(5, CardType.Chance),
+                new AdvanceToSpecificCaseCard(39, CardType.Chance),
+                new PayMoneyCard("Vous avez été élu président de l'univers", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Presidence),
+                new ReceiveMoneyCard("Vos chasseurs de prime ont découvert un spatio-trésor ultime", 150,ReceiveMoneyCard.ReceiveMoneyCardType.Normale ,CardType.Chance),
+                new ReceiveMoneyCard("Vous gagnez une compétition de pêche aux vers spatiaux", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.Chance),
+
+                new AdvanceToStartCaseCard(CardType.CommunityChest),
+                new ReceiveMoneyCard("La banque galactique rémunère les VIP", 200, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Service technique de votre vaisseau", 50, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                // Faire carte sortie prison => comme en haut sauf en community chest
+                new GoToPrisonCard(CardType.CommunityChest),
+                new ReceiveMoneyCard("Organisation d'un tournoi de Spatiogolf", 50, ReceiveMoneyCard.ReceiveMoneyCardType.Recolte, CardType.CommunityChest),
+                new ReceiveMoneyCard("Vos mercenaires ont retrouvé un débiteur", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Remboursement de pièces nanotechs défecteuses", 20, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("C'est ton anniversaire!", 10, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Remboursement de l'assurance de votre vaisseau", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Frais de téléportation intragalactique", 100, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new PayMoneyCard("Frais de l'école de pilotage", 150, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new ReceiveMoneyCard("Vous aidez un ami à réparer son vaisseau", 25, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Impots sur les réparations des rues", 0, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Impots),
+                new ReceiveMoneyCard("Vous gagnez le 3ème prix du Grand Concours Centaurien", 10, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Vous vendez le vaisseau cassé de votre grand-mère", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest)
             };
         }
 

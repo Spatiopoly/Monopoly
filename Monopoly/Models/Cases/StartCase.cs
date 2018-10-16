@@ -9,7 +9,7 @@ namespace Monopoly.Models.Cases
 {
     class StartCase : AbstractCase
     {
-        const int SALARY_AMOUNT = 200;
+        public const int SALARY_AMOUNT = 200;
 
         public override void FlyOver(Game game)
         {

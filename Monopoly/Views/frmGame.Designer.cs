@@ -77,6 +77,7 @@
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
+            this.lblChanceChancellerie = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -511,6 +512,7 @@
             this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel2.Controls.Add(this.flpCouleur);
             this.flowLayoutPanel2.Controls.Add(this.lblCaseChanceChancel);
+            this.flowLayoutPanel2.Controls.Add(this.lblChanceChancellerie);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 117);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -703,6 +705,15 @@
             // 
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
+            //
+            // lblChanceChancellerie
+            // 
+            this.lblChanceChancellerie.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblChanceChancellerie.Location = new System.Drawing.Point(3, 16);
+            this.lblChanceChancellerie.Name = "lblChanceChancellerie";
+            this.lblChanceChancellerie.Size = new System.Drawing.Size(250, 250);
+            this.lblChanceChancellerie.TabIndex = 4;
+            this.lblChanceChancellerie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmGame
             // 
@@ -799,6 +810,7 @@
         private System.Windows.Forms.Timer tmrDiceAnimation;
         private System.Windows.Forms.Timer tmrDice;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
+        private System.Windows.Forms.Label lblChanceChancellerie;
     }
 }
 

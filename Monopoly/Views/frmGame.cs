@@ -1,4 +1,5 @@
 ﻿using Monopoly.Models;
+using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System;
 using System.Collections.Generic;
@@ -158,8 +159,10 @@ namespace Monopoly.Views
                 {
                     CardCase specialCard = currentCase as CardCase;
 
+                    lblChanceChancellerie.Text = game.LastSpecialCard.ToString();
                     pbxCaseChanceImage.BackgroundImage = specialCard.TypeImage;
                     lblCaseChanceChancelTitre.Text = specialCard.ToString();
+
 
                     tabs.TabPages.Add(tabCaseChanceChancel);
                 }
