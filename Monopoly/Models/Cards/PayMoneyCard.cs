@@ -46,7 +46,6 @@ namespace Monopoly.Models.Cards
                     {
                         if ((p as StreetProperty).BuildingCount >= 5)
                         {
-                            montantTotal += ((p as StreetProperty).BuildingCount - 1) * MONTANT_MAISON_REPARATIONS;
                             montantTotal += MONTANT_HOTEL_REPARATIONS;
                         }
                         else
@@ -80,8 +79,7 @@ namespace Monopoly.Models.Cards
                     {
                         if ((p as StreetProperty).BuildingCount >= 5)
                         {
-                            montantTotal += ((p as StreetProperty).BuildingCount - 1) * MONTANT_MAISON_IMPOTS;
-                            montantTotal += MONTANT_HOTEL_REPARATIONS;
+                            montantTotal += MONTANT_HOTEL_IMPOTS;
                         }
                         else
                         {
