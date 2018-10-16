@@ -224,7 +224,6 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            diceSum = 2;
             game.PlayDice(diceSum);
             UpdateTabs();
         }
