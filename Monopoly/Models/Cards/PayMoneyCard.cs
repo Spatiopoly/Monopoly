@@ -1,9 +1,5 @@
 ﻿using Monopoly.Models.Cases;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Monopoly.Models.Cards
 {
@@ -36,8 +32,8 @@ namespace Monopoly.Models.Cards
         public override void Play(Game game)
         {
             const int MONTANT_PRESIDENCE = 50;
-            const int MONTANT_MAISON = 25;
-            const int MONTANT_HOTEL = 100;
+            const int MONTANT_MAISON_REPARATIONS = 25;
+            const int MONTANT_HOTEL_REPARATIONS = 100;
             int montantTotal = 0;
 
             // Permet de gerer le cas ou le montant est multiplié par le nombre de maison et hotel
@@ -49,12 +45,12 @@ namespace Monopoly.Models.Cards
                     {
                         if ((p as StreetProperty).BuildingCount >= 5)
                         {
-                            montantTotal += ((p as StreetProperty).BuildingCount - 1) * MONTANT_MAISON;
-                            montantTotal += MONTANT_HOTEL;
+                            montantTotal += ((p as StreetProperty).BuildingCount - 1) * MONTANT_MAISON_REPARATIONS;
+                            montantTotal += MONTANT_HOTEL_REPARATIONS;
                         }
                         else
                         {
-                            montantTotal += (p as StreetProperty).BuildingCount * MONTANT_MAISON;
+                            montantTotal += (p as StreetProperty).BuildingCount * MONTANT_MAISON_REPARATIONS;
                         }
                     }
                 }
@@ -83,7 +79,12 @@ namespace Monopoly.Models.Cards
         }
 
         public override string GetContent(Game game)
-            => $"{Reason}. Payez F{Amount}.";
+        {
+            string s = (typePaiement == PayMoneyCardType.Presidence) ? " à chaque joueur." : "";
+            return $"{Reason}." + Environment.NewLine + $"Payez F{Amount}" + s;
+            //=> $"{Reason}. Payez F{Amount}.";
+        }
+
 
         public override string ToString()
         {
