@@ -105,11 +105,6 @@ namespace Monopoly.Models
                 new TaxCase(TaxCase.Tax.LuxuryTax),
                 new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
             };
-
-            foreach (var p in Cases.Where(c => c is PropertyCase))
-            {
-                (p as PropertyCase).Owner = Players[0];
-            }
         }
 
         /// <summary>
