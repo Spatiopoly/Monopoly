@@ -160,12 +160,13 @@ namespace Monopoly.Views
             using (Graphics g = Graphics.FromImage(img))
             {
                 RectangleF boardPosition = g.VisibleClipBounds;
+                g.SmoothingMode = SmoothingMode.HighQuality;
 
                 float smallCaseRatio = SMALL_CASE_PERCENTAGE / 100.0F;
                 float boardSize = boardPosition.Width; // width = height
                 float bigCaseSize = boardPosition.Width * smallCaseRatio; // width = height
 
-                Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
+                Pen borderPen = new Pen(Colors.CASE_BORDER_COLOR, boardSize / 500);
 
                 g.FillRectangle(Brushes.White, boardPosition);
                 g.DrawRectangle(borderPen, boardPosition);
@@ -190,6 +191,13 @@ namespace Monopoly.Views
                     new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
                 };
 
+                Tuple<PointF, PointF>[] smallCasesLines = { // Where to draw the property rings
+                    new Tuple<PointF, PointF>(smallCasesRectangles[0].TopRight(), smallCasesRectangles[0].TopLeft()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[1].BottomRight(), smallCasesRectangles[1].TopRight()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[2].BottomLeft(), smallCasesRectangles[2].BottomRight()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[3].TopLeft(), smallCasesRectangles[3].BottomLeft()),
+                };
+
                 for (int sideIndex = 0; sideIndex < 4; sideIndex++)
                 {
                     // Draw the big case
@@ -198,11 +206,38 @@ namespace Monopoly.Views
                     g.DrawImage(bigCaseImage, bigCasePosition);
                     g.DrawRectangle(borderPen, bigCasePosition);
 
-                    // Draw the small cases
-                    RectangleF casesContainer = smallCasesRectangles[sideIndex];
-
+                    /*
+                     * Draw the small cases
+                     */
                     List<AbstractCase> smallCases = Game.Cases.Skip(sideIndex * 10 + 1).Take(9).ToList();
 
+                    // Property rings
+                    Tuple<PointF, PointF> line = smallCasesLines[sideIndex];
+                    SizeF caseSideSize = new SizeF(
+                        (line.Item2.X - line.Item1.X) / smallCases.Count,
+                        (line.Item2.Y - line.Item1.Y) / smallCases.Count
+                    );
+
+                    for (int i = 0; i < smallCases.Count; i++)
+                    {
+                        // Draw only owned properties
+                        AbstractCase smallCase = smallCases[i];
+                        if (!(smallCase is PropertyCase) || (smallCase as PropertyCase).Owner == null)
+                            continue;
+
+                        PointF caseSideCenter = new PointF(
+                            line.Item1.X + (i + 0.5F) * caseSideSize.Width,
+                            line.Item1.Y + (i + 0.5F) * caseSideSize.Height
+                        );
+
+                        const int PROPERTY_RING_RADIUS = 32;
+
+                        Pen ringPen = new Pen((smallCase as PropertyCase).Owner.Color.GetColor(), 5);
+                        g.DrawEllipse(ringPen, new RectangleF(caseSideCenter.X - PROPERTY_RING_RADIUS / 2, caseSideCenter.Y - PROPERTY_RING_RADIUS / 2, PROPERTY_RING_RADIUS, PROPERTY_RING_RADIUS));
+
+                    }
+
+                    // Card images
                     if (sideIndex != 2)
                     {
                         smallCases.Reverse();
@@ -211,13 +246,14 @@ namespace Monopoly.Views
                     Image sideContent = DrawSideCases(smallCases);
 
                     RotateFlipType rotation = (new RotateFlipType[] {
-                    RotateFlipType.RotateNoneFlipNone,
-                    RotateFlipType.Rotate90FlipNone,
-                    RotateFlipType.RotateNoneFlipNone,
-                    RotateFlipType.Rotate270FlipNone,
-                })[sideIndex];
+                        RotateFlipType.RotateNoneFlipNone,
+                        RotateFlipType.Rotate90FlipNone,
+                        RotateFlipType.RotateNoneFlipNone,
+                        RotateFlipType.Rotate270FlipNone,
+                    })[sideIndex];
                     sideContent.RotateFlip(rotation);
 
+                    RectangleF casesContainer = smallCasesRectangles[sideIndex];
                     g.DrawImage(sideContent, casesContainer);
 
                     // Draw the small cases border
