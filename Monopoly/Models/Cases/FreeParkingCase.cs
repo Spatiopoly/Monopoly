@@ -9,7 +9,7 @@ namespace Monopoly.Models.Cases
 {
     class FreeParkingCase : AbstractCase
     {
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             return Properties.Resources.Parc;
         }

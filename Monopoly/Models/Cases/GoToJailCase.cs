@@ -11,7 +11,7 @@ namespace Monopoly.Models.Cases
     {
         public override void Land(Game game) { }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             return Properties.Resources.EnAllez;
         }

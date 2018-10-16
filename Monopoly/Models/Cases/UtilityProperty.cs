@@ -16,12 +16,12 @@ namespace Monopoly.Models.Cases
         {
 		}
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             if (imageCache.ContainsKey("board-case"))
                 return imageCache["board-case"];
 
-            Image img = base.GetBoardCaseImage();
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -39,7 +39,9 @@ namespace Monopoly.Models.Cases
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 15));
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 60, 63, 12, 12));
-                g.DrawString("PRIX :    " + UTILITY_PRICE.ToString(), new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
+
+                string price = (Owner != null) ? "LOYER :    " + GetRent(game).ToString() : "PRIX :    " + UTILITY_PRICE.ToString();
+                g.DrawString(price, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
 
                 var image = (Name == "Water Delivery") ? Properties.Resources.UtilityWater : Properties.Resources.UtilityEnergy;
                 g.DrawImage(image, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
