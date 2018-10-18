@@ -80,7 +80,6 @@ namespace Monopoly.Models
             int oldCaseIndex = CurrentCaseIndex;
             CurrentCaseIndex = newCaseIndex;
             CurrentCaseChanged?.Invoke(this, oldCaseIndex, newCaseIndex);
-            OldCaseIndex = oldCaseIndex;
         }
     }
 }

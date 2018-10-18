@@ -55,6 +55,9 @@ namespace Monopoly.Models
         /// </summary>
         public int LastDiceSum { get; private set; }
 
+        public int resultFirstDice { get; set; } = 0;
+        public int resultSecDice { get; set; } = 0;
+
         public AbstractCard LastSpecialCard { get; set; }
         #endregion
 
@@ -63,9 +66,10 @@ namespace Monopoly.Models
         /// </summary>
         public Game(List<Player> players)
         {
+            
             Players = players;
 
-            Cases = new List<AbstractCase>() {
+        Cases = new List<AbstractCase>() {
                 new StartCase(),
 
                 new StreetProperty(PropertyColor.DarkPurple, "Cour du Soleil", 60, 50, new int[] { 2, 10, 30, 90, 160, 250 }),
