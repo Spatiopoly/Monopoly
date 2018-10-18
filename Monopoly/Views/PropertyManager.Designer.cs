@@ -31,10 +31,10 @@
             this.btnMortgage = new System.Windows.Forms.Button();
             this.btnAddBuilding = new System.Windows.Forms.Button();
             this.btnRemoveBuilding = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pbxBuilding = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxBuilding)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMortgage
@@ -57,6 +57,7 @@
             this.btnAddBuilding.TabIndex = 2;
             this.btnAddBuilding.Text = "+";
             this.btnAddBuilding.UseVisualStyleBackColor = true;
+            this.btnAddBuilding.Click += new System.EventHandler(this.btnAddBuilding_Click);
             // 
             // btnRemoveBuilding
             // 
@@ -68,16 +69,7 @@
             this.btnRemoveBuilding.TabIndex = 3;
             this.btnRemoveBuilding.Text = "-";
             this.btnRemoveBuilding.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::Monopoly.Properties.Resources.House;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 161);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.btnRemoveBuilding.Click += new System.EventHandler(this.btnRemoveBuilding_Click);
             // 
             // pictureBox2
             // 
@@ -87,17 +79,27 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
+            // pbxBuilding
+            // 
+            this.pbxBuilding.BackgroundImage = global::Monopoly.Properties.Resources.House;
+            this.pbxBuilding.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbxBuilding.Location = new System.Drawing.Point(3, 161);
+            this.pbxBuilding.Name = "pbxBuilding";
+            this.pbxBuilding.Size = new System.Drawing.Size(30, 30);
+            this.pbxBuilding.TabIndex = 4;
+            this.pbxBuilding.TabStop = false;
+            // 
             // PropertyManager
             // 
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbxBuilding);
             this.Controls.Add(this.btnRemoveBuilding);
             this.Controls.Add(this.btnAddBuilding);
             this.Controls.Add(this.btnMortgage);
             this.Name = "PropertyManager";
             this.Size = new System.Drawing.Size(100, 230);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxBuilding)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -107,7 +109,7 @@
         private System.Windows.Forms.Button btnMortgage;
         private System.Windows.Forms.Button btnAddBuilding;
         private System.Windows.Forms.Button btnRemoveBuilding;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbxBuilding;
         private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

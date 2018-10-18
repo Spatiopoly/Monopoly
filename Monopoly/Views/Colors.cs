@@ -11,5 +11,6 @@ namespace Monopoly.Views
     {
         public static readonly Color GAMEVIEW_BG_COLOR = Color.LightGray;
         public static readonly Color CARD_BG_COLOR = Color.FromArgb(17, 4, 58);
+        public static readonly Color CASE_BORDER_COLOR = Color.FromArgb(30, 14, 81);
     }
 }

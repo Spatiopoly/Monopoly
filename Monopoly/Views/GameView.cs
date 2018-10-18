@@ -19,6 +19,32 @@ namespace Monopoly.Views
         private Messages _messages = new Messages();
         private List<Pawn> _pawns = new List<Pawn>();
 
+        public static readonly PointF[] playersPathPoints = {
+            // Start
+            new PointF(985, 880),
+            new PointF(985, 980),
+            new PointF(875, 980),
+
+            // Bottom line
+            new PointF(875, 942),
+            new PointF(130, 942),
+
+            // Prison
+            new PointF(130, 985),
+            new PointF(15, 985),
+            new PointF(15, 870),
+
+            // Left line
+            new PointF(58, 870),
+
+            // Top line
+            new PointF(58, 70),
+
+            // Right line
+            new PointF(945, 70),
+            new PointF(945, 880),
+        };
+
         public Game Game
         {
             get => _game; set
@@ -38,8 +64,10 @@ namespace Monopoly.Views
 
                 // Create pawns to display the players
                 _pawns.Clear();
-                for (var i = 0; i < Game.Players.Count; i++)
-                    _pawns.Add(new Pawn(Game.Players[i], i));
+                foreach (Player player in Game.Players)
+                {
+                    _pawns.Add(new Pawn(player, _game));
+                }
             }
         }
 
@@ -57,8 +85,8 @@ namespace Monopoly.Views
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            this.ResumeLayout(false);
+            SuspendLayout();
+            ResumeLayout(false);
         }
 
         /// <summary>
@@ -132,12 +160,13 @@ namespace Monopoly.Views
             using (Graphics g = Graphics.FromImage(img))
             {
                 RectangleF boardPosition = g.VisibleClipBounds;
+                g.SmoothingMode = SmoothingMode.HighQuality;
 
                 float smallCaseRatio = SMALL_CASE_PERCENTAGE / 100.0F;
                 float boardSize = boardPosition.Width; // width = height
                 float bigCaseSize = boardPosition.Width * smallCaseRatio; // width = height
 
-                Pen borderPen = new Pen(Color.FromArgb(30, 14, 81), boardSize / 500);
+                Pen borderPen = new Pen(Colors.CASE_BORDER_COLOR, boardSize / 500);
 
                 g.FillRectangle(Brushes.White, boardPosition);
                 g.DrawRectangle(borderPen, boardPosition);
@@ -162,19 +191,53 @@ namespace Monopoly.Views
                     new RectangleF(boardPosition.X + boardSize - bigCaseSize, boardPosition.Y + bigCaseSize, boardSize * smallCaseRatio, boardSize - 2 * (boardSize * smallCaseRatio)),
                 };
 
+                Tuple<PointF, PointF>[] smallCasesLines = { // Where to draw the property rings
+                    new Tuple<PointF, PointF>(smallCasesRectangles[0].TopRight(), smallCasesRectangles[0].TopLeft()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[1].BottomRight(), smallCasesRectangles[1].TopRight()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[2].BottomLeft(), smallCasesRectangles[2].BottomRight()),
+                    new Tuple<PointF, PointF>(smallCasesRectangles[3].TopLeft(), smallCasesRectangles[3].BottomLeft()),
+                };
+
                 for (int sideIndex = 0; sideIndex < 4; sideIndex++)
                 {
                     // Draw the big case
                     RectangleF bigCasePosition = bigCasesPositions[sideIndex];
-                    Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage();
+                    Image bigCaseImage = Game.Cases[sideIndex * 10].GetBoardCaseImage(Game);
                     g.DrawImage(bigCaseImage, bigCasePosition);
                     g.DrawRectangle(borderPen, bigCasePosition);
 
-                    // Draw the small cases
-                    RectangleF casesContainer = smallCasesRectangles[sideIndex];
-
+                    /*
+                     * Draw the small cases
+                     */
                     List<AbstractCase> smallCases = Game.Cases.Skip(sideIndex * 10 + 1).Take(9).ToList();
 
+                    // Property rings
+                    Tuple<PointF, PointF> line = smallCasesLines[sideIndex];
+                    SizeF caseSideSize = new SizeF(
+                        (line.Item2.X - line.Item1.X) / smallCases.Count,
+                        (line.Item2.Y - line.Item1.Y) / smallCases.Count
+                    );
+
+                    for (int i = 0; i < smallCases.Count; i++)
+                    {
+                        // Draw only owned properties
+                        AbstractCase smallCase = smallCases[i];
+                        if (!(smallCase is PropertyCase) || (smallCase as PropertyCase).Owner == null)
+                            continue;
+
+                        PointF caseSideCenter = new PointF(
+                            line.Item1.X + (i + 0.5F) * caseSideSize.Width,
+                            line.Item1.Y + (i + 0.5F) * caseSideSize.Height
+                        );
+
+                        const int PROPERTY_RING_RADIUS = 32;
+
+                        Pen ringPen = new Pen((smallCase as PropertyCase).Owner.Color.GetColor(), 5);
+                        g.DrawEllipse(ringPen, new RectangleF(caseSideCenter.X - PROPERTY_RING_RADIUS / 2, caseSideCenter.Y - PROPERTY_RING_RADIUS / 2, PROPERTY_RING_RADIUS, PROPERTY_RING_RADIUS));
+
+                    }
+
+                    // Card images
                     if (sideIndex != 2)
                     {
                         smallCases.Reverse();
@@ -183,13 +246,14 @@ namespace Monopoly.Views
                     Image sideContent = DrawSideCases(smallCases);
 
                     RotateFlipType rotation = (new RotateFlipType[] {
-                    RotateFlipType.RotateNoneFlipNone,
-                    RotateFlipType.Rotate90FlipNone,
-                    RotateFlipType.RotateNoneFlipNone,
-                    RotateFlipType.Rotate270FlipNone,
-                })[sideIndex];
+                        RotateFlipType.RotateNoneFlipNone,
+                        RotateFlipType.Rotate90FlipNone,
+                        RotateFlipType.RotateNoneFlipNone,
+                        RotateFlipType.Rotate270FlipNone,
+                    })[sideIndex];
                     sideContent.RotateFlip(rotation);
 
+                    RectangleF casesContainer = smallCasesRectangles[sideIndex];
                     g.DrawImage(sideContent, casesContainer);
 
                     // Draw the small cases border
@@ -247,7 +311,7 @@ namespace Monopoly.Views
                 foreach (AbstractCase c in cases)
                 {
                     PointF casePosition = new PointF(caseSize.Width * caseIndex, 0);
-                    g.DrawImage(c.GetBoardCaseImage(), new RectangleF(casePosition, caseSize));
+                    g.DrawImage(c.GetBoardCaseImage(Game), new RectangleF(casePosition, caseSize));
                     caseIndex++;
                 }
             }
@@ -290,7 +354,7 @@ namespace Monopoly.Views
                     {
                         var cardLocation = new PointF(avatarRectangle.Left - cardSize.Width - (cardSize.Width + cardMargin) * i, zoneSize.Bottom - cardSize.Height);
 
-                        Image image = properties[i].GetPropertyCardImage();
+                        Image image = properties[i].GetPropertyCardImage(1);
                         var cardRectangle = new RectangleF(cardLocation, cardSize);
                         g.DrawImage(image, cardRectangle);
                         g.DrawRectangle(Pens.Black, cardRectangle);
@@ -308,7 +372,9 @@ namespace Monopoly.Views
             RectangleF boardPosition = g.VisibleClipBounds;
 
             foreach (Pawn p in _pawns)
+            {
                 p.Draw(g);
+            }
         }
 
         /// <summary>
@@ -336,38 +402,12 @@ namespace Monopoly.Views
         /// <returns>The arrival point</returns>
         public static PointF GetPointOnPlayersPath(float distance)
         {
-            PointF[] pathPoints = {
-                // Start
-                new PointF(985, 880),
-                new PointF(985, 980),
-                new PointF(875, 980),
-
-                // Bottom line
-                new PointF(875, 942),
-                new PointF(130, 942),
-
-                // Prison
-                new PointF(130, 985),
-                new PointF(15, 985),
-                new PointF(15, 870),
-
-                // Left line
-                new PointF(58, 870),
-
-                // Top line
-                new PointF(58, 70),
-
-                // Right line
-                new PointF(945, 70),
-                new PointF(945, 880),
-            };
-
             int cornerIndex = 0;
 
             while (distance > 0)
             {
-                PointF currentPoint = pathPoints[cornerIndex];
-                PointF nextPoint = pathPoints[cornerIndex == pathPoints.Length - 1 ? 0 : cornerIndex + 1];
+                PointF currentPoint = playersPathPoints[cornerIndex];
+                PointF nextPoint = playersPathPoints[cornerIndex == playersPathPoints.Length - 1 ? 0 : cornerIndex + 1];
                 int pointsDistance = (int)Math.Sqrt(
                     Math.Pow(nextPoint.X - currentPoint.X, 2) +
                     Math.Pow(nextPoint.Y - currentPoint.Y, 2)
@@ -376,12 +416,14 @@ namespace Monopoly.Views
                 distance -= pointsDistance;
 
                 cornerIndex += 1;
-                if (cornerIndex >= pathPoints.Length)
+                if (cornerIndex >= playersPathPoints.Length)
+                {
                     cornerIndex = 0;
+                }
             }
 
-            PointF corner = pathPoints[cornerIndex];
-            PointF previousCorner = pathPoints[cornerIndex == 0 ? pathPoints.Length - 1 : cornerIndex - 1];
+            PointF corner = playersPathPoints[cornerIndex];
+            PointF previousCorner = playersPathPoints[cornerIndex == 0 ? playersPathPoints.Length - 1 : cornerIndex - 1];
             int lastDistance = (int)Math.Sqrt(
                 Math.Pow(corner.X - previousCorner.X, 2) +
                 Math.Pow(corner.Y - previousCorner.Y, 2)

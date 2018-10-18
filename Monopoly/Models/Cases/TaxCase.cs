@@ -9,8 +9,6 @@ namespace Monopoly.Models.Cases
 {
     class TaxCase : AbstractCase
     {
-        private Image cacheTaxImage = null;
-
         public enum Tax { IncomeTax = 100, LuxuryTax = 1000 }
 
         public Tax Type { get; private set; }
@@ -27,12 +25,12 @@ namespace Monopoly.Models.Cases
             game.CurrentPlayer.Wealth -= Amount;
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
-            if (cacheTaxImage != null)
-                return cacheTaxImage;
+            if (imageCache.ContainsKey("board-case"))
+                return imageCache["board-case"];
 
-            Image img = base.GetBoardCaseImage();
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -47,6 +45,7 @@ namespace Monopoly.Models.Cases
                 g.DrawImage(Properties.Resources.Tax, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
+            imageCache["board-case"] = img;
             return img;
         }
     }

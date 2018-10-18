@@ -13,7 +13,7 @@ namespace Monopoly.Models.Cases
         {
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             return Properties.Resources.Prison;
         }
