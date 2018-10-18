@@ -237,8 +237,6 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
-            resultFirstDice = 4;
-            resultSecDice = 4;
             game.PlayDice(resultFirstDice, resultSecDice);
             UpdateTabs();
         }
