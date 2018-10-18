@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -7,15 +6,38 @@ namespace Monopoly.Models.Cases
 {
     class StreetProperty : PropertyCase
     {
-        private Image cachePropertyImage = null;
-        private Image cacheBoardImage = null;
+        public const int MAX_BUILDING_COUNT = 5;
 
-        public int BuildingCount { get; set; } = 0;
+        private int _buildingCount = 0;
 
+        #region Properties
+        /// <summary>
+        /// How many buildings are on the street
+        /// </summary>
+        public int BuildingCount
+        {
+            get => _buildingCount;
+            private set
+            {
+                _buildingCount = value;
+                Invalidate();
+            }
+        }
+
+        /// <summary>
+        /// The price to buy a building
+        /// (Refund price = BuildingPrice / 2)
+        /// </summary>
         public int BuildingPrice { get; set; }
 
+        /// <summary>
+        /// The group of the street (which monopoly the street is part of)
+        /// </summary>
         public PropertyColor Group { get; private set; }
 
+        /// <summary>
+        /// The color of the group
+        /// </summary>
         public Color Color
         {
             get
@@ -44,7 +66,11 @@ namespace Monopoly.Models.Cases
             }
         }
 
+        /// <summary>
+        /// The rent of the street, for each building count
+        /// </summary>
         public int[] Rents { get; private set; }
+        #endregion
 
         /// <summary>
         /// Create a new street property
@@ -76,12 +102,57 @@ namespace Monopoly.Models.Cases
             BuildingPrice = buildingPrice;
         }
 
-        public override Image GetBoardCaseImage()
+        /// <summary>
+        /// Buy a new building
+        /// <param name="game">Game instance</param>
+        /// </summary>
+        public void AddBuilding(Game game)
         {
-            if (cacheBoardImage != null)
-                return cacheBoardImage;
+            // Too many buildings
+            if (BuildingCount >= MAX_BUILDING_COUNT)
+                throw new InvalidOperationException("Vous avez atteint le nombre maximum de bâtiments sur cette case.");
 
-            Image img = base.GetBoardCaseImage();
+            // Not in a monopoly
+            if (!game.HasMonopoly(Owner, Group))
+                throw new InvalidOperationException("Vous devez posséder toutes les cases de cette couleur pour pouvoir construire un bâtiment.");
+
+            // Not enough money
+            if (BuildingPrice > Owner.Wealth)
+                throw new InvalidOperationException("Vous n'avez pas assez d'argent pour acheter ce bâtiment.");
+
+            BuildingCount++;
+            Owner.Wealth -= this.BuildingPrice;
+
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Remove a building from the street (and refund the owner 50% of the price)
+        /// </summary>
+        public void RemoveBuilding()
+        {
+            // Too few buildings
+            if (BuildingCount < 1)
+                throw new InvalidOperationException("Vous n'avez aucun bâtiment à retirer.");
+
+            BuildingCount--;
+            Owner.Wealth += BuildingPrice / 2;
+
+            Invalidate();
+        }
+
+        /// <summary>
+        /// The board case image
+        /// </summary>
+        /// <returns></returns>
+        public override Image GetBoardCaseImage(Game game)
+        {
+            if (imageCache.ContainsKey("board-case"))
+            {
+                return imageCache["board-case"];
+            }
+
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -107,29 +178,52 @@ namespace Monopoly.Models.Cases
                 }
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
+                
+                g.DrawString((this.Owner != null) ? "LOYER" : "PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
 
-                g.DrawString("PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
+                string price = (this.Owner != null) ? GetRent(game).ToString() : this.BuildingPrice.ToString();
 
                 g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
-                g.DrawString(this.BuildingPrice.ToString(), new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+                g.DrawString(price, new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+
+                // Draw the buildings
+                Image[] buildingImages = {
+                    Properties.Resources.property_one_house,
+                    Properties.Resources.property_two_house,
+                    Properties.Resources.property_three_house,
+                    Properties.Resources.property_four_house,
+                    Properties.Resources.property_hotel,
+                };
+
+                if (BuildingCount > 0)
+                    g.DrawImage(buildingImages[BuildingCount - 1], new RectangleF(rectangle.X, 0, rectangle.Width, 40));
             }
+
+            imageCache["board-case"] = img;
 
             return img;
         }
 
-        public override Image GetPropertyCardImage()
+        /// <summary>
+        /// Get the property card image
+        /// </summary>
+        /// <param name="scale">Image scale (default: 1)</param>
+        /// <returns>The property card image</returns>
+        public override Image GetPropertyCardImage(int scale)
         {
-            if (cachePropertyImage != null)
-                return cachePropertyImage;
+            if (imageCache.ContainsKey($"property-case-{scale}x"))
+            {
+                return imageCache[$"property-case-{scale}x"];
+            }
 
-            Image img = base.GetPropertyCardImage();
+            Image img = base.GetPropertyCardImage(scale);
 
             using (Graphics g = Graphics.FromImage(img))
             {
                 RectangleF rectangle = g.VisibleClipBounds;
 
                 // Gradient top
-                int headerHeight = 35;
+                int headerHeight = 35 * scale;
                 LinearGradientBrush headerBrush = new LinearGradientBrush(
                     new PointF(0, 0),
                     new PointF(0, headerHeight),
@@ -148,27 +242,32 @@ namespace Monopoly.Models.Cases
                     name = new string(n);
                 }
 
-                g.DrawString(name, new Font("Arial", 10), Brushes.White, new PointF(2.5F, 2.5F));
+                g.DrawString(name, new Font("Arial", 10 * scale), Brushes.White, new PointF(2.5F * scale, 2.5F * scale));
 
                 // Rent
-                int y = 25;
-                int height = 12;
-                DrawPrice(g, y += height, "Loyer", Rents[0]);
-                DrawPrice(g, y += height, "Avec 1 maison", Rents[1]);
-                DrawPrice(g, y += height, "Avec 2 maisons", Rents[2]);
-                DrawPrice(g, y += height, "Avec 3 maisons", Rents[3]);
-                DrawPrice(g, y += height, "Avec 4 maisons", Rents[4]);
-                DrawPrice(g, y += height, "Hôtel", Rents[5]);
+                int y = 25 * scale;
+                int height = 12 * scale;
+                DrawPrice(g, scale, y += height, "Loyer", Rents[0]);
+                DrawPrice(g, scale, y += height, "Avec 1 maison", Rents[1]);
+                DrawPrice(g, scale, y += height, "Avec 2 maisons", Rents[2]);
+                DrawPrice(g, scale, y += height, "Avec 3 maisons", Rents[3]);
+                DrawPrice(g, scale, y += height, "Avec 4 maisons", Rents[4]);
+                DrawPrice(g, scale, y += height, "Hôtel", Rents[5]);
 
-                DrawPrice(g, y += 17, "Hypothèque", Price / 2);
+                DrawPrice(g, scale, y += 17 * scale, "Hypothèque", Price / 2);
 
-                DrawPrice(g, y += 17, "Bâtiment", BuildingPrice);
+                DrawPrice(g, scale, y += 17 * scale, "Bâtiment", BuildingPrice);
             }
 
-            cachePropertyImage = img;
+            imageCache[$"property-case-{scale}x"] = img;
             return img;
         }
 
+        /// <summary>
+        /// Get the rent of the street
+        /// </summary>
+        /// <param name="game">Game instance</param>
+        /// <returns>The price to pay when someone lands there</returns>
         public override int GetRent(Game game)
         {
             int rent = 0;

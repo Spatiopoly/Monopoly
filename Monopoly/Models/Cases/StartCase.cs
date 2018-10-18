@@ -9,7 +9,7 @@ namespace Monopoly.Models.Cases
 {
     class StartCase : AbstractCase
     {
-        const int SALARY_AMOUNT = 200;
+        public const int SALARY_AMOUNT = 200;
 
         public override void FlyOver(Game game)
         {
@@ -17,7 +17,7 @@ namespace Monopoly.Models.Cases
             game.SendMessage(game.CurrentPlayer.Name + " touche son salaire.");
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
             return Properties.Resources.Go;
         }

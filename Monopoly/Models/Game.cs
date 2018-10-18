@@ -2,11 +2,13 @@
 using Monopoly.Models.Cases;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Monopoly.Models
 {
     public class Game
     {
+        #region Events
         // Event : show a textual message on the interface
         public event MessageHandler Message;
         public delegate void MessageHandler(Game game, string message);
@@ -14,14 +16,17 @@ namespace Monopoly.Models
         // Event : change the current player
         public event CurrentPlayerChangedHandler CurrentPlayerChanged;
         public delegate void CurrentPlayerChangedHandler(Game game);
+        #endregion
 
         #region Properties
-
         /// <summary>
         /// List of participants in the game
         /// </summary>
         public List<Player> Players { get; private set; }
 
+        /// <summary>
+        /// Index of the current player (in Game.Players)
+        /// </summary>
         public int CurrentPlayerIndex { get; private set; } = 0;
 
         /// <summary>
@@ -49,6 +54,8 @@ namespace Monopoly.Models
         /// The last sum of the dices played
         /// </summary>
         public int LastDiceSum { get; private set; }
+
+        public AbstractCard LastSpecialCard { get; set; }
         #endregion
 
         /// <summary>
@@ -61,49 +68,86 @@ namespace Monopoly.Models
             Cases = new List<AbstractCase>() {
                 new StartCase(),
 
-                new StreetProperty(PropertyColor.DarkPurple, "Mediterranean Avenue", 60, 50, new int[] { 2, 10, 30, 90, 160, 250 }),
+                new StreetProperty(PropertyColor.DarkPurple, "Cour du Soleil", 60, 50, new int[] { 2, 10, 30, 90, 160, 250 }),
                 new CardCase(CardType.CommunityChest),
-                new StreetProperty(PropertyColor.DarkPurple, "Baltic Avenue", 60, 50, new int[] { 4, 20, 60, 180, 320, 450 }),
+                new StreetProperty(PropertyColor.DarkPurple, "Route de Mercure", 60, 50, new int[] { 4, 20, 60, 180, 320, 450 }),
                 new TaxCase(TaxCase.Tax.IncomeTax),
-                new StationProperty("Reading Railroad"),
-                new StreetProperty(PropertyColor.LightBlue, "Oriental Avenue", 100, 50, new int[] { 6, 30, 90, 270, 400, 550 }),
+                new StationProperty("Station Caducée"),
+                new StreetProperty(PropertyColor.LightBlue, "Avenue de Vénus", 100, 50, new int[] { 6, 30, 90, 270, 400, 550 }),
                 new CardCase(CardType.Chance),
-                new StreetProperty(PropertyColor.LightBlue, "Vermont Avenue", 100, 50, new int[] { 6, 30, 90, 270, 400, 550 }),
-                new StreetProperty(PropertyColor.LightBlue, "Connecticut Avenue", 120, 50, new int[] { 8, 40, 100, 300, 450, 600 }),
+                new StreetProperty(PropertyColor.LightBlue, "Place terrienne", 100, 50, new int[] { 6, 30, 90, 270, 400, 550 }),
+                new StreetProperty(PropertyColor.LightBlue, "Passage lunaire", 120, 50, new int[] { 8, 40, 100, 300, 450, 600 }),
 
                 new JailCase(),
-                new StreetProperty(PropertyColor.Pink, "St. Charles Place", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
-                new UtilityProperty("Nuclear Energy Company"),
-                new StreetProperty(PropertyColor.Pink, "States Avenue", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
-                new StreetProperty(PropertyColor.Pink, "Virginia Avenue", 160, 100, new int[] { 12, 60, 180, 500, 700, 900 }),
-                new StationProperty("Pennsylvania Railroad"),
-                new StreetProperty(PropertyColor.Orange, "St. James Place", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
+                new StreetProperty(PropertyColor.Pink, "Désert martien", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
+                new UtilityProperty("Voltali Energies"),
+                new StreetProperty(PropertyColor.Pink, "Sentier des météores", 140, 100, new int[] { 10, 50, 150, 450, 625, 750 }),
+                new StreetProperty(PropertyColor.Pink, "Boulevard de Jupiter", 160, 100, new int[] { 12, 60, 180, 500, 700, 900 }),
+                new StationProperty("Station Titania"),
+                new StreetProperty(PropertyColor.Orange, "Aire d’Europa", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
                 new CardCase(CardType.CommunityChest),
-                new StreetProperty(PropertyColor.Orange, "Tennessee Avenue", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
-                new StreetProperty(PropertyColor.Orange, "New York Avenue", 200, 100, new int[] { 16, 80, 220, 600, 800, 1000 }),
+                new StreetProperty(PropertyColor.Orange, "Circuit d'anneaux saturnien", 180, 100, new int[] { 14, 70, 200, 550, 750, 950 }),
+                new StreetProperty(PropertyColor.Orange, "Poste de Saturne", 200, 100, new int[] { 16, 80, 220, 600, 800, 1000 }),
 
                 new FreeParkingCase(),
-                new StreetProperty(PropertyColor.Red, "Kentucky Avenue", 220, 150, new int[] { 18, 90, 250, 700, 875, 1050 }),
+                new StreetProperty(PropertyColor.Red, "Chemin d’Uranus", 220, 150, new int[] { 18, 90, 250, 700, 875, 1050 }),
                 new CardCase(CardType.Chance),
-                new StreetProperty(PropertyColor.Red, "Indiana Avenue", 220, 150, new int[] { 18, 90, 250, 700, 875, 1050 }),
-                new StreetProperty(PropertyColor.Red, "Illinois Avenue", 240, 150, new int[] { 20, 100, 300, 750, 925, 1100 }),
-                new StationProperty("B. & O. Railroad"),
-                new StreetProperty(PropertyColor.Yellow, "Atlantic Avenue", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
-                new StreetProperty(PropertyColor.Yellow, "Ventnor Avenue", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
-                new UtilityProperty("Water Delivery"),
-                new StreetProperty(PropertyColor.Yellow, "Marvin Gardens", 280, 150, new int[] { 24, 120, 360, 850, 1025, 1200 }),
+                new StreetProperty(PropertyColor.Red, "Ravin de Callisto", 220, 150, new int[] { 18, 90, 250, 700, 875, 1050 }),
+                new StreetProperty(PropertyColor.Red, "Côte d’Io", 240, 150, new int[] { 20, 100, 300, 750, 925, 1100 }),
+                new StationProperty("Station des Pléiades"),
+                new StreetProperty(PropertyColor.Yellow, "Station hivernale neptunienne", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
+                new StreetProperty(PropertyColor.Yellow, "Quartier plutonien", 260, 150, new int[] { 22, 110, 330, 800, 975, 1150 }),
+                new UtilityProperty("Vaisseau Aquali"),
+                new StreetProperty(PropertyColor.Yellow, "Voie comètiale d'Halley", 280, 150, new int[] { 24, 120, 360, 850, 1025, 1200 }),
 
 
                 new GoToJailCase(),
-                new StreetProperty(PropertyColor.Green, "Pacific Avenue", 300, 200, new int[] { 26, 130, 390, 900, 1100, 1275 }),
-                new StreetProperty(PropertyColor.Green, "North Carolina Avenue", 300, 200, new int[] { 26, 130, 390, 900, 1100, 1275 }),
+                new StreetProperty(PropertyColor.Green, "Point de vue de Hubble", 300, 200, new int[] { 26, 130, 390, 900, 1100, 1275 }),
+                new StreetProperty(PropertyColor.Green, "Allée des supernovas", 300, 200, new int[] { 26, 130, 390, 900, 1100, 1275 }),
                 new CardCase(CardType.CommunityChest),
-                new StreetProperty(PropertyColor.Green, "Pennsylvania Avenue", 320, 200, new int[] { 28, 150, 450, 1000, 1200, 1400 }),
-                new StationProperty("Short Line"),
+                new StreetProperty(PropertyColor.Green, "Promenade des exoplanètes", 320, 200, new int[] { 28, 150, 450, 1000, 1200, 1400 }),
+                new StationProperty("Station de la Grande Ourse"),
                 new CardCase(CardType.Chance),
-                new StreetProperty(PropertyColor.DarkBlue, "Park Place", 350, 200, new int[] { 35, 175, 500, 1100, 1300, 1500 }),
+                new StreetProperty(PropertyColor.DarkBlue, "Rue des amas globulaires", 350, 200, new int[] { 35, 175, 500, 1100, 1300, 1500 }),
                 new TaxCase(TaxCase.Tax.LuxuryTax),
-                new StreetProperty(PropertyColor.DarkBlue, "Boardwalk", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
+                new StreetProperty(PropertyColor.DarkBlue, "Croisement trou noir", 400, 200, new int[] { 50, 200, 600, 1400, 1700, 2000 }),
+            };
+
+            Cards = new List<AbstractCard>() {
+                new PayMoneyCard("Visite chez le spatio-dentiste", 200, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToStartCaseCard(CardType.Chance),
+                new AdvanceToSpecificCaseCard(24, CardType.Chance),
+                new AdvanceToSpecificCaseCard(11, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Utility, CardType.Chance),
+                new AdvanceToNextSpecialCaseCard(AdvanceToNextSpecialCaseCard.SpecialCaseType.Station, CardType.Chance),
+                new ReceiveMoneyCard("L'Empire dédommage votre vaisseau qu'un stormtrooper a abimé.", 50, ReceiveMoneyCard.ReceiveMoneyCardType.Normale ,CardType.Chance), 
+                //Faire classe carte sortie prison => elle a un owner, fait aller de prison à parloir
+                //Faire la carte qui recule de 3 cases
+                new GoToPrisonCard(CardType.Chance),
+                new PayMoneyCard("Travaux de réparations", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Reparations),
+                new PayMoneyCard("Vous achetez Spatiopoly AR 36D du futur", 15, CardType.Chance, PayMoneyCard.PayMoneyCardType.Normale),
+                new AdvanceToSpecificCaseCard(5, CardType.Chance),
+                new AdvanceToSpecificCaseCard(39, CardType.Chance),
+                new PayMoneyCard("Vous avez été élu président de l'univers", 0, CardType.Chance, PayMoneyCard.PayMoneyCardType.Presidence),
+                new ReceiveMoneyCard("Vos chasseurs de prime ont découvert un spatio-trésor ultime", 150,ReceiveMoneyCard.ReceiveMoneyCardType.Normale ,CardType.Chance),
+                new ReceiveMoneyCard("Vous gagnez une compétition de pêche aux vers spatiaux", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.Chance),
+
+                new AdvanceToStartCaseCard(CardType.CommunityChest),
+                new ReceiveMoneyCard("La banque galactique rémunère les VIP", 200, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Service technique de votre vaisseau", 50, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                // Faire carte sortie prison => comme en haut sauf en community chest
+                new GoToPrisonCard(CardType.CommunityChest),
+                new ReceiveMoneyCard("Organisation d'un tournoi de Spatiogolf", 50, ReceiveMoneyCard.ReceiveMoneyCardType.Recolte, CardType.CommunityChest),
+                new ReceiveMoneyCard("Vos mercenaires ont retrouvé un débiteur", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Remboursement de pièces nanotechs défecteuses", 20, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("C'est ton anniversaire!", 10, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Remboursement de l'assurance de votre vaisseau", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Frais de téléportation intragalactique", 100, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new PayMoneyCard("Frais de l'école de pilotage", 150, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Normale),
+                new ReceiveMoneyCard("Vous aidez un ami à réparer son vaisseau", 25, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new PayMoneyCard("Impots sur les réparations des rues", 0, CardType.CommunityChest, PayMoneyCard.PayMoneyCardType.Impots),
+                new ReceiveMoneyCard("Vous gagnez le 3ème prix du Grand Concours Centaurien", 10, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest),
+                new ReceiveMoneyCard("Vous vendez le vaisseau cassé de votre grand-mère", 100, ReceiveMoneyCard.ReceiveMoneyCardType.Normale, CardType.CommunityChest)
             };
         }
 
@@ -115,6 +159,10 @@ namespace Monopoly.Models
             CurrentPlayerChanged(this);
         }
 
+        /// <summary>
+        /// Show a textual message on the screen
+        /// </summary>
+        /// <param name="message">The message to display</param>
         public void SendMessage(string message)
         {
             Message?.Invoke(this, message);
@@ -220,6 +268,19 @@ namespace Monopoly.Models
                 CurrentPlayer.LastDiceSum = diceSum;
 
             }
+        }
+
+        /// <summary>
+        /// Know if a player has a monopoly (= has all the streets of a specified color)
+        /// </summary>
+        /// <param name="player">Player</param>
+        /// <param name="monopoly">The street group</param>
+        public bool HasMonopoly(Player player, PropertyColor monopoly)
+        {
+            return Cases
+                .Where(c => c is StreetProperty)
+                .Where(c => (c as StreetProperty).Group == monopoly)
+                .All(c => (c as StreetProperty).Owner == player);
         }
     }
 }

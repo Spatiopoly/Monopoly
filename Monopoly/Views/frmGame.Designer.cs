@@ -1,4 +1,4 @@
-﻿namespace Monopoly.Views
+namespace Monopoly.Views
 {
     partial class frmGame
     {
@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGame));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gameView = new Monopoly.Views.GameView();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -76,7 +78,7 @@
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.gameView = new Monopoly.Views.GameView();
+            this.lblChanceChancellerie = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -124,6 +126,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 890);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gameView
+            // 
+            this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gameView.Game = null;
+            this.gameView.Location = new System.Drawing.Point(0, 0);
+            this.gameView.Margin = new System.Windows.Forms.Padding(0);
+            this.gameView.Name = "gameView";
+            this.gameView.Size = new System.Drawing.Size(724, 890);
+            this.gameView.TabIndex = 0;
             // 
             // tlpSidebar
             // 
@@ -193,6 +206,8 @@
             // btnExchange
             // 
             this.btnExchange.BackColor = System.Drawing.Color.White;
+            this.btnExchange.BackgroundImage = global::Monopoly.Properties.Resources.Exchange;
+            this.btnExchange.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnExchange.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnExchange.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExchange.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
@@ -208,9 +223,11 @@
             // 
             // btnDice
             // 
-            this.btnDice.BackColor = System.Drawing.Color.White;
+            this.btnDice.BackColor = System.Drawing.Color.Transparent;
             this.btnDice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDice.Enabled = false;
             this.btnDice.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDice.FlatAppearance.BorderSize = 0;
             this.btnDice.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btnDice.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.btnDice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -496,6 +513,7 @@
             this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel2.Controls.Add(this.flpCouleur);
             this.flowLayoutPanel2.Controls.Add(this.lblCaseChanceChancel);
+            this.flowLayoutPanel2.Controls.Add(this.lblChanceChancellerie);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 117);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -688,17 +706,15 @@
             // 
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
+            //
+            // lblChanceChancellerie
             // 
-            // gameView
-            // 
-            this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameView.Game = null;
-            this.gameView.Location = new System.Drawing.Point(0, 0);
-            this.gameView.Margin = new System.Windows.Forms.Padding(0);
-            this.gameView.Name = "gameView";
-            this.gameView.Size = new System.Drawing.Size(724, 890);
-            this.gameView.TabIndex = 0;
+            this.lblChanceChancellerie.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblChanceChancellerie.Location = new System.Drawing.Point(3, 16);
+            this.lblChanceChancellerie.Name = "lblChanceChancellerie";
+            this.lblChanceChancellerie.Size = new System.Drawing.Size(250, 250);
+            this.lblChanceChancellerie.TabIndex = 4;
+            this.lblChanceChancellerie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmGame
             // 
@@ -706,9 +722,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 890);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(816, 800);
             this.Name = "frmGame";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monopoly";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -795,6 +811,7 @@
         private System.Windows.Forms.Timer tmrDiceAnimation;
         private System.Windows.Forms.Timer tmrDice;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
+        private System.Windows.Forms.Label lblChanceChancellerie;
     }
 }
 

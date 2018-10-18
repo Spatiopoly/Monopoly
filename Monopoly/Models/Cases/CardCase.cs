@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monopoly.Models.Cards;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,8 +10,6 @@ namespace Monopoly.Models.Cases
 {
     class CardCase : AbstractCase
     {
-        private Image cacheCaseImage = null;
-
         public CardType Type { get; private set; }
 
         /// <summary>
@@ -28,15 +27,20 @@ namespace Monopoly.Models.Cases
 
         public override void Land(Game game)
         {
-            //throw new NotImplementedException();
+            // @TODO: Ajouter un timer pour qu'il y ai un délai avant le Play() de la specialCard
+            Random rnd = new Random();
+            List<AbstractCard> deck = game.Cards.Where(c => c.Deck == Type).ToList();
+            AbstractCard ac = deck[rnd.Next(deck.Count)];
+            game.LastSpecialCard = ac;
+            ac.Play(game);
         }
 
-        public override Image GetBoardCaseImage()
+        public override Image GetBoardCaseImage(Game game)
         {
-            if (cacheCaseImage != null)
-                return cacheCaseImage;
+            if (imageCache.ContainsKey("board-case"))
+                return imageCache["board-case"];
 
-            Image img = base.GetBoardCaseImage();
+            Image img = base.GetBoardCaseImage(game);
 
             using (Graphics g = Graphics.FromImage(img))
             {
@@ -49,6 +53,7 @@ namespace Monopoly.Models.Cases
                 g.DrawImage(image, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 
+            imageCache["board-case"] = img;
             return img;
         }
 

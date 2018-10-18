@@ -1,4 +1,5 @@
 ﻿using Monopoly.Models;
+using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System;
 using System.Collections.Generic;
@@ -160,7 +161,7 @@ namespace Monopoly.Views
 
                     lblCaseCoin.Text = title;
 
-                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage();
+                    pbxCaseCoin.BackgroundImage = currentCase.GetBoardCaseImage(game);
                     pbxCaseCoin.BackgroundImageLayout = ImageLayout.Zoom;
                     
                     tabs.TabPages.Add(tabCaseCoin);
@@ -168,15 +169,17 @@ namespace Monopoly.Views
                 else if (currentCase is TaxCase)
                 {
                     TaxCase taxe = currentCase as TaxCase;
-                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage();
+                    pbxCaseTaxeCarte.BackgroundImage = taxe.GetBoardCaseImage(game);
                     tabs.TabPages.Add(tabCaseTaxe);
                 }
                 else if (currentCase is CardCase)
                 {
                     CardCase specialCard = currentCase as CardCase;
 
+                    lblChanceChancellerie.Text = game.LastSpecialCard.ToString();
                     pbxCaseChanceImage.BackgroundImage = specialCard.TypeImage;
                     lblCaseChanceChancelTitre.Text = specialCard.ToString();
+
 
                     tabs.TabPages.Add(tabCaseChanceChancel);
                 }
@@ -195,7 +198,7 @@ namespace Monopoly.Views
                             lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
                         }
 
-                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage();
+                        pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage(2);
 
                         tabs.TabPages.Add(tabCasePropAchetee);
                     }
@@ -204,13 +207,13 @@ namespace Monopoly.Views
                         if (currentPlayer.Wealth >= property.Price)
                         {
                             btnAcheterPropriete.Enabled = true;
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage(2);
                             lblCasePropSimplePrixAchat.Text = "Prix d'achat :" + Environment.NewLine + $"{property.Price}F";
                             tabs.TabPages.Add(tabCasePropSimple);
                         }
                         else
                         {
-                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage();
+                            pbxCasePropSimple.BackgroundImage = property.GetPropertyCardImage(2);
                             lblCasePropSimplePrixAchat.Text = "Vous n'avez pas assez de Flouzz.";
                             btnAcheterPropriete.Enabled = false;
                             tabs.TabPages.Add(tabCasePropSimple);
@@ -226,7 +229,8 @@ namespace Monopoly.Views
             {
                 flpProperties.Controls.Add(new PropertyManager()
                 {
-                    Property = c
+                    Property = c,
+                    Game = game,
                 });
             }
             tabs.TabPages.Add(tabProperties);
@@ -238,6 +242,8 @@ namespace Monopoly.Views
 
             // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
             game.PlayDice(resultFirstDice, resultSecDice);
+            // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
+            game.PlayDice(diceSum);
             UpdateTabs();
         }
 
@@ -256,6 +262,7 @@ namespace Monopoly.Views
                     {
                         currentPlayer.Wealth = currentPlayer.Wealth - property.Price;
                         property.Owner = currentPlayer;
+                        property.Invalidate();
                     }
                 }         
             }
