@@ -31,6 +31,12 @@ namespace Monopoly.Models
         /// </summary>
         public int Wealth { get; set; } = 1500;
 
+        public int LastDiceSum { get; set; }
+
+        public int NbDoubles { get; set; } = 0;
+
+        public bool IsInJail { get; set; } = false;
+
         /// <summary>
         /// Number of jail exit cards owned by the player
         /// </summary>
@@ -74,6 +80,7 @@ namespace Monopoly.Models
             int oldCaseIndex = CurrentCaseIndex;
             CurrentCaseIndex = newCaseIndex;
             CurrentCaseChanged?.Invoke(this, oldCaseIndex, newCaseIndex);
+            OldCaseIndex = oldCaseIndex;
         }
     }
 }

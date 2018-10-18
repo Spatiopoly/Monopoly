@@ -1,6 +1,7 @@
 ﻿using Monopoly.Models.Cards;
 using Monopoly.Models.Cases;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Linq;
 
 namespace Monopoly.Models
@@ -189,24 +190,84 @@ namespace Monopoly.Models
         /// Play the dice result
         /// </summary>
         /// <param name="diceSum">Sum of the two dices</param>
-        public void PlayDice(int diceSum)
+        public void PlayDice(int resultFirstDice, int resultSecDice)
         {
+            int diceSum = resultFirstDice + resultSecDice;
             LastDiceSum = diceSum;
-
-            int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
-            int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
-
-            // Fly over intermediate case
-            for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+            const int JAIL_CASE_INDEX = 10;
+            //Move player if he's not a prisoner or if he is his throw must be a double
+            if ((CurrentPlayer.IsInJail && resultFirstDice == resultSecDice) || !CurrentPlayer.IsInJail)
             {
-                Cases[i % Cases.Count].FlyOver(this);
+                int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
+                int newCaseIndex = (oldCaseIndex + diceSum) % Cases.Count;
+
+                // Fly over intermediate case
+                for (int i = oldCaseIndex + 1; i < oldCaseIndex + diceSum; i++)
+                {
+                    Cases[i % Cases.Count].FlyOver(this);
+                }
+
+                // Land on the new case
+                CurrentPlayer.GoToCase(newCaseIndex);
+                Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+
+                if (CurrentPlayer.IsInJail && resultFirstDice != resultSecDice)
+                {
+                    CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
+                    Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+                }
+
+                //Throw if palyers ins't in prison and current thorw was a double
+                if (!CurrentPlayer.IsInJail && resultFirstDice == resultSecDice)
+                {
+                    //If players last throw was also a double incerment double count and update isPrisonner state if it's the third in a row
+                    if (CurrentPlayer.LastDiceSum  % 2 == 0)
+                    {
+                        CurrentPlayer.NbDoubles++;
+                        CurrentPlayer.IsInJail = CurrentPlayer.NbDoubles == 3;
+
+                    }
+                    else
+                    {
+                        CurrentPlayer.NbDoubles = 0;
+                    }
+
+                    if (CurrentPlayer.IsInJail)
+                    {
+                        CurrentPlayer.GoToCase(JAIL_CASE_INDEX);
+                        Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
+                        HasPlayed = true;
+                        CurrentPlayer.NbDoubles = 0;
+
+                    } else
+                    {
+                        SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3");
+                        if (MessageBox.Show("Voulez-vous rejouer ?", "rejouer ?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            HasPlayed = false; // the player can play again
+                            SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de rejouer");
+                        }
+                        else
+                        {
+                            SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de ne pas rejouer");
+                            HasPlayed = true;
+                            CurrentPlayer.NbDoubles = 0;
+                        }
+
+                    }
+                }
+                else
+                {
+                    HasPlayed = true;
+                    if (CurrentPlayer.IsInJail)
+                    {
+                        CurrentPlayer.IsInJail = false;
+                    }
+                }
+
+                CurrentPlayer.LastDiceSum = diceSum;
+
             }
-
-            // Land on the new case
-            CurrentPlayer.GoToCase(newCaseIndex);
-            Cases[CurrentPlayer.CurrentCaseIndex].Land(this);
-
-            HasPlayed = true;
         }
 
         /// <summary>

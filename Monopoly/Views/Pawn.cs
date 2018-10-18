@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using static Monopoly.Models.Player;
-
+using System;
 namespace Monopoly.Views
 {
     /// <summary>
@@ -124,6 +124,9 @@ namespace Monopoly.Views
         /// <param name="newCaseIndex">Index of the new case of the player</param>
         private void Player_CurrentCaseChanged(Player _, int oldCaseIndex, int newCaseIndex)
         {
+            Position.Set(GameView.GetCaseOnPlayersPath(newCaseIndex));
+            Position.TransitionDuration = Math.Abs(newCaseIndex - oldCaseIndex) * 0.5;
+
             // Compute the new rank of the pawn (rank = order of the pawns on a case)
             int pawnsOnNewCase = GetPawnsOnCase(newCaseIndex).Count;
             _order = pawnsOnNewCase; 

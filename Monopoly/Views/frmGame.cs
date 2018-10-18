@@ -12,7 +12,8 @@ namespace Monopoly.Views
     {
         Game game;
         int compteurImageDes;
-        int diceSum = 0;
+        int resultFirstDice = 0;
+        int resultSecDice = 0;
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -85,8 +86,7 @@ namespace Monopoly.Views
 
         private void tmrLancerDes_Tick(object sender, EventArgs e)
         {
-            int resultFirstDice = 0;
-            int resultSecDice = 0;
+            
             int indexImageFirstDice = rnd.Next(1, 7);
             pbxDe1.BackgroundImage = diceImages[indexImageFirstDice];
 
@@ -108,7 +108,6 @@ namespace Monopoly.Views
 
                 tmrDice.Enabled = true;
 
-                diceSum = resultFirstDice + resultSecDice;
             }
 
             compteurImageDes++;
@@ -121,16 +120,23 @@ namespace Monopoly.Views
 
             tabs.TabPages.Clear();
 
-            if (!game.HasPlayed) // Player hasn't played
+            if (!game.HasPlayed && currentPlayer.NbDoubles <= 0) // @TODO : Player hasn't played ( firt throw )
             {
                 btnLancerDes.Enabled = true;
 
                 tabs.TabPages.Add(tabCaseDes);
             }
-            else
+            else 
             {
+                if (currentPlayer.NbDoubles > 0)
+                {
+                    btnLancerDes.Enabled = true;
+
+                    tabs.TabPages.Add(tabCaseDes);
+                }
                 if (currentCase is StartCase || currentCase is FreeParkingCase || currentCase is GoToJailCase || currentCase is JailCase)
                 {
+
                     string title = currentCase.ToString();
 
                     if (currentCase is StartCase)
@@ -139,7 +145,18 @@ namespace Monopoly.Views
                     }
                     else if (currentCase is JailCase)
                     {
-                        title += Environment.NewLine + "Visite simple";
+                        if (currentPlayer.IsInJail == true)
+                        {
+                            title += Environment.NewLine + "En prison !";
+                        }
+                        else
+                        {
+                            title += Environment.NewLine + "Visite simple";
+                        }                        
+                    }
+                    else if (currentCase is GoToJailCase)
+                    {
+                        title += Environment.NewLine + "Allez en prison !";
                     }
 
                     lblCaseCoin.Text = title;
@@ -223,6 +240,8 @@ namespace Monopoly.Views
         {
             tmrDice.Enabled = false;
 
+            // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
+            game.PlayDice(resultFirstDice, resultSecDice);
             // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
             game.PlayDice(diceSum);
             UpdateTabs();
