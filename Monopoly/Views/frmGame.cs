@@ -242,8 +242,6 @@ namespace Monopoly.Views
 
             // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
             game.PlayDice(resultFirstDice, resultSecDice);
-            // Envoyer le resultat des dés aux pions pour qu'il puissent avancer
-            game.PlayDice(diceSum);
             UpdateTabs();
         }
 
