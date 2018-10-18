@@ -147,7 +147,7 @@ namespace Monopoly.Models
             int diceSum = resultFirstDice + resultSecDice;
             LastDiceSum = diceSum;
             const int JAIL_CASE_INDEX = 10;
-            //Move player if he's not a prissoner or if he is his throw must be a double
+            //Move player if he's not a prisoner or if he is his throw must be a double
             if ((CurrentPlayer.IsInJail && resultFirstDice == resultSecDice) || !CurrentPlayer.IsInJail)
             {
                 int oldCaseIndex = CurrentPlayer.CurrentCaseIndex;
