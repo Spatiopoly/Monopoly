@@ -55,7 +55,7 @@ namespace Monopoly.Models
         /// </summary>
         public int LastFirstDiceResult { get; set; }
 
-        public int LastSecDiceReslut { get; set; }
+        public int LastSecDiceResult { get; set; }
 
         public int ResultFirstDice { get; set; } = 0;
         public int ResultSecDice { get; set; } = 0;
@@ -200,7 +200,7 @@ namespace Monopoly.Models
         {
             int diceSum = resultFirstDice + resultSecDice;
             LastFirstDiceResult = resultFirstDice;
-            LastSecDiceReslut = resultSecDice;
+            LastSecDiceResult = resultSecDice;
             const int JAIL_CASE_INDEX = 10;
             //Move player if he's not a prisoner or if he is his throw must be a double
             if ((CurrentPlayer.IsInJail && resultFirstDice == resultSecDice) || !CurrentPlayer.IsInJail)
@@ -283,6 +283,15 @@ namespace Monopoly.Models
                 .Where(c => c is StreetProperty)
                 .Where(c => (c as StreetProperty).Group == monopoly)
                 .All(c => (c as StreetProperty).Owner == player);
+        }
+
+        public List<PropertyCase> GetFreeProperties()
+        {
+            return this.Cases
+                .Where(c => c is PropertyCase)
+                .Select(c => c as PropertyCase)
+                .Where(p => p.Owner == null)
+                .ToList();
         }
     }
 }

@@ -79,6 +79,12 @@
     </Compile>
     <Compile Include="Views\Colors.cs" />
     <Compile Include="Views\DisplayedProperties.cs" />
+    <Compile Include="Views\frmCheat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmCheat.Designer.cs">
+      <DependentUpon>frmCheat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmCheat.resx">
+      <DependentUpon>frmCheat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
