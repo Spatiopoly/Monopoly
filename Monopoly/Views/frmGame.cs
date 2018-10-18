@@ -14,6 +14,8 @@ namespace Monopoly.Views
         int compteurImageDes;
         int resultFirstDice = 0;
         int resultSecDice = 0;
+
+
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
         Random rnd = new Random();
@@ -105,6 +107,10 @@ namespace Monopoly.Views
 
                 pbxDe1.BackgroundImage = diceImages[resultFirstDice];
                 pbxDe2.BackgroundImage = diceImages[resultSecDice];
+
+
+                game.ResultFirstDice = resultFirstDice;
+                game.ResultSecDice = resultSecDice;
 
                 tmrDice.Enabled = true;
 

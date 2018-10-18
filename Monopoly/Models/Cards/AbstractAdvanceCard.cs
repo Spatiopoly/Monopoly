@@ -38,11 +38,7 @@ namespace Monopoly.Models.Cards
         {
             int caseIndex = GetCaseIndex(game);
 
-            int diceSum = caseIndex - game.CurrentPlayer.CurrentCaseIndex;
-            if (diceSum < 0)
-                diceSum += game.Cases.Count;
-
-            game.PlayDice(diceSum);
+            game.PlayDice(game.ResultFirstDice, game.ResultSecDice);
         }
 
         public override string GetContent(Game game)

@@ -102,7 +102,7 @@ namespace Monopoly.Models.Cases
                 .ToList()
                 .Count;
 
-            rent = UTILITY_RENTS[utilitiesOfThisPlayerCount - 1] * game.LastDiceSum;
+            rent = UTILITY_RENTS[utilitiesOfThisPlayerCount - 1] * (game.LastFirstDiceResult + game.LastSecDiceReslut);
 
             return rent;
         }
