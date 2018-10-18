@@ -31,7 +31,9 @@ namespace Monopoly.Models
         /// </summary>
         public int Wealth { get; set; } = 1500;
 
-        public int LastDiceSum { get; set; }
+        public int LastFirstDiceResult { get; set; } = 0;
+
+        public int LastSecDiceReslut { get; set; } = 0;
 
         public int NbDoubles { get; set; } = 0;
 

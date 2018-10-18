@@ -53,10 +53,12 @@ namespace Monopoly.Models
         /// <summary>
         /// The last sum of the dices played
         /// </summary>
-        public int LastDiceSum { get; private set; }
+        public int LastFirstDiceResult { get; set; }
 
-        public int resultFirstDice { get; set; } = 0;
-        public int resultSecDice { get; set; } = 0;
+        public int LastSecDiceReslut { get; set; }
+
+        public int ResultFirstDice { get; set; } = 0;
+        public int ResultSecDice { get; set; } = 0;
 
         public AbstractCard LastSpecialCard { get; set; }
         #endregion
@@ -66,10 +68,10 @@ namespace Monopoly.Models
         /// </summary>
         public Game(List<Player> players)
         {
-            
+
             Players = players;
 
-        Cases = new List<AbstractCase>() {
+            Cases = new List<AbstractCase>() {
                 new StartCase(),
 
                 new StreetProperty(PropertyColor.DarkPurple, "Cour du Soleil", 60, 50, new int[] { 2, 10, 30, 90, 160, 250 }),
@@ -197,7 +199,8 @@ namespace Monopoly.Models
         public void PlayDice(int resultFirstDice, int resultSecDice)
         {
             int diceSum = resultFirstDice + resultSecDice;
-            LastDiceSum = diceSum;
+            LastFirstDiceResult = resultFirstDice;
+            LastSecDiceReslut = resultSecDice;
             const int JAIL_CASE_INDEX = 10;
             //Move player if he's not a prisoner or if he is his throw must be a double
             if ((CurrentPlayer.IsInJail && resultFirstDice == resultSecDice) || !CurrentPlayer.IsInJail)
@@ -224,17 +227,9 @@ namespace Monopoly.Models
                 //Throw if palyers ins't in prison and current thorw was a double
                 if (!CurrentPlayer.IsInJail && resultFirstDice == resultSecDice)
                 {
-                    //If players last throw was also a double incerment double count and update isPrisonner state if it's the third in a row
-                    if (CurrentPlayer.LastDiceSum  % 2 == 0)
-                    {
-                        CurrentPlayer.NbDoubles++;
-                        CurrentPlayer.IsInJail = CurrentPlayer.NbDoubles == 3;
+                    CurrentPlayer.NbDoubles++;
+                    CurrentPlayer.IsInJail = CurrentPlayer.NbDoubles == 3;
 
-                    }
-                    else
-                    {
-                        CurrentPlayer.NbDoubles = 0;
-                    }
 
                     if (CurrentPlayer.IsInJail)
                     {
@@ -243,12 +238,13 @@ namespace Monopoly.Models
                         HasPlayed = true;
                         CurrentPlayer.NbDoubles = 0;
 
-                    } else
+                    }
+                    else
                     {
                         SendMessage("Le joueur " + CurrentPlayer.Name + " peut rejouer :3");
                         if (MessageBox.Show("Voulez-vous rejouer ?", "rejouer ?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            HasPlayed = false; // the player can play again
+                            HasPlayed = true; // the player can play again
                             SendMessage("Le joueur " + CurrentPlayer.Name + " a choisi de rejouer");
                         }
                         else
@@ -262,6 +258,7 @@ namespace Monopoly.Models
                 }
                 else
                 {
+                    CurrentPlayer.NbDoubles = 0;
                     HasPlayed = true;
                     if (CurrentPlayer.IsInJail)
                     {
@@ -269,7 +266,8 @@ namespace Monopoly.Models
                     }
                 }
 
-                CurrentPlayer.LastDiceSum = diceSum;
+                CurrentPlayer.LastFirstDiceResult = resultFirstDice;
+                CurrentPlayer.LastSecDiceReslut = resultSecDice;
 
             }
         }

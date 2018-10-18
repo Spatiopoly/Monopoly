@@ -12,6 +12,9 @@ namespace Monopoly.Views
     {
         Game game;
         int compteurImageDes;
+        int resultFirstDice = 0;
+        int resultSecDice = 0;
+
 
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
@@ -96,14 +99,18 @@ namespace Monopoly.Views
 
             if (compteurImageDes == 10)
             {
-                game.resultFirstDice = rnd.Next(1, 7);
+                resultFirstDice = rnd.Next(1, 7);
                 tmrDiceAnimation.Enabled = false;
                 compteurImageDes = 0;
 
-                game.resultSecDice = rnd.Next(1, 7);
+                resultSecDice = rnd.Next(1, 7);
 
-                pbxDe1.BackgroundImage = diceImages[game.resultFirstDice];
-                pbxDe2.BackgroundImage = diceImages[game.resultSecDice];
+                pbxDe1.BackgroundImage = diceImages[resultFirstDice];
+                pbxDe2.BackgroundImage = diceImages[resultSecDice];
+
+
+                game.ResultFirstDice = resultFirstDice;
+                game.ResultSecDice = resultSecDice;
 
                 tmrDice.Enabled = true;
 
@@ -240,7 +247,7 @@ namespace Monopoly.Views
             tmrDice.Enabled = false;
 
             // Envoyer le resultat des deux dés aux pions pour qu'il puissent avancer
-            game.PlayDice(game.resultFirstDice, game.resultSecDice);
+            game.PlayDice(resultFirstDice, resultSecDice);
             UpdateTabs();
         }
 
