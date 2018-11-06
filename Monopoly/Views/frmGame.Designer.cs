@@ -62,6 +62,7 @@ namespace Monopoly.Views
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpCouleur = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCaseChanceChancel = new System.Windows.Forms.Label();
+            this.lblChanceChancellerie = new System.Windows.Forms.Label();
             this.pbxCaseChanceImage = new System.Windows.Forms.PictureBox();
             this.tabCaseTaxe = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -78,8 +79,9 @@ namespace Monopoly.Views
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.lblChanceChancellerie = new System.Windows.Forms.Label();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            this.gameView.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -130,6 +132,7 @@ namespace Monopoly.Views
             // gameView
             // 
             this.gameView.BackColor = System.Drawing.Color.White;
+            this.gameView.Controls.Add(this.btnDebug);
             this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gameView.Game = null;
             this.gameView.Location = new System.Drawing.Point(0, 0);
@@ -540,6 +543,15 @@ namespace Monopoly.Views
             this.lblCaseChanceChancel.Text = "Visite chez le Spatio-Dentiste : \r\nVous payez 000 F";
             this.lblCaseChanceChancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblChanceChancellerie
+            // 
+            this.lblChanceChancellerie.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblChanceChancellerie.Location = new System.Drawing.Point(3, 16);
+            this.lblChanceChancellerie.Name = "lblChanceChancellerie";
+            this.lblChanceChancellerie.Size = new System.Drawing.Size(250, 250);
+            this.lblChanceChancellerie.TabIndex = 4;
+            this.lblChanceChancellerie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pbxCaseChanceImage
             // 
             this.pbxCaseChanceImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -706,15 +718,16 @@ namespace Monopoly.Views
             // 
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            //
-            // lblChanceChancellerie
             // 
-            this.lblChanceChancellerie.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblChanceChancellerie.Location = new System.Drawing.Point(3, 16);
-            this.lblChanceChancellerie.Name = "lblChanceChancellerie";
-            this.lblChanceChancellerie.Size = new System.Drawing.Size(250, 250);
-            this.lblChanceChancellerie.TabIndex = 4;
-            this.lblChanceChancellerie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // btnDebug
+            // 
+            this.btnDebug.Location = new System.Drawing.Point(0, 867);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(57, 23);
+            this.btnDebug.TabIndex = 0;
+            this.btnDebug.Text = "DEBUG";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // frmGame
             // 
@@ -729,6 +742,7 @@ namespace Monopoly.Views
             this.Text = "Monopoly";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.gameView.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tabs.ResumeLayout(false);
@@ -812,6 +826,7 @@ namespace Monopoly.Views
         private System.Windows.Forms.Timer tmrDice;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
         private System.Windows.Forms.Label lblChanceChancellerie;
+        private System.Windows.Forms.Button btnDebug;
     }
 }
 

@@ -4,13 +4,14 @@ using Monopoly.Models.Cases;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Monopoly.Views
 {
     public partial class frmGame : Form
     {
-        Game game;
+        public Game game;
         int compteurImageDes;
         int resultFirstDice = 0;
         int resultSecDice = 0;
@@ -284,5 +285,18 @@ namespace Monopoly.Views
         {       
             game.NextPlayer();
         }
+
+        /// <summary>
+        /// Permet de debug en choisissant des valeurs => A enlever a la fin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            frmCheat debug = new frmCheat(this);
+            debug.Show();
+        }
+
+
     }
 }
