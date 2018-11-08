@@ -32,7 +32,7 @@ namespace Monopoly.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGame));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gameView = new Monopoly.Views.GameView();
-            this.btnDebug = new System.Windows.Forms.Button();
+            this.btnDice = new System.Windows.Forms.Button();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -141,13 +141,13 @@ namespace Monopoly.Views
             // 
             // btnDebug
             // 
-            this.btnDebug.Location = new System.Drawing.Point(0, 867);
-            this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(57, 23);
-            this.btnDebug.TabIndex = 0;
-            this.btnDebug.Text = "DEBUG";
-            this.btnDebug.UseVisualStyleBackColor = true;
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
+            this.btnDice.Location = new System.Drawing.Point(0, 867);
+            this.btnDice.Name = "btnDebug";
+            this.btnDice.Size = new System.Drawing.Size(57, 23);
+            this.btnDice.TabIndex = 0;
+            this.btnDice.Text = "DEBUG";
+            this.btnDice.UseVisualStyleBackColor = true;
+            this.btnDice.Click += new System.EventHandler(this.btnDebug_Click_1);
             // 
             // tlpSidebar
             // 
@@ -249,7 +249,7 @@ namespace Monopoly.Views
             this.btnDice.TabIndex = 2;
             this.btnDice.Text = "DEBUG";
             this.btnDice.UseVisualStyleBackColor = false;
-            this.btnDice.Click += new System.EventHandler(this.btnDebug_Click);
+            this.btnDice.Click += new System.EventHandler(this.btnDebug_Click_1);
             // 
             // tabs
             // 

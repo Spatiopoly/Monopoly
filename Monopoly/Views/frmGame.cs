@@ -305,12 +305,10 @@ namespace Monopoly.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnDebug_Click(object sender, EventArgs e)
+        private void btnDebug_Click_1(object sender, EventArgs e)
         {
             frmCheat debug = new frmCheat(this);
             debug.Show();
         }
-
-
     }
 }
