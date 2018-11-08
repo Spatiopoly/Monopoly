@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbxResultFirstDice = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbxResultSecDice = new System.Windows.Forms.TextBox();
             this.btnValiderDes = new System.Windows.Forms.Button();
             this.gbxValeurDes = new System.Windows.Forms.GroupBox();
             this.gbxArgentJoueurs = new System.Windows.Forms.GroupBox();
@@ -49,19 +47,16 @@
             this.lbxProprietesJoueur = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblNomJoueurPropriete = new System.Windows.Forms.Label();
+            this.nudResultFirstDice = new System.Windows.Forms.NumericUpDown();
+            this.nudResultSecDice = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.gbxValeurDes.SuspendLayout();
             this.gbxArgentJoueurs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudArgentJoueur)).BeginInit();
             this.gbxProprietesJoueurs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResultFirstDice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResultSecDice)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tbxResultFirstDice
-            // 
-            this.tbxResultFirstDice.Location = new System.Drawing.Point(138, 33);
-            this.tbxResultFirstDice.Name = "tbxResultFirstDice";
-            this.tbxResultFirstDice.Size = new System.Drawing.Size(100, 20);
-            this.tbxResultFirstDice.TabIndex = 0;
-            this.tbxResultFirstDice.Text = "0";
             // 
             // label1
             // 
@@ -81,17 +76,10 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Result sec dice :";
             // 
-            // tbxResultSecDice
-            // 
-            this.tbxResultSecDice.Location = new System.Drawing.Point(138, 59);
-            this.tbxResultSecDice.Name = "tbxResultSecDice";
-            this.tbxResultSecDice.Size = new System.Drawing.Size(100, 20);
-            this.tbxResultSecDice.TabIndex = 2;
-            this.tbxResultSecDice.Text = "0";
-            // 
             // btnValiderDes
             // 
-            this.btnValiderDes.Location = new System.Drawing.Point(22, 91);
+            this.btnValiderDes.Enabled = false;
+            this.btnValiderDes.Location = new System.Drawing.Point(52, 97);
             this.btnValiderDes.Name = "btnValiderDes";
             this.btnValiderDes.Size = new System.Drawing.Size(216, 23);
             this.btnValiderDes.TabIndex = 4;
@@ -101,11 +89,11 @@
             // 
             // gbxValeurDes
             // 
+            this.gbxValeurDes.Controls.Add(this.nudResultSecDice);
+            this.gbxValeurDes.Controls.Add(this.nudResultFirstDice);
             this.gbxValeurDes.Controls.Add(this.label1);
             this.gbxValeurDes.Controls.Add(this.btnValiderDes);
-            this.gbxValeurDes.Controls.Add(this.tbxResultFirstDice);
             this.gbxValeurDes.Controls.Add(this.label2);
-            this.gbxValeurDes.Controls.Add(this.tbxResultSecDice);
             this.gbxValeurDes.Location = new System.Drawing.Point(12, 12);
             this.gbxValeurDes.Name = "gbxValeurDes";
             this.gbxValeurDes.Size = new System.Drawing.Size(331, 136);
@@ -121,9 +109,9 @@
             this.gbxArgentJoueurs.Controls.Add(this.nudArgentJoueur);
             this.gbxArgentJoueurs.Controls.Add(this.btnValiderArgent);
             this.gbxArgentJoueurs.Controls.Add(this.lblNomJoueurArgent);
-            this.gbxArgentJoueurs.Location = new System.Drawing.Point(150, 154);
+            this.gbxArgentJoueurs.Location = new System.Drawing.Point(12, 239);
             this.gbxArgentJoueurs.Name = "gbxArgentJoueurs";
-            this.gbxArgentJoueurs.Size = new System.Drawing.Size(193, 193);
+            this.gbxArgentJoueurs.Size = new System.Drawing.Size(331, 108);
             this.gbxArgentJoueurs.TabIndex = 6;
             this.gbxArgentJoueurs.TabStop = false;
             this.gbxArgentJoueurs.Text = "Argent joueurs";
@@ -131,7 +119,7 @@
             // rbtnEnlever
             // 
             this.rbtnEnlever.AutoSize = true;
-            this.rbtnEnlever.Location = new System.Drawing.Point(85, 111);
+            this.rbtnEnlever.Location = new System.Drawing.Point(255, 37);
             this.rbtnEnlever.Name = "rbtnEnlever";
             this.rbtnEnlever.Size = new System.Drawing.Size(61, 17);
             this.rbtnEnlever.TabIndex = 9;
@@ -142,7 +130,7 @@
             // rbtnAjouter
             // 
             this.rbtnAjouter.AutoSize = true;
-            this.rbtnAjouter.Location = new System.Drawing.Point(11, 111);
+            this.rbtnAjouter.Location = new System.Drawing.Point(181, 37);
             this.rbtnAjouter.Name = "rbtnAjouter";
             this.rbtnAjouter.Size = new System.Drawing.Size(58, 17);
             this.rbtnAjouter.TabIndex = 8;
@@ -173,7 +161,7 @@
             // 
             // btnValiderArgent
             // 
-            this.btnValiderArgent.Location = new System.Drawing.Point(11, 158);
+            this.btnValiderArgent.Location = new System.Drawing.Point(181, 64);
             this.btnValiderArgent.Name = "btnValiderArgent";
             this.btnValiderArgent.Size = new System.Drawing.Size(135, 23);
             this.btnValiderArgent.TabIndex = 5;
@@ -194,9 +182,9 @@
             // lbxArgentJoueurs
             // 
             this.lbxArgentJoueurs.FormattingEnabled = true;
-            this.lbxArgentJoueurs.Location = new System.Drawing.Point(12, 154);
+            this.lbxArgentJoueurs.Location = new System.Drawing.Point(12, 167);
             this.lbxArgentJoueurs.Name = "lbxArgentJoueurs";
-            this.lbxArgentJoueurs.Size = new System.Drawing.Size(130, 186);
+            this.lbxArgentJoueurs.Size = new System.Drawing.Size(331, 69);
             this.lbxArgentJoueurs.TabIndex = 1;
             this.lbxArgentJoueurs.DoubleClick += new System.EventHandler(this.lbxArgentJoueurs_DoubleClick);
             // 
@@ -272,16 +260,55 @@
             this.lblNomJoueurPropriete.TabIndex = 0;
             this.lblNomJoueurPropriete.Text = "lblNomJoueurPropriete";
             // 
+            // nudResultFirstDice
+            // 
+            this.nudResultFirstDice.Location = new System.Drawing.Point(242, 34);
+            this.nudResultFirstDice.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudResultFirstDice.Name = "nudResultFirstDice";
+            this.nudResultFirstDice.Size = new System.Drawing.Size(56, 20);
+            this.nudResultFirstDice.TabIndex = 5;
+            this.nudResultFirstDice.ValueChanged += new System.EventHandler(this.nudResultFirstDice_ValueChanged);
+            // 
+            // nudResultSecDice
+            // 
+            this.nudResultSecDice.Location = new System.Drawing.Point(242, 60);
+            this.nudResultSecDice.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudResultSecDice.Name = "nudResultSecDice";
+            this.nudResultSecDice.Size = new System.Drawing.Size(56, 20);
+            this.nudResultSecDice.TabIndex = 6;
+            this.nudResultSecDice.ValueChanged += new System.EventHandler(this.nudResultFirstDice_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 151);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Selection joueur";
+            // 
             // frmCheat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 541);
+            this.ClientSize = new System.Drawing.Size(356, 541);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.gbxProprietesJoueurs);
             this.Controls.Add(this.gbxArgentJoueurs);
             this.Controls.Add(this.gbxValeurDes);
             this.Controls.Add(this.lbxArgentJoueurs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "frmCheat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCheat";
             this.gbxValeurDes.ResumeLayout(false);
             this.gbxValeurDes.PerformLayout();
@@ -290,16 +317,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudArgentJoueur)).EndInit();
             this.gbxProprietesJoueurs.ResumeLayout(false);
             this.gbxProprietesJoueurs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResultFirstDice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudResultSecDice)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tbxResultFirstDice;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbxResultSecDice;
         private System.Windows.Forms.Button btnValiderDes;
         private System.Windows.Forms.GroupBox gbxValeurDes;
         private System.Windows.Forms.GroupBox gbxArgentJoueurs;
@@ -317,5 +344,8 @@
         private System.Windows.Forms.ListBox lbxProprietesJoueur;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblNomJoueurPropriete;
+        private System.Windows.Forms.NumericUpDown nudResultFirstDice;
+        private System.Windows.Forms.NumericUpDown nudResultSecDice;
+        private System.Windows.Forms.Label label4;
     }
 }

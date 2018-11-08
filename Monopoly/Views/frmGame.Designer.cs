@@ -79,9 +79,7 @@ namespace Monopoly.Views
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.btnDebug = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.gameView.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -132,7 +130,6 @@ namespace Monopoly.Views
             // gameView
             // 
             this.gameView.BackColor = System.Drawing.Color.White;
-            this.gameView.Controls.Add(this.btnDebug);
             this.gameView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gameView.Game = null;
             this.gameView.Location = new System.Drawing.Point(0, 0);
@@ -226,21 +223,22 @@ namespace Monopoly.Views
             // 
             // btnDice
             // 
-            this.btnDice.BackColor = System.Drawing.Color.Transparent;
+            this.btnDice.BackColor = System.Drawing.Color.White;
             this.btnDice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDice.Enabled = false;
             this.btnDice.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
             this.btnDice.FlatAppearance.BorderSize = 0;
             this.btnDice.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.btnDice.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.btnDice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDice.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDice.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDice.Location = new System.Drawing.Point(10, 10);
             this.btnDice.Margin = new System.Windows.Forms.Padding(10, 10, 5, 10);
             this.btnDice.Name = "btnDice";
             this.btnDice.Size = new System.Drawing.Size(85, 85);
             this.btnDice.TabIndex = 2;
+            this.btnDice.Text = "DEBUG";
             this.btnDice.UseVisualStyleBackColor = false;
+            this.btnDice.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // tabs
             // 
@@ -719,16 +717,6 @@ namespace Monopoly.Views
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
             // 
-            // btnDebug
-            // 
-            this.btnDebug.Location = new System.Drawing.Point(0, 867);
-            this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(57, 23);
-            this.btnDebug.TabIndex = 0;
-            this.btnDebug.Text = "DEBUG";
-            this.btnDebug.UseVisualStyleBackColor = true;
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
-            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -742,7 +730,6 @@ namespace Monopoly.Views
             this.Text = "Monopoly";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.gameView.ResumeLayout(false);
             this.tlpSidebar.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tabs.ResumeLayout(false);
@@ -826,7 +813,6 @@ namespace Monopoly.Views
         private System.Windows.Forms.Timer tmrDice;
         private System.Windows.Forms.PictureBox pbxCaseCoin;
         private System.Windows.Forms.Label lblChanceChancellerie;
-        private System.Windows.Forms.Button btnDebug;
     }
 }
 
