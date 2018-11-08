@@ -30,21 +30,22 @@ namespace Monopoly.Views
             }
             lbxArgentJoueurs.SelectedIndex = 0;
             lbxArgentJoueurs_DoubleClick(lbxArgentJoueurs, new EventArgs());
+            lbxProprietesDispo.Items.AddRange(game.GetFreeProperties().ToArray());
         }
         
 
         private void btnValiderDes_Click(object sender, EventArgs e)
         {
-            game.ResultFirstDice = Convert.ToInt32(tbxResultFirstDice.Text);
-            game.ResultSecDice = Convert.ToInt32(tbxResultSecDice.Text);
+            game.ResultFirstDice = Convert.ToInt32(nudResultFirstDice.Value);
+            game.ResultSecDice = Convert.ToInt32(nudResultSecDice.Value);
             game.PlayDice(game.ResultFirstDice, game.ResultSecDice);
             FrmGame.UpdateTabs();
 
             game.LastFirstDiceResult = game.ResultFirstDice;
             game.LastSecDiceResult = game.ResultSecDice;
 
-            tbxResultFirstDice.Text = "0";
-            tbxResultSecDice.Text = "0";
+            nudResultFirstDice.Value = 0;
+            nudResultSecDice.Value = 0;
         }
 
         private void lbxArgentJoueurs_DoubleClick(object sender, EventArgs e)
@@ -54,9 +55,11 @@ namespace Monopoly.Views
             lblNomJoueurArgent.Text = selectedPlayer.Name;
             lblArgentActuelJoueur.Text = selectedPlayer.Wealth.ToString();
 
+            lbxProprietesJoueur.Items.Clear();
+
             lblNomJoueurPropriete.Text = selectedPlayer.Name;
             lbxProprietesJoueur.Items.AddRange(selectedPlayer.GetProperties(game).ToArray());
-            lbxProprietesDispo.Items.AddRange(game.GetFreeProperties().ToArray());
+            
 
         }
 
@@ -105,6 +108,11 @@ namespace Monopoly.Views
                 lbxProprietesJoueur.Items.Remove(p);
                 lbxProprietesDispo.Items.Add(p);
             }
+        }
+
+        private void nudResultFirstDice_ValueChanged(object sender, EventArgs e)
+        {
+            btnValiderDes.Enabled = !(nudResultFirstDice.Value == 0 && nudResultSecDice.Value == 0);
         }
 
         //@TODO:: fonction tri des listbox
