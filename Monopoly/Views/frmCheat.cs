@@ -93,7 +93,7 @@ namespace Monopoly.Views
                 lbxProprietesDispo.Items.Remove(p);
             }
 
-            
+            FrmGame.UpdateTabs();
         }
 
         private void btnEnleverPropriete_Click(object sender, EventArgs e)
@@ -108,6 +108,8 @@ namespace Monopoly.Views
                 lbxProprietesJoueur.Items.Remove(p);
                 lbxProprietesDispo.Items.Add(p);
             }
+
+            FrmGame.UpdateTabs();
         }
 
         private void nudResultFirstDice_ValueChanged(object sender, EventArgs e)
