@@ -20,6 +20,8 @@ namespace Monopoly.Models.Cases
 
         public int Price { get; private set; }
 
+        public bool IsMortgaged { get; set; } = false;
+
         public PropertyCase(string name, int price)
         {
             Name = name;
@@ -30,7 +32,7 @@ namespace Monopoly.Models.Cases
         {
             Player currentPlayer = game.CurrentPlayer;
 
-            if (Owner != null && Owner != currentPlayer)
+            if (Owner != null && Owner != currentPlayer && !this.IsMortgaged)
             {
                 int rent = GetRent(game);
                 currentPlayer.Wealth -= rent;

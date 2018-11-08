@@ -15,7 +15,7 @@ namespace Monopoly.Views
         int compteurImageDes;
         int resultFirstDice = 0;
         int resultSecDice = 0;
-
+        public TabControl sideTabs;
 
         ColorProperty primaryColor = new ColorProperty(Color.Silver, 2, TransitionTimingFunction.EaseInOut);
 
@@ -54,6 +54,8 @@ namespace Monopoly.Views
             {
                 tp.Name = "Case actuelle";
             }
+
+            sideTabs = tabs;
         }
 
         /// <summary>
@@ -202,7 +204,14 @@ namespace Monopoly.Views
                         }
                         else
                         {
-                            lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
+                            if (!property.IsMortgaged)
+                            {
+                                lblCasePropAchetee.Text = $"Vous êtes chez {property.Owner.Name}.{Environment.NewLine}Vous payez {property.GetRent(game)}F de loyer";
+                            } else
+                            {
+                                lblCasePropAchetee.Text = $"Propriété hypothéquée {Environment.NewLine} Vous ne payez rien";
+                            }
+                            
                         }
 
                         pbxCasePropAchetee.BackgroundImage = property.GetPropertyCardImage(2);
@@ -234,11 +243,16 @@ namespace Monopoly.Views
             var cases = game.CurrentPlayer.GetProperties(game);
             foreach (PropertyCase c in cases)
             {
-                flpProperties.Controls.Add(new PropertyManager()
+                PropertyManager pm = new PropertyManager()
                 {
                     Property = c,
                     Game = game,
-                });
+                    FrmGame = this,
+                };
+
+                flpProperties.Controls.Add(pm);
+
+                pm.UpdateBuildings();
             }
             tabs.TabPages.Add(tabProperties);
         }

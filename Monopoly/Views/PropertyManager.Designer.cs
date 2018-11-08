@@ -33,6 +33,7 @@
             this.btnRemoveBuilding = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pbxBuilding = new System.Windows.Forms.PictureBox();
+            this.btnLiftMortgage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuilding)).BeginInit();
             this.SuspendLayout();
@@ -46,6 +47,7 @@
             this.btnMortgage.TabIndex = 0;
             this.btnMortgage.Text = "Hypothéquer";
             this.btnMortgage.UseVisualStyleBackColor = true;
+            this.btnMortgage.Click += new System.EventHandler(this.btnMortgage_Click);
             // 
             // btnAddBuilding
             // 
@@ -89,8 +91,22 @@
             this.pbxBuilding.TabIndex = 4;
             this.pbxBuilding.TabStop = false;
             // 
+            // btnLiftMortgage
+            // 
+            this.btnLiftMortgage.Enabled = false;
+            this.btnLiftMortgage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLiftMortgage.Location = new System.Drawing.Point(3, 201);
+            this.btnLiftMortgage.Name = "btnLiftMortgage";
+            this.btnLiftMortgage.Size = new System.Drawing.Size(94, 26);
+            this.btnLiftMortgage.TabIndex = 6;
+            this.btnLiftMortgage.Text = "Récupérer";
+            this.btnLiftMortgage.UseVisualStyleBackColor = true;
+            this.btnLiftMortgage.Visible = false;
+            this.btnLiftMortgage.Click += new System.EventHandler(this.btnLiftMortgage_Click);
+            // 
             // PropertyManager
             // 
+            this.Controls.Add(this.btnLiftMortgage);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pbxBuilding);
             this.Controls.Add(this.btnRemoveBuilding);
@@ -111,5 +127,6 @@
         private System.Windows.Forms.Button btnRemoveBuilding;
         private System.Windows.Forms.PictureBox pbxBuilding;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btnLiftMortgage;
     }
 }

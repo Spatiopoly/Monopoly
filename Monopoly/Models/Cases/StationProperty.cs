@@ -38,10 +38,17 @@ namespace Monopoly.Models.Cases
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 15));
 
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 60, 63, 12, 12));
+                if (!this.IsMortgaged)
+                {
+                    g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 60, 63, 12, 12));
 
-                string price = (Owner != null) ? "LOYER :    " + GetRent(game).ToString() : "PRIX :    " + STATION_PRICE.ToString();
-                g.DrawString(price, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
+                    string price = (Owner != null) ? "LOYER :    " + GetRent(game).ToString() : "PRIX :    " + STATION_PRICE.ToString();
+                    g.DrawString(price, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 60));
+                } else
+                {
+                    g.DrawString("Hypothéquée", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 5, 60));
+                }
+
                 g.DrawImage(Properties.Resources.Gare, new RectangleF(rectangle.X + 10, 87, rectangle.Width - 20, rectangle.Width - 20));
             }
 

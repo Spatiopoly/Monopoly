@@ -1,6 +1,7 @@
 ﻿using Monopoly.Models;
 using Monopoly.Models.Cases;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,6 +28,8 @@ namespace Monopoly.Views
         /// Game instance
         /// </summary>
         public Game Game { get; set; }
+
+        public frmGame FrmGame { get; set; }
 
         public PropertyManager()
         {
@@ -77,7 +80,7 @@ namespace Monopoly.Views
         /// <summary>
         /// Update the display of the buildings
         /// </summary>
-        private void UpdateBuildings()
+        public void UpdateBuildings()
         {
             bool showBuildings = Property is StreetProperty;
 
@@ -90,7 +93,77 @@ namespace Monopoly.Views
                 StreetProperty street = Property as StreetProperty;
                 btnRemoveBuilding.Enabled = street.BuildingCount > 0;
                 btnAddBuilding.Enabled = street.BuildingCount < StreetProperty.MAX_BUILDING_COUNT;
+
             }
+
+            //Switch between buttons mortgage and lift mortgage
+            if (Property.IsMortgaged)
+            {
+                btnMortgage.Enabled = false;
+                btnMortgage.Visible = false;
+                btnLiftMortgage.Enabled = true;
+                btnLiftMortgage.Visible = true;
+
+                btnAddBuilding.Enabled = false;
+                btnRemoveBuilding.Enabled = false;
+            }
+            else
+            {
+
+                btnMortgage.Enabled = true;
+                btnMortgage.Visible = true;
+                btnLiftMortgage.Enabled = false;
+                btnLiftMortgage.Visible = false;
+            }
+        }
+
+        private void btnMortgage_Click(object sender, EventArgs e)
+        {            
+
+            //Test if mortgaged property is a street property and if the owner owns all the group
+            if (Property is StreetProperty && Game.HasMonopoly(Property.Owner, (Property as StreetProperty).Group))
+            {
+                //Ask player if he wants to sell all houses on the group's properties
+                if (MessageBox.Show("Voulez-vous vendre toues les maisons et hotels présentes sur les propriétés de ce groupe ?", "Hypthèque", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    //Get some of the owner's properties within the same group
+                    List<PropertyCase> groupProperties = Game.CurrentPlayer.GetProperties(Game)
+                        .FindAll(
+                        property => property is StreetProperty 
+                        && (property as StreetProperty).Group == (Property as StreetProperty).Group);
+
+                    //Loop for each property
+                    foreach (PropertyCase sp in groupProperties)
+                    {
+                        //Sell all houses on property
+                        while ((sp as StreetProperty).BuildingCount > 0)
+                        {
+                            (sp as StreetProperty).RemoveBuilding();                            
+                        }
+                    }
+                }
+            }
+
+
+
+            Property.IsMortgaged = true;
+            Property.Invalidate();
+            //Return half of the property buying price to the owner
+            Property.Owner.Wealth += Property.Price / 2;
+
+            FrmGame.UpdateTabs();
+            FrmGame.sideTabs.SelectedTab = FrmGame.sideTabs.TabPages[FrmGame.sideTabs.TabPages.Count - 1];
+        }
+
+        private void btnLiftMortgage_Click(object sender, EventArgs e)
+        {
+            Property.IsMortgaged = false;
+            Property.Invalidate();
+            //Ower must pay mortgage value plus 10% of interest
+            int mortgageValue = Property.Price / 2;
+            Property.Owner.Wealth -= mortgageValue + (int)(mortgageValue * 0.1);
+
+            UpdateBuildings();
         }
     }
 }

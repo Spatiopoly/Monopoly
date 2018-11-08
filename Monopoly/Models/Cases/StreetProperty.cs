@@ -178,13 +178,21 @@ namespace Monopoly.Models.Cases
                 }
 
                 g.DrawString(name, new Font("Arial", 12), Brushes.White, new PointF(rectangle.X + 5, 50));
-                
-                g.DrawString((this.Owner != null) ? "LOYER" : "PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
 
-                string price = (this.Owner != null) ? GetRent(game).ToString() : this.BuildingPrice.ToString();
+                if (!this.IsMortgaged)
+                {
+                    g.DrawString((this.Owner != null) ? "LOYER" : "PRIX", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
 
-                g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
-                g.DrawString(price, new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+                    string price = (this.Owner != null) ? GetRent(game).ToString() : this.BuildingPrice.ToString();
+
+                    g.DrawImage(Properties.Resources.Flouzz, new RectangleF(rectangle.X + 10, 160, 24, 24));
+                    g.DrawString(price, new Font("Arial", 24), Brushes.White, new PointF(rectangle.X + 34, 155));
+                } else
+                {
+                    g.DrawString("Hypothéquée", new Font("Arial Bold", 12, FontStyle.Bold), Brushes.White, new PointF(rectangle.X + 10, 135));
+                }
+
+
 
                 // Draw the buildings
                 Image[] buildingImages = {

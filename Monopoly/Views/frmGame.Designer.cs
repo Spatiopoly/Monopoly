@@ -32,6 +32,7 @@ namespace Monopoly.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGame));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gameView = new Monopoly.Views.GameView();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -79,7 +80,6 @@ namespace Monopoly.Views
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
-            this.btnDebug = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.gameView.SuspendLayout();
             this.tlpSidebar.SuspendLayout();
@@ -140,6 +140,16 @@ namespace Monopoly.Views
             this.gameView.Name = "gameView";
             this.gameView.Size = new System.Drawing.Size(724, 890);
             this.gameView.TabIndex = 0;
+            // 
+            // btnDebug
+            // 
+            this.btnDebug.Location = new System.Drawing.Point(0, 867);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(57, 23);
+            this.btnDebug.TabIndex = 0;
+            this.btnDebug.Text = "DEBUG";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // tlpSidebar
             // 
@@ -718,16 +728,6 @@ namespace Monopoly.Views
             // 
             this.tmrDice.Interval = 1000;
             this.tmrDice.Tick += new System.EventHandler(this.tmrDice_Tick);
-            // 
-            // btnDebug
-            // 
-            this.btnDebug.Location = new System.Drawing.Point(0, 867);
-            this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(57, 23);
-            this.btnDebug.TabIndex = 0;
-            this.btnDebug.Text = "DEBUG";
-            this.btnDebug.UseVisualStyleBackColor = true;
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // frmGame
             // 
