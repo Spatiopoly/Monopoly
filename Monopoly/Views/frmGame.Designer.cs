@@ -32,7 +32,6 @@ namespace Monopoly.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGame));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gameView = new Monopoly.Views.GameView();
-            this.btnDebug = new System.Windows.Forms.Button();
             this.tlpSidebar = new System.Windows.Forms.TableLayoutPanel();
             this.border = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -77,6 +76,7 @@ namespace Monopoly.Views
             this.pbxCaseCoin = new System.Windows.Forms.PictureBox();
             this.tabProperties = new System.Windows.Forms.TabPage();
             this.flpProperties = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrDiceAnimation = new System.Windows.Forms.Timer(this.components);
             this.tmrDice = new System.Windows.Forms.Timer(this.components);
@@ -138,16 +138,6 @@ namespace Monopoly.Views
             this.gameView.Name = "gameView";
             this.gameView.Size = new System.Drawing.Size(724, 890);
             this.gameView.TabIndex = 0;
-            // 
-            // btnDebug
-            // 
-            this.btnDebug.Location = new System.Drawing.Point(0, 867);
-            this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(57, 23);
-            this.btnDebug.TabIndex = 0;
-            this.btnDebug.Text = "DEBUG";
-            this.btnDebug.UseVisualStyleBackColor = true;
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // tlpSidebar
             // 
@@ -711,6 +701,16 @@ namespace Monopoly.Views
             this.flpProperties.Padding = new System.Windows.Forms.Padding(15, 0, 15, 0);
             this.flpProperties.Size = new System.Drawing.Size(266, 723);
             this.flpProperties.TabIndex = 1;
+            // 
+            // btnDebug
+            // 
+            this.btnDebug.Location = new System.Drawing.Point(0, 867);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(57, 23);
+            this.btnDebug.TabIndex = 0;
+            this.btnDebug.Text = "DEBUG";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // tmrRefresh
             // 

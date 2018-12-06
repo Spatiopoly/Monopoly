@@ -19,6 +19,13 @@ namespace Monopoly.Views
         private Messages _messages = new Messages();
         private List<Pawn> _pawns = new List<Pawn>();
 
+        // Zoom
+        NumberProperty playersHidden = new NumberProperty(0, 0.15, TransitionTimingFunction.EaseInOut);
+        float zoomAmount = 0F;
+        PointF boardPosition = new PointF(0, 0);
+        Point lastMousePosition;
+        bool isDragging = false;
+
         public static readonly PointF[] playersPathPoints = {
             // Start
             new PointF(985, 880),
@@ -104,16 +111,15 @@ namespace Monopoly.Views
             }
 
             RectangleF viewSize = e.Graphics.VisibleClipBounds;
-            float dimension = Math.Min(viewSize.Width, viewSize.Height) - 2 * BORDER_MARGIN;
-            RectangleF boardPosition = new RectangleF((viewSize.Width - dimension) / 2, (viewSize.Height - dimension) / 2, dimension, dimension);
-            e.Graphics.DrawImage(DrawBoard(), boardPosition);
+            float boardSizeDimension = Math.Min(viewSize.Width, viewSize.Height) - 2 * BORDER_MARGIN;
+            RectangleF baseBoardPosition = new RectangleF((viewSize.Width - boardSizeDimension) / 2, (viewSize.Height - boardSizeDimension) / 2, boardSizeDimension, boardSizeDimension);
 
             // Draw players
             RectangleF[] playersZones = {
-                new RectangleF(0, viewSize.Bottom - BORDER_MARGIN, boardPosition.Right, BORDER_MARGIN),
-                new RectangleF(viewSize.Right - BORDER_MARGIN, boardPosition.Top, BORDER_MARGIN, boardPosition.Bottom),
-                new RectangleF(boardPosition.Left, 0, boardPosition.Right, BORDER_MARGIN),
-                new RectangleF(0, 0, BORDER_MARGIN, boardPosition.Bottom),
+                new RectangleF(0, viewSize.Bottom - BORDER_MARGIN, baseBoardPosition.Right, BORDER_MARGIN),
+                new RectangleF(viewSize.Right - BORDER_MARGIN, baseBoardPosition.Top, BORDER_MARGIN, baseBoardPosition.Bottom),
+                new RectangleF(baseBoardPosition.Left, 0, baseBoardPosition.Right, BORDER_MARGIN),
+                new RectangleF(0, 0, BORDER_MARGIN, baseBoardPosition.Bottom),
             };
 
             RotateFlipType[] playersZonesRotations = new RotateFlipType[] {
@@ -142,6 +148,11 @@ namespace Monopoly.Views
                 e.Graphics.DrawImage(bitmap, playerZone);
             }
 
+            // Draw the board
+            RectangleF zoomedBoardPosition = baseBoardPosition;
+            zoomedBoardPosition.Inflate(zoomAmount, zoomAmount);
+            e.Graphics.DrawImage(GetBoardImage(), zoomedBoardPosition.X + boardPosition.X, zoomedBoardPosition.Y + boardPosition.Y, zoomedBoardPosition.Width, zoomedBoardPosition.Height);
+
             // Draw money indicator
             DrawMoney(e.Graphics);
 
@@ -153,7 +164,7 @@ namespace Monopoly.Views
         /// </summary>
         /// <param name="g"></param>
         /// <param name="boardPosition"></param>
-        private Image DrawBoard()
+        private Image GetBoardImage()
         {
             Image img = new Bitmap(1000, 1000);
 
@@ -330,6 +341,7 @@ namespace Monopoly.Views
                 RectangleF zoneSize = g.VisibleClipBounds;
 
                 g.Clear(Colors.GAMEVIEW_BG_COLOR);
+                g.TranslateTransform(0, playersHidden.DisplayedValue * zoneSize.Height);
 
                 // Draw the avatar
                 var avatarRectangle = new RectangleF(zoneSize.Width - zoneSize.Height, zoneSize.Bottom - zoneSize.Height + 15, zoneSize.Height - 15, zoneSize.Height - 15);
@@ -462,6 +474,59 @@ namespace Monopoly.Views
 
             g.DrawImage(Properties.Resources.FlouzzBag, innerRectangle.Left, 7, 19, 26);
             g.DrawString(player.Wealth.ToString("N0"), new Font("Arial Bold", 14), Brushes.White, innerRectangle.Left + 25, 8);
+        }
+
+        /// <summary>
+        /// Manage the scroll amount when the users scrolls
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            float delta = zoomAmount + e.Delta / 3F;
+            zoomAmount = Math.Max(0, Math.Min(500, delta));
+
+            playersHidden.Set(zoomAmount == 0 ? 0 : 1);
+
+            if (zoomAmount == 0)
+            {
+                boardPosition = new PointF(0, 0);
+            }
+        }
+
+        /// <summary>
+        /// Pan across the board
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (!isDragging || zoomAmount == 0)
+                return;
+
+            Point currentMousePosition = new Point(e.X, e.Y);
+
+            Size positionDelta = new Size(currentMousePosition.X - lastMousePosition.X, currentMousePosition.Y - lastMousePosition.Y);
+            boardPosition += positionDelta;
+
+            lastMousePosition = currentMousePosition;
+        }
+
+        /// <summary>
+        /// Pan statrt
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            isDragging = true;
+            lastMousePosition = new Point(e.X, e.Y);
+        }
+
+        /// <summary>
+        /// Pan end
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            isDragging = false;
         }
     }
 }
