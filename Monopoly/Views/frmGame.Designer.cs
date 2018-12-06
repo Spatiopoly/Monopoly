@@ -783,6 +783,7 @@ namespace Monopoly.Views
         private System.Windows.Forms.Button btnNextPlayer;
         private System.Windows.Forms.Button btnExchange;
         private System.Windows.Forms.Button btnDice;
+        private System.Windows.Forms.Button btnDebug;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabCaseDes;
         private System.Windows.Forms.TabPage tabProperties;
