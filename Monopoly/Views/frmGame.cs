@@ -310,7 +310,5 @@ namespace Monopoly.Views
             frmCheat debug = new frmCheat(this);
             debug.Show();
         }
-
-
     }
 }
